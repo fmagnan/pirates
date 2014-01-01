@@ -10,9 +10,9 @@ class CityTest extends \PHPUnit_Framework_TestCase
     public function cityWithWoodDoesNotDealWithJewels()
     {
         $city = new City();
-        $wood = new Trader(Trader::WOOD);
+        $wood = new Trader(Trader::WOOD, 10);
         $city->addTrader($wood);
-        $jewels = new Trader(Trader::JEWELS);
+        $jewels = new Trader(Trader::JEWELS, 10);
         $this->assertFalse($city->canDealWith($jewels));
     }
 
@@ -22,7 +22,7 @@ class CityTest extends \PHPUnit_Framework_TestCase
     public function cityWithWoodCanDealWithWood()
     {
         $city = new City();
-        $wood = new Trader(Trader::WOOD);
+        $wood = new Trader(Trader::WOOD, 10);
         $city->addTrader($wood);
         $this->assertTrue($city->canDealWith($wood));
     }
