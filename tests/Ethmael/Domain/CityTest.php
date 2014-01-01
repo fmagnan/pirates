@@ -10,9 +10,9 @@ class CityTest extends \PHPUnit_Framework_TestCase
     public function cityWithWoodDoesNotDealWithJewels()
     {
         $city = new City();
-        $wood = new Resource(Resource::WOOD);
-        $city->addResource($wood);
-        $jewels = new Resource(Resource::JEWELS);
+        $wood = new Trader(Trader::WOOD);
+        $city->addTrader($wood);
+        $jewels = new Trader(Trader::JEWELS);
         $this->assertFalse($city->canDealWith($jewels));
     }
 
@@ -22,18 +22,18 @@ class CityTest extends \PHPUnit_Framework_TestCase
     public function cityWithWoodCanDealWithWood()
     {
         $city = new City();
-        $wood = new Resource(Resource::WOOD);
-        $city->addResource($wood);
+        $wood = new Trader(Trader::WOOD);
+        $city->addTrader($wood);
         $this->assertTrue($city->canDealWith($wood));
     }
 
     /**
      * @test
      */
-    public function emptyCityHasNoResourceAvailable()
+    public function emptyCityHasNoTraderAvailable()
     {
         $city = new City();
-        $this->assertEmpty($city->getAvailableResources());
+        $this->assertEmpty($city->getAvailableTraders());
     }
 
 

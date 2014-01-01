@@ -5,27 +5,27 @@ namespace Ethmael\Domain;
 class City
 {
 
-    protected $resources;
+    protected $traders;
 
     public function __construct()
     {
-        $this->resources = [];
+        $this->traders = [];
     }
 
-    public function getAvailableResources()
+    public function getAvailableTraders()
     {
-        return $this->resources;
+        return $this->traders;
     }
 
-    public function addResource(Resource $resource)
+    public function addTrader(Trader $trader)
     {
-        $this->resources[] = $resource;
+        $this->traders[] = $trader;
     }
 
-    public function canDealWith(Resource $resource)
+    public function canDealWith(Trader $trader)
     {
-        foreach ($this->resources as $item) {
-            if ($resource->getType() === $item->getType()) {
+        foreach ($this->traders as $item) {
+            if ($trader->getType() === $item->getType()) {
                 return true;
             }
         }
