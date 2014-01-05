@@ -6,6 +6,7 @@ class Pirate
 {
 
     protected $gold;
+    protected $boat;
 
     public function __construct()
     {
@@ -29,5 +30,16 @@ class Pirate
     public function countGold()
     {
         return $this->gold;
+    }
+
+    public function buyNewBoat($name)
+    {
+        $newBoat = new Boat($name);
+        $this->boat = $newBoat;
+    }
+
+    public function boatName()
+    {
+        return $this->boat->getName();
     }
 }

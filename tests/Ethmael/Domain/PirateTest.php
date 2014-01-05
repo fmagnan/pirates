@@ -26,4 +26,13 @@ class PirateTest extends \PHPUnit_Framework_TestCase
         $jackSparrow->takeGold(12);
     }
 
+    /**
+     * @test
+     */
+    public function buyNewBoat()
+    {
+        $albator = new Pirate();
+        $albator->buyNewBoat("Arcadia");
+        $this->assertEquals("Arcadia", $albator->boatName());
+    }
 }
