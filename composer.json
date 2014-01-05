@@ -1,15 +1,11 @@
 {
     "autoload": {
         "psr-0": {
-            "Ethmael": [
-                "src",
-                "tests"
-            ]
+            "Ethmael": ["src", "tests"]
         }
     },
     "require": {
-        "twig/twig": "v1.13.1",
-        "phpunit/phpunit": "3.7.19"
+        "twig/twig": "v1.13.1"
     },
     "require-dev": {
         "phpunit/phpunit": "3.7.19"

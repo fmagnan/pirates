@@ -3,8 +3,59 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "62585ef470ea9811d42d2f6cf3195658",
+    "hash": "75745f31c06fb58df78f328968ff0403",
     "packages": [
+        {
+            "name": "twig/twig",
+            "version": "v1.13.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fabpot/Twig.git",
+                "reference": "c4da08131db18c51a893779676d0fdc7f4fefd57"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fabpot/Twig/zipball/c4da08131db18c51a893779676d0fdc7f4fefd57",
+                "reference": "c4da08131db18c51a893779676d0fdc7f4fefd57",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.4"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.13-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Twig_": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Armin Ronacher",
+                    "email": "armin.ronacher@active-4.com"
+                }
+            ],
+            "description": "Twig, the flexible, fast, and secure template language for PHP",
+            "homepage": "http://twig.sensiolabs.org",
+            "keywords": [
+                "templating"
+            ],
+            "time": "2013-06-06 06:06:01"
+        }
+    ],
+    "packages-dev": [
         {
             "name": "phpunit/php-code-coverage",
             "version": "1.2.13",
@@ -418,59 +469,7 @@
             "description": "Symfony Yaml Component",
             "homepage": "http://symfony.com",
             "time": "2013-11-25 10:21:43"
-        },
-        {
-            "name": "twig/twig",
-            "version": "v1.13.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/fabpot/Twig.git",
-                "reference": "c4da08131db18c51a893779676d0fdc7f4fefd57"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Twig/zipball/c4da08131db18c51a893779676d0fdc7f4fefd57",
-                "reference": "c4da08131db18c51a893779676d0fdc7f4fefd57",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.2.4"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.13-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Twig_": "lib/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-                {
-                    "name": "Armin Ronacher",
-                    "email": "armin.ronacher@active-4.com"
-                }
-            ],
-            "description": "Twig, the flexible, fast, and secure template language for PHP",
-            "homepage": "http://twig.sensiolabs.org",
-            "keywords": [
-                "templating"
-            ],
-            "time": "2013-06-06 06:06:01"
         }
-    ],
-    "packages-dev": [
-
     ],
     "aliases": [
 
