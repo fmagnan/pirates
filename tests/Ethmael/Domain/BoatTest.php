@@ -26,7 +26,7 @@ class BoatTest extends \PHPUnit_Framework_TestCase {
      * @test
      *
      */
-    public function newBoatIsEmpty()
+    public function newBoatHasEmptyStock()
     {
         $clemenceau = new Boat();
         $this->assertEquals(0, $clemenceau->getStock());
@@ -76,6 +76,31 @@ class BoatTest extends \PHPUnit_Framework_TestCase {
         $clemenceau = new Boat();
         $clemenceau->addResource(Boat::WOOD,112);
     }
+
+    /**
+     * @test
+     */
+    public function getJewelsDecreaseJewelsStock()
+    {
+        $clemenceau = new Boat();
+        $clemenceau->addResource(Boat::JEWELS,50);
+        $clemenceau->removeResource(Boat::JEWELS,38);
+        $this->assertEquals(12, $clemenceau->getStock(Boat::JEWELS));
+
+    }
+
+    /**
+     * @test
+     * @expectedException        \RangeException
+     * @expectedExceptionMessage not enough Resource
+     */
+    public function getMoreJewelsThanBoatStock()
+    {
+        $clemenceau = new Boat();
+        $clemenceau->addResource(Boat::JEWELS,50);
+        $clemenceau->removeResource(Boat::JEWELS,51);
+    }
+
 
     /**
      * @test
