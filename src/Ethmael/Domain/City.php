@@ -4,12 +4,19 @@ namespace Ethmael\Domain;
 
 class City
 {
-
+    protected $cityName;
     protected $traders;
 
-    public function __construct()
+
+    public function __construct($name="defaultName")
     {
         $this->traders = [];
+        $this->cityName = $name;
+    }
+
+    public function newName($name)
+    {
+        $this->cityName = $name;
     }
 
     public function getAvailableTraders()
@@ -30,6 +37,11 @@ class City
             }
         }
         return false;
+    }
+
+    public function name()
+    {
+        return $this->cityName;
     }
 
 }
