@@ -14,6 +14,7 @@ class Console
     {
         $this->inputStream = $inputStream;
         $this->outputStream = $outputStream;
+        $this->isRunning = false;
     }
 
     public function out($message, $addEndOfLine = true)
@@ -72,5 +73,10 @@ class Console
     {
         fclose($this->inputStream);
         fclose($this->outputStream);
+    }
+
+    public function isRunning()
+    {
+        return $this->isRunning;
     }
 }
