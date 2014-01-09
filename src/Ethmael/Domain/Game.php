@@ -35,4 +35,13 @@ class Game
         return $this->pirate;
     }
 
+    public function getCityWithName($name)
+    {
+        foreach ($this->cities as $value) {
+            if ($value->name() == $name) {
+                return $value;
+            }
+        }
+
+    }
 }
