@@ -5,10 +5,12 @@ namespace Ethmael\Domain;
 class Game
 {
     protected $cities;
+    protected $pirate;
 
     public function __construct()
     {
         $this->cities = [];
+        $this->pirate;
     }
 
     public function countCity()
@@ -21,4 +23,16 @@ class Game
     {
         $this->cities[] = $city;
     }
+
+
+    public function addPirate($pirate)
+    {
+        $this->pirate = $pirate;
+    }
+
+    public function getPirate()
+    {
+        return $this->pirate;
+    }
+
 }

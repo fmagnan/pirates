@@ -14,6 +14,7 @@ class Boat
     const ANY = 0;
     const WOOD = 1;
     const JEWELS = 2;
+    const OPIUM = 3;
 
     const PLUS = 100;
     const MINUS = 101;
@@ -36,6 +37,11 @@ class Boat
     public function getName()
     {
         return $this->name;
+    }
+
+    public function changeName($name)
+    {
+        $this->name = $name;
     }
 
 

@@ -34,5 +34,18 @@ class GameTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(2,$ofThrones->countCity());
     }
 
+    /**
+     * @test
+     */
+    public function GameHasOnePirateAfterAddingOnePirate()
+    {
+        $ofThrones = new Game();
+
+        $pirate = new Pirate();
+        $ofThrones->addPirate($pirate);
+
+        $newPirate = $ofThrones->getPirate();
+        $this->assertEquals($pirate,$newPirate);
+    }
 
 }

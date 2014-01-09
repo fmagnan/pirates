@@ -38,8 +38,16 @@ class Pirate
         $this->boat = $newBoat;
     }
 
+    public function changeBoatName($name)
+    {
+        $this->boat->changeName($name);
+    }
+
     public function boatName()
     {
         return $this->boat->getName();
     }
+
+
+
 }

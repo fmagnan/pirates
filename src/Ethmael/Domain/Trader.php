@@ -11,6 +11,7 @@ class Trader
 
     const WOOD = 0;
     const JEWELS = 1;
+    const OPIUM = 2;
 
     public function __construct($type, $unitPrice, $quantity = 0)
     {

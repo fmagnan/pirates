@@ -29,10 +29,12 @@ class PirateTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function buyNewBoat()
+    public function PirateIsAbleToBuyNewBoat()
     {
         $albator = new Pirate();
         $albator->buyNewBoat("Arcadia");
         $this->assertEquals("Arcadia", $albator->boatName());
     }
+
+
 }

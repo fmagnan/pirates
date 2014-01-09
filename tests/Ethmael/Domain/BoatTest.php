@@ -48,6 +48,18 @@ class BoatTest extends \PHPUnit_Framework_TestCase {
      * @test
      *
      */
+    public function nameOfTheBoatCanBeChanged()
+    {
+        $clemenceau = new Boat("Clemenceau");
+        $clemenceau->changeName("Arcadia");
+        $this->assertEquals("Arcadia", $clemenceau->getName());
+
+    }
+
+    /**
+     * @test
+     *
+     */
     public function newBoatHasHundredFreeSpace()
     {
         $clemenceau = new Boat();
