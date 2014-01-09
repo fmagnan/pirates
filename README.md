@@ -4,3 +4,5 @@
 
 ## Welcome to Pirates!
 It's gonna be an awesome multi-player game. But by now, it's just an experimental project entirely written with TDD style.
+
+A Magn'And'Look Game !
