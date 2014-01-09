@@ -7,14 +7,19 @@ class Console
     protected $inputStream;
     protected $outputStream;
     protected $isRunning;
+    protected $commands;
 
     const SIZE_OF_LINE = 1024;
+    const PROMPT = '> ';
 
     public function __construct($inputStream, $outputStream)
     {
         $this->inputStream = $inputStream;
         $this->outputStream = $outputStream;
         $this->isRunning = false;
+        $this->commands=[];
+        $this->registerCommand(new HelpCommand());
+        $this->registerCommand(new ExitCommand());
     }
 
     public function out($message, $addEndOfLine = true)
@@ -25,43 +30,35 @@ class Console
         fwrite($this->outputStream, $message);
     }
 
-    public function run()
+    public function run($disclaimer = '')
     {
-        $this->out('Welcome in Pirates! Game Of The Year Edition.');
-        $this->out('To select an option, type the choice between bracket [].');
+        $this->out($disclaimer);
 
         $this->isRunning = true;
 
         while ($this->isRunning) {
-            $this->out('Hello ');
-            $this->out('[1] - I want to rename myself!');
-            $this->out('[2] - Let\'s go to Rumble.');
-            $this->out('[3] - Exit.');
-            $this->out('> ', false);
+            $this->out(self::PROMPT, false);
             $request = fgets($this->inputStream, self::SIZE_OF_LINE);
             $this->isRunning = $this->processRequest($request);
         }
     }
 
+    public function registerCommand(Command $command)
+    {
+        $this->commands[$command->getAlias()] = $command;
+    }
+
     protected function processRequest($request)
     {
-        $continueLoop = true;
-        switch ($request) {
-            case '1' . PHP_EOL:
-                $this->changePlayerName();
-                break;
-            case '2' . PHP_EOL:
-                $this->launchGame();
-                break;
-            case '3' . PHP_EOL:
-                $this->out('Bye.');
-                $continueLoop = false;
-                break;
-            default:
-                $this->out('Invalid choice, same player shoot again');
-                break;
+        $request = trim(strtolower($request));
+        if (!isset($this->commands[$request])) {
+            $this->out('invalid command, try "help" to get commands list.');
+            return true;
         }
-        return $continueLoop;
+        $command = $this->commands[$request];
+        $command->launch();
+        $this->out($command->respond());
+        return $command->isRunning();
     }
 
     public function quit()
