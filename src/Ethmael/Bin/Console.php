@@ -4,76 +4,46 @@ namespace Ethmael\Bin;
 
 class Console
 {
+    use Writer;
+
     protected $inputStream;
-    protected $outputStream;
     protected $isRunning;
-    protected $commands;
+    protected $interpreter;
 
     const SIZE_OF_LINE = 1024;
     const PROMPT = '> ';
 
-    public function __construct($inputStream, $outputStream)
+    public function __construct($inputStream)
     {
         $this->inputStream = $inputStream;
-        $this->outputStream = $outputStream;
         $this->isRunning = false;
-        $this->commands=[];
-        $this->registerCommand(new HelpCommand());
-        $this->registerCommand(new ExitCommand());
     }
 
-    public function out($message, $addEndOfLine = true)
+    public function run($outputStream, $disclaimer = '')
     {
-        if ($addEndOfLine) {
-            $message .= PHP_EOL;
-        }
-        fwrite($this->outputStream, $message);
-    }
-
-    public function run($disclaimer = '')
-    {
-        $this->out($disclaimer);
-
+        $this->out($outputStream, $disclaimer);
         $this->isRunning = true;
-
         while ($this->isRunning) {
-            $this->out(self::PROMPT, false);
-            $request = fgets($this->inputStream, self::SIZE_OF_LINE);
-            $this->isRunning = $this->processRequest($request);
+            $this->out($outputStream, self::PROMPT, false);
+            $commandRequested = fgets($this->inputStream, self::SIZE_OF_LINE);
+            $this->isRunning = $this->interpreter->executeCommand($outputStream, $commandRequested);
         }
-    }
-
-    public function registerCommand(Command $command)
-    {
-        $this->commands[$command->getAlias()] = $command;
-    }
-
-    protected function processRequest($request)
-    {
-        $request = trim(strtolower($request));
-        if (!isset($this->commands[$request])) {
-            $this->out('invalid command, try "help" to get commands list.');
-            return true;
-        }
-        $command = $this->commands[$request];
-        $command->launch();
-        $this->out($command->respond());
-        return $command->isRunning();
+        $this->quit();
     }
 
     public function quit()
     {
-        unset($this);
-    }
-
-    public function __destruct()
-    {
         fclose($this->inputStream);
-        fclose($this->outputStream);
+        exit;
     }
 
     public function isRunning()
     {
         return $this->isRunning;
+    }
+
+    public function useInterpreter(Interpreter $interpreter)
+    {
+        $this->interpreter = $interpreter;
     }
 }
