@@ -19,7 +19,22 @@ class TraderTest extends \PHPUnit_Framework_TestCase
     public function traderCannotSellMoreThanItsQuantity()
     {
         $dreadPirateRoberts = new Pirate();
+        $dreadPirateRoberts->buyNewBoat("France");
         $this->trader->sell($dreadPirateRoberts, 40);
+    }
+
+    /**
+     * @test
+     * @expectedException        \RangeException
+     * @expectedExceptionMessage not enough space
+     */
+    public function traderCannotSellToPirateWithoutFreeSpace()
+    {
+        $dreadPirateRoberts = new Pirate();
+        $dreadPirateRoberts->buyNewBoat("France");
+        $dreadPirateRoberts->giveGold(500);
+        $dreadPirateRoberts->getBoat()->addResource(Boat::WOOD,99);
+        $this->trader->sell($dreadPirateRoberts, 2);
     }
 
     /**
@@ -31,6 +46,7 @@ class TraderTest extends \PHPUnit_Framework_TestCase
     {
         $dreadPirateRoberts = new Pirate();
         $dreadPirateRoberts->giveGold(50);
+        $dreadPirateRoberts->buyNewBoat("France");
         $this->trader->sell($dreadPirateRoberts, 8);
     }
 
@@ -40,9 +56,22 @@ class TraderTest extends \PHPUnit_Framework_TestCase
     public function quantityStockDecreasesWhenTraderSells()
     {
         $roberts = new Pirate();
+        $roberts->buyNewBoat("France");
         $roberts->giveGold(500);
         $this->trader->sell($roberts, 4);
         $this->assertEquals(8, $this->trader->getQuantity());
+    }
+
+    /**
+     * @test
+     */
+    public function pirateQuantityStockIncreaseWhenTraderSells()
+    {
+        $roberts = new Pirate();
+        $roberts->buyNewBoat("France");
+        $roberts->giveGold(500);
+        $this->trader->sell($roberts, 4);
+        $this->assertEquals(4, $roberts->getBoat()->getStock(Boat::WOOD));
     }
 
     /**

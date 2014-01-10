@@ -46,6 +46,17 @@ class City
         return false;
     }
 
+    public function getTraderByName($traderName)
+    {
+        foreach ($this->traders as $item) {
+            if ($traderName == $item->name()) {
+                return $item;
+            }
+        }
+        $message = sprintf("Ce marchand n''existe pas %s", $traderName);
+        throw new \RangeException($message);
+    }
+
     public function name()
     {
         return $this->cityName;

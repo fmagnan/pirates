@@ -2,6 +2,7 @@
 
 namespace Ethmael\Bin;
 
+use Ethmael\Domain\Boat;
 use Ethmael\Domain\City;
 use Ethmael\Domain\Game;
 use Ethmael\Domain\Pirate;
@@ -79,6 +80,7 @@ class Loop
 
 
             print "\n---------------------------------------------------\n";
+            print "[0] - Status du jeu (Debug)\n";
             print "[1] - Ho bordel, il faut que je change de nom !\n";
             print "[2] - Ha vraiment super le nom du bateau ! Changez moi ça tit'suite..\n";
             print "[3] - Et si nous allions boire une bière dans notre cabine.\n";
@@ -89,6 +91,9 @@ class Loop
             $next_line = fgets($this->fh, 1024); // read the special file to get the user input from keyboard
 
             switch ($next_line) {
+                case "0\n":
+                    $this->GameStatus();
+                    break;
                 case "1\n":
                     $this->changePlayerName();
                     break;
@@ -153,14 +158,26 @@ class Loop
         while (!$this->endOfShopping) {
             print "Parcourant les ruelles de la ville, vous discutez avec différents marchands.\n";
 
+            print "\n---------------------------------------------------\n";
+            print "[0] - Status du jeu (Debug)\n";
+            print "[1] - Acheter du bois à Luigi\n";
+            print "[2] - Acheter des joyaux à Mario\n";
+            print "[3] - \n";
+            print "[4] - \n";
+            print "[99] - Exit.\n";
+            print "> ";
+
             $next_line = fgets($this->fh, 1024); // read the special file to get the user input from keyboard
 
             switch ($next_line) {
+                case "0\n":
+                    $this->GameStatus();
+                    break;
                 case "1\n":
-                //    $this->changePlayerName();
+                    $this->buyResourcetoTrader($this->theGame->getCityWithName($this->theGame->getPirate()->isLocatedIn()->name())->getTraderByName("Luigi"));
                     break;
                 case "2\n":
-                  //  $this->changeBoatName();
+                    $this->buyResourcetoTrader($this->theGame->getCityWithName($this->theGame->getPirate()->isLocatedIn()->name())->getTraderByName("Mario"));
                     break;
                 case "3\n":
                     //$this->visitBoat();
@@ -179,16 +196,23 @@ class Loop
         }
     }
 
+    public function buyResourcetoTrader($trader){
+        $pirate =  $this->theGame->getPirate();
+        $trader->sell($pirate, 4);
+
+    }
     public function initGame(){
         $this->theGame = new Game();
     }
     public function initCities(){
         $saigon = new City("Saigon");
         $saigon->newDescription("Les Charmes de l'Asie, capitale du commerce, haaaaa Saigon !");
-        $woodInSaigon = new Trader(Trader::WOOD, 10,500);
-        $jewelsInSaigon = new Trader(Trader::JEWELS, 1000,80);
-        $saigon->addTrader($woodInSaigon);
-        $saigon->addTrader($jewelsInSaigon);
+        $luigi = new Trader(Trader::WOOD, 10,500);
+        $luigi->newName("Luigi");
+        $mario = new Trader(Trader::JEWELS, 1000,80);
+        $mario->newName("Mario");
+        $saigon->addTrader($luigi);
+        $saigon->addTrader($mario);
 
         $puertoRico = new City("Puerto Rico");
         $woodInRico = new Trader(Trader::WOOD, 15,300);
@@ -202,7 +226,7 @@ class Loop
 
     public function initPirate(){
         $pirate = new Pirate();
-        $pirate->giveGold(500);
+        $pirate->giveGold(500000);
         $pirate->buyNewBoat("Petit Bateau en Mousse");
         //$pirate->getBoat()->addResource(Boat::WOOD,10);
         //$pirate->getBoat()->addResource(Boat::JEWELS,20);
@@ -210,4 +234,13 @@ class Loop
         $this->theGame->addPirate($pirate);
     }
 
+    public function GameStatus(){
+        print sprintf("Player name : %s.\n", $this->playerName);
+        print sprintf("Pirate Boat name : %s.\n", $this->theGame->getPirate()->boatName());
+        print sprintf("Pirate Boat capacity : %s.\n", $this->theGame->getPirate()->getBoat()->getCapacity());
+        print sprintf("Pirate Boat WOOD Stock : %d.\n", $this->theGame->getPirate()->getBoat()->getStock(Boat::WOOD));
+        print sprintf("Pirate Boat JEWELS Stock : %d.\n", $this->theGame->getPirate()->getBoat()->getStock(Boat::JEWELS));
+        print sprintf("Current City name : %s.\n", $this->theGame->getPirate()->isLocatedIn()->name());
+        print sprintf("Current City description : %s.\n", $this->theGame->getPirate()->isLocatedIn()->description());
+    }
 }

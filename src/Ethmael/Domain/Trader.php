@@ -11,9 +11,9 @@ class Trader
     protected $traderName;
     protected $welcomeMessage;
 
-    const WOOD = 0;
-    const JEWELS = 1;
-    const OPIUM = 2;
+    const WOOD = 1;
+    const JEWELS = 2;
+    const OPIUM = 3;
 
     public function __construct($type, $unitPrice, $quantity = 0)
     {
@@ -45,8 +45,15 @@ class Trader
             $message = sprintf('not enough quantity to sell %d units', $quantity);
             throw new \RangeException($message);
         }
+
+        if ($quantity > $pirate->getBoat()->freeSpace()) {
+            $message = sprintf('not enough space in boat to buy %d units', $quantity);
+            throw new \RangeException($message);
+        }
+
         $amount = $quantity * $this->unitPrice;
         $pirate->takeGold($amount);
+        $pirate->getBoat()->addResource($this::WOOD, $quantity);
         $this->quantity -= $quantity;
     }
 
