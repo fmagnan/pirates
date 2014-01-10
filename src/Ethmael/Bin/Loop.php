@@ -1,6 +1,11 @@
 <?php
 
-namespace Ethmael\Domain;
+namespace Ethmael\Bin;
+
+use Ethmael\Domain\City;
+use Ethmael\Domain\Game;
+use Ethmael\Domain\Pirate;
+use Ethmael\Domain\Trader;
 
 class Loop
 {

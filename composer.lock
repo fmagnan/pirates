@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "ab03db7efd606a0518443e92a6c39f9c",
+    "hash": "75745f31c06fb58df78f328968ff0403",
     "packages": [
         {
             "name": "twig/twig",
