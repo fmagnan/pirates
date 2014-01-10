@@ -5,6 +5,7 @@ namespace Ethmael\Domain;
 class City
 {
     protected $cityName;
+    protected $cityDescription;
     protected $traders;
 
 
@@ -12,11 +13,17 @@ class City
     {
         $this->traders = [];
         $this->cityName = $name;
+        $this->cityDescription = "une ville quelconque";
     }
 
     public function newName($name)
     {
         $this->cityName = $name;
+    }
+
+    public function newDescription($desc)
+    {
+        $this->cityDescription = $desc;
     }
 
     public function getAvailableTraders()
@@ -42,6 +49,11 @@ class City
     public function name()
     {
         return $this->cityName;
+    }
+
+    public function description()
+    {
+        return $this->cityDescription;
     }
 
 }

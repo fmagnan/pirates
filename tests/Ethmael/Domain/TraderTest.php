@@ -45,5 +45,22 @@ class TraderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(8, $this->trader->getQuantity());
     }
 
+    /**
+     * @test
+     */
+    public function traderNameCanBeChanged()
+    {
+        $this->trader->newName("Luigi");
+        $this->assertEquals("Luigi", $this->trader->name());
+    }
+
+    /**
+     * @test
+     */
+    public function traderWelcomeSentenceCanBeChanged()
+    {
+        $this->trader->newWelcome("Jourbon");
+        $this->assertEquals("Jourbon", $this->trader->welcomeMessage());
+    }
 
 }

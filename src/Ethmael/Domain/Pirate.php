@@ -7,6 +7,7 @@ class Pirate
 
     protected $gold;
     protected $boat;
+    protected $actualCity;
 
     public function __construct()
     {
@@ -48,6 +49,17 @@ class Pirate
         return $this->boat->getName();
     }
 
+    public function setLocation ($city) {
+        $this->actualCity = $city;
+    }
 
+    public function isLocatedIn () {
+        return $this->actualCity;
+    }
+
+    public function getBoat()
+    {
+        return $this->boat;
+    }
 
 }

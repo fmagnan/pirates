@@ -37,6 +37,24 @@ class GameTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function WeCanRetrieveACityByTheName()
+    {
+        $ofThrones = new Game();
+
+        $saigon = new City("Saigon");
+        $ofThrones->addCity($saigon);
+
+        $PuertoRico = new City("Puerto Rico");
+        $ofThrones->addCity($PuertoRico);
+
+        $cityRetrieved = $ofThrones->getCityWithName("Saigon");
+        $this->assertEquals("Saigon",$cityRetrieved->name());
+    }
+
+
+    /**
+     * @test
+     */
     public function GameHasOnePirateAfterAddingOnePirate()
     {
         $ofThrones = new Game();
@@ -47,5 +65,6 @@ class GameTest extends \PHPUnit_Framework_TestCase
         $newPirate = $ofThrones->getPirate();
         $this->assertEquals($pirate,$newPirate);
     }
+
 
 }
