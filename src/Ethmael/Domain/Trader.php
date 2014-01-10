@@ -8,6 +8,8 @@ class Trader
     protected $type;
     protected $quantity;
     protected $unitPrice;
+    protected $traderName;
+    protected $welcomeMessage;
 
     const WOOD = 0;
     const JEWELS = 1;
@@ -18,6 +20,8 @@ class Trader
         $this->type = $type;
         $this->quantity = $quantity;
         $this->unitPrice = $unitPrice;
+        $this->traderName = "Boby";
+        $this->welcomeMessage = "Hello";
     }
 
     public function getType()
@@ -44,6 +48,25 @@ class Trader
         $amount = $quantity * $this->unitPrice;
         $pirate->takeGold($amount);
         $this->quantity -= $quantity;
+    }
+
+    public function newName($name)
+    {
+        $this->traderName = $name;
+    }
+    public function name()
+    {
+        return $this->traderName;
+    }
+
+    public function newWelcome($name)
+    {
+        $this->welcomeMessage = $name;
+    }
+
+    public function welcomeMessage()
+    {
+        return $this->welcomeMessage;
     }
 
 }

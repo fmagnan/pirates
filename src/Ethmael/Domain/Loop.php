@@ -8,6 +8,7 @@ class Loop
     protected $fh;
     protected $endOfLoop;
     protected $endOfGame;
+    protected $endOfShopping;
     protected $theGame;
 
 
@@ -27,7 +28,7 @@ class Loop
             print "\n---------------------------------------------------\n";
             print "[1] - Ho bordel, il faut que je change de nom !\n";
             print "[2] - Allons-y, jouons.\n";
-            print "[3] - Exit.\n";
+            print "[99] - Exit.\n";
             print "> ";
 
             $next_line = fgets($this->fh, 1024); // read the special file to get the user input from keyboard
@@ -39,7 +40,7 @@ class Loop
                 case "2\n":
                     $this->launchGame();
                     break;
-                case "3\n":
+                case "99\n":
                     print "Bye.\n";
                     $this->endOfLoop = true;
                     break;
@@ -76,7 +77,8 @@ class Loop
             print "[1] - Ho bordel, il faut que je change de nom !\n";
             print "[2] - Ha vraiment super le nom du bateau ! Changez moi ça tit'suite..\n";
             print "[3] - Et si nous allions boire une bière dans notre cabine.\n";
-            print "[4] - Exit.\n";
+            print "[4] - Au boulot Moussaillon, allons commercer.\n";
+            print "[99] - Exit.\n";
             print "> ";
 
             $next_line = fgets($this->fh, 1024); // read the special file to get the user input from keyboard
@@ -92,6 +94,9 @@ class Loop
                     $this->visitBoat();
                     break;
                 case "4\n":
+                    $this->visitTraders();
+                    break;
+                case "99\n":
                     print "You have stopped the game.\n";
                     $this->endOfGame = true;
                     break;
@@ -123,9 +128,50 @@ class Loop
         print sprintf("Ce bon vieil %s et ses ", $this->theGame->getPirate()->boatName());
         print sprintf("%d caisses entreposables en cale. \n", $this->theGame->getPirate()->getBoat()->getCapacity());
 
+        if ($this->theGame->getPirate()->getBoat()->getStock() == 0){
+            print "Le problème, c'est que les cales sont vides ! Il va falloir remplir tout ça.\n";
+        }
+        else {
+            print "Pour l'instant, nous avons en cale :\n";
+            print sprintf("- %d caisses de bois. \n", $this->theGame->getPirate()->getBoat()->getStock(Boat::WOOD));
+            print sprintf("- %d coffres de joyaux. \n", $this->theGame->getPirate()->getBoat()->getStock(Boat::JEWELS));
+        }
+
         print "Continuer ... ";
-        $next_line = fgets($this->fh, 1024);
+        fgets($this->fh, 1024);
         //$this->theGame->getPirate()->changeBoatName(trim(preg_replace('/\s+/', ' ', $next_line)));
+    }
+
+    public function visitTraders(){
+
+        $this->endOfGame = false;
+        while (!$this->endOfShopping) {
+            print "Parcourant les ruelles de la ville, vous discutez avec différents marchands.\n";
+
+            $next_line = fgets($this->fh, 1024); // read the special file to get the user input from keyboard
+
+            switch ($next_line) {
+                case "1\n":
+                //    $this->changePlayerName();
+                    break;
+                case "2\n":
+                  //  $this->changeBoatName();
+                    break;
+                case "3\n":
+                    //$this->visitBoat();
+                    break;
+                case "4\n":
+                    //$this->visitTraders();
+                    break;
+                case "99\n":
+                    print "Bye.\n";
+                    $this->endOfShopping = true;
+                    break;
+                default:
+                    print "Ce choix n'est pas valide. Essaie encore !\n";
+                    break;
+            }
+        }
     }
 
     public function initGame(){
@@ -153,6 +199,8 @@ class Loop
         $pirate = new Pirate();
         $pirate->giveGold(500);
         $pirate->buyNewBoat("Petit Bateau en Mousse");
+        //$pirate->getBoat()->addResource(Boat::WOOD,10);
+        //$pirate->getBoat()->addResource(Boat::JEWELS,20);
         $pirate->setLocation($this->theGame->getCityWithName("Saigon"));
         $this->theGame->addPirate($pirate);
     }
