@@ -36,5 +36,17 @@ class PirateTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals("Arcadia", $albator->boatName());
     }
 
+    /**
+     * @test
+     */
+    public function PirateInSaigonCanDrinkBearInSaigon()
+    {
+        $albator = new Pirate();
+        $saigon = new City("Saigon");
+
+        $albator->setLocation($saigon);
+        $this->assertEquals("Saigon", $albator->isLocatedIn()->name());
+    }
+
 
 }

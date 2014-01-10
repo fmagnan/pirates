@@ -16,6 +16,22 @@ class CityTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function newCityHasDefaultDescription()
+    {
+        $city = new City();
+        $this->assertEquals("une ville quelconque",$city->description());
+    }
+
+    public function descriptionOfCityCanBeChanged()
+    {
+        $city = new City();
+        $city->newDescription("Wow!");
+        $this->assertEquals("Wow!",$city->description());
+    }
+
+    /**
+     * @test
+     */
     public function cityCanHaveName()
     {
         $city = new City("Saigon");
