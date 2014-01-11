@@ -10,7 +10,7 @@ class Game
     public function __construct()
     {
         $this->cities = [];
-        $this->pirate;
+        $this->pirate=null;
     }
 
     public function countCity()
