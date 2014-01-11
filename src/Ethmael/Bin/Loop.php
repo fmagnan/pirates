@@ -4,6 +4,7 @@ namespace Ethmael\Bin;
 
 use Ethmael\Domain\Boat;
 use Ethmael\Domain\City;
+use Ethmael\Domain\Cst;
 use Ethmael\Domain\Game;
 use Ethmael\Domain\Pirate;
 use Ethmael\Domain\Trader;
