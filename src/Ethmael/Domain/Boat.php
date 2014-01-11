@@ -11,11 +11,6 @@ class Boat
     protected $wood;
     protected $jewels;
 
-    const ANY = 0;
-    const WOOD = 1;
-    const JEWELS = 2;
-    const OPIUM = 3;
-
     const PLUS = 100;
     const MINUS = 101;
 
@@ -57,15 +52,15 @@ class Boat
 
     public function getStock($resource = 0)
     {
-        if ($resource == $this::ANY) {
+        if ($resource == Cst::ANY) {
             return ($this->wood + $this->jewels);
         }
 
-        if ($resource == $this::WOOD) {
+        if ($resource == Cst::WOOD) {
             return $this->wood;
         }
 
-        if ($resource == $this::JEWELS) {
+        if ($resource == Cst::JEWELS) {
             return $this->jewels;
         }
 
@@ -100,17 +95,17 @@ class Boat
     public function changeResourceQuantity($resourceId, $operator, $quantity)
     {
         if ($operator == $this::PLUS) {
-            if ($resourceId == $this::WOOD) {
+            if ($resourceId == Cst::WOOD) {
                 $this->wood += $quantity;
             }
-            if ($resourceId == $this::JEWELS) {
+            if ($resourceId == Cst::JEWELS) {
                 $this->jewels += $quantity;
             }
         } else if ($operator == $this::MINUS) {
-            if ($resourceId == $this::WOOD) {
+            if ($resourceId == Cst::WOOD) {
                 $this->wood -= $quantity;
             }
-            if ($resourceId == $this::JEWELS) {
+            if ($resourceId == Cst::JEWELS) {
                 $this->jewels -= $quantity;
             }
         }

@@ -143,8 +143,8 @@ class Loop
         }
         else {
             print "Pour l'instant, nous avons en cale :\n";
-            print sprintf("- %d caisses de bois. \n", $this->theGame->getPirate()->getBoat()->getStock(Boat::WOOD));
-            print sprintf("- %d coffres de joyaux. \n", $this->theGame->getPirate()->getBoat()->getStock(Boat::JEWELS));
+            print sprintf("- %d caisses de bois. \n", $this->theGame->getPirate()->getBoat()->getStock(Cst::WOOD));
+            print sprintf("- %d coffres de joyaux. \n", $this->theGame->getPirate()->getBoat()->getStock(Cst::JEWELS));
         }
 
         print "Continuer ... ";
@@ -207,16 +207,16 @@ class Loop
     public function initCities(){
         $saigon = new City("Saigon");
         $saigon->newDescription("Les Charmes de l'Asie, capitale du commerce, haaaaa Saigon !");
-        $luigi = new Trader(Trader::WOOD, 10,500);
+        $luigi = new Trader(Cst::WOOD, 10,500);
         $luigi->newName("Luigi");
-        $mario = new Trader(Trader::JEWELS, 1000,80);
+        $mario = new Trader(Cst::JEWELS, 1000,80);
         $mario->newName("Mario");
         $saigon->addTrader($luigi);
         $saigon->addTrader($mario);
 
         $puertoRico = new City("Puerto Rico");
-        $woodInRico = new Trader(Trader::WOOD, 15,300);
-        $jewelsInRico = new Trader(Trader::JEWELS, 600,50);
+        $woodInRico = new Trader(Cst::WOOD, 15,300);
+        $jewelsInRico = new Trader(Cst::JEWELS, 600,50);
         $puertoRico->addTrader($woodInRico);
         $puertoRico->addTrader($jewelsInRico);
 
@@ -228,8 +228,8 @@ class Loop
         $pirate = new Pirate();
         $pirate->giveGold(500000);
         $pirate->buyNewBoat("Petit Bateau en Mousse");
-        //$pirate->getBoat()->addResource(Boat::WOOD,10);
-        //$pirate->getBoat()->addResource(Boat::JEWELS,20);
+        //$pirate->getBoat()->addResource(Cst::WOOD,10);
+        //$pirate->getBoat()->addResource(Cst::JEWELS,20);
         $pirate->setLocation($this->theGame->getCityWithName("Saigon"));
         $this->theGame->addPirate($pirate);
     }
@@ -238,8 +238,8 @@ class Loop
         print sprintf("Player name : %s.\n", $this->playerName);
         print sprintf("Pirate Boat name : %s.\n", $this->theGame->getPirate()->boatName());
         print sprintf("Pirate Boat capacity : %s.\n", $this->theGame->getPirate()->getBoat()->getCapacity());
-        print sprintf("Pirate Boat WOOD Stock : %d.\n", $this->theGame->getPirate()->getBoat()->getStock(Boat::WOOD));
-        print sprintf("Pirate Boat JEWELS Stock : %d.\n", $this->theGame->getPirate()->getBoat()->getStock(Boat::JEWELS));
+        print sprintf("Pirate Boat WOOD Stock : %d.\n", $this->theGame->getPirate()->getBoat()->getStock(Cst::WOOD));
+        print sprintf("Pirate Boat JEWELS Stock : %d.\n", $this->theGame->getPirate()->getBoat()->getStock(Cst::JEWELS));
         print sprintf("Current City name : %s.\n", $this->theGame->getPirate()->isLocatedIn()->name());
         print sprintf("Current City description : %s.\n", $this->theGame->getPirate()->isLocatedIn()->description());
     }

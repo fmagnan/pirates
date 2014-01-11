@@ -73,8 +73,8 @@ class BoatTest extends \PHPUnit_Framework_TestCase {
     public function addWoodIncreaseWoodStock()
     {
         $clemenceau = new Boat();
-        $clemenceau->addResource(Boat::WOOD,12);
-        $this->assertEquals(12, $clemenceau->getStock(Boat::WOOD));
+        $clemenceau->addResource(Cst::WOOD,12);
+        $this->assertEquals(12, $clemenceau->getStock(Cst::WOOD));
 
     }
 
@@ -86,7 +86,7 @@ class BoatTest extends \PHPUnit_Framework_TestCase {
     public function addMoreResourceThanBoatCapacity()
     {
         $clemenceau = new Boat();
-        $clemenceau->addResource(Boat::WOOD,112);
+        $clemenceau->addResource(Cst::WOOD,112);
     }
 
     /**
@@ -95,9 +95,9 @@ class BoatTest extends \PHPUnit_Framework_TestCase {
     public function getJewelsDecreaseJewelsStock()
     {
         $clemenceau = new Boat();
-        $clemenceau->addResource(Boat::JEWELS,50);
-        $clemenceau->removeResource(Boat::JEWELS,38);
-        $this->assertEquals(12, $clemenceau->getStock(Boat::JEWELS));
+        $clemenceau->addResource(Cst::JEWELS,50);
+        $clemenceau->removeResource(Cst::JEWELS,38);
+        $this->assertEquals(12, $clemenceau->getStock(Cst::JEWELS));
 
     }
 
@@ -109,8 +109,8 @@ class BoatTest extends \PHPUnit_Framework_TestCase {
     public function getMoreJewelsThanBoatStock()
     {
         $clemenceau = new Boat();
-        $clemenceau->addResource(Boat::JEWELS,50);
-        $clemenceau->removeResource(Boat::JEWELS,51);
+        $clemenceau->addResource(Cst::JEWELS,50);
+        $clemenceau->removeResource(Cst::JEWELS,51);
     }
 
 

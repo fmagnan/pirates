@@ -11,9 +11,6 @@ class Trader
     protected $traderName;
     protected $welcomeMessage;
 
-    const WOOD = 1;
-    const JEWELS = 2;
-    const OPIUM = 3;
 
     public function __construct($type, $unitPrice, $quantity = 0)
     {
@@ -53,7 +50,7 @@ class Trader
 
         $amount = $quantity * $this->unitPrice;
         $pirate->takeGold($amount);
-        $pirate->getBoat()->addResource($this::WOOD, $quantity);
+        $pirate->getBoat()->addResource(Cst::WOOD, $quantity);
         $this->quantity -= $quantity;
     }
 

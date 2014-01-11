@@ -22,12 +22,12 @@ class GameTest extends \PHPUnit_Framework_TestCase
         $ofThrones = new Game();
 
         $saigon = new City("Saigon");
-        $wood = new Trader(Trader::WOOD, 10);
+        $wood = new Trader(Cst::WOOD, 10);
         $saigon->addTrader($wood);
         $ofThrones->addCity($saigon);
 
         $PuertoRico = new City("Puerto Rico");
-        $wood = new Trader(Trader::WOOD, 10);
+        $wood = new Trader(Cst::WOOD, 10);
         $PuertoRico->addTrader($wood);
         $ofThrones->addCity($PuertoRico);
 
