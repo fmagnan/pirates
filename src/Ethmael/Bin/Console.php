@@ -4,11 +4,7 @@ namespace Ethmael\Bin;
 
 class Console
 {
-    use Writer;
-
     protected $inputStream;
-    protected $isRunning;
-    protected $interpreter;
 
     const SIZE_OF_LINE = 1024;
     const PROMPT = '> ';
@@ -16,19 +12,20 @@ class Console
     public function __construct($inputStream)
     {
         $this->inputStream = $inputStream;
-        $this->isRunning = false;
     }
 
-    public function run($outputStream, $disclaimer = '')
+    public function run($outputStream, $interpreter)
     {
-        $this->out($outputStream, $disclaimer);
-        $this->isRunning = true;
-        while ($this->isRunning) {
+        while (true) {
             $this->out($outputStream, self::PROMPT, false);
-            $commandRequested = fgets($this->inputStream, self::SIZE_OF_LINE);
-            $this->isRunning = $this->interpreter->executeCommand($outputStream, $commandRequested);
+            $request = $this->readLine();
+            if ('quit' === $request) {
+                $this->quit();
+            }
+            $interpreter->consume($request);
+            $response = $interpreter->getResponse();
+            $this->out($outputStream, $response);
         }
-        $this->quit();
     }
 
     public function quit()
@@ -37,13 +34,20 @@ class Console
         exit;
     }
 
-    public function isRunning()
+    protected function readLine()
     {
-        return $this->isRunning;
+        $line = fgets($this->inputStream, self::SIZE_OF_LINE);
+        $line = trim(strtolower($line));
+
+        return $line;
     }
 
-    public function useInterpreter(Interpreter $interpreter)
+    public function out($outputStream, $message, $addEndOfLine = true)
     {
-        $this->interpreter = $interpreter;
+        if ($addEndOfLine) {
+            $message .= PHP_EOL;
+        }
+        fwrite($outputStream, $message);
     }
+
 }

@@ -24,7 +24,6 @@ class Game
         $this->cities[] = $city;
     }
 
-
     public function addPirate($pirate)
     {
         $this->pirate = $pirate;
@@ -42,6 +41,7 @@ class Game
                 return $value;
             }
         }
-
+        return false;
     }
+
 }

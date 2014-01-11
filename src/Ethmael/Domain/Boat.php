@@ -44,7 +44,6 @@ class Boat
         $this->name = $name;
     }
 
-
     public function getCapacity()
     {
         return $this->capacity;
@@ -56,11 +55,10 @@ class Boat
         $this->capacity = $this->level * 100;
     }
 
-
     public function getStock($resource = 0)
     {
         if ($resource == $this::ANY) {
-            return  ($this->wood + $this->jewels);
+            return ($this->wood + $this->jewels);
         }
 
         if ($resource == $this::WOOD) {
@@ -81,7 +79,7 @@ class Boat
             throw new \RangeException($message);
         }
 
-        $this->changeResourceQuantity($resourceType,$this::PLUS,$quantity);
+        $this->changeResourceQuantity($resourceType, $this::PLUS, $quantity);
     }
 
     public function removeResource($resourceType, $quantity)
@@ -91,7 +89,7 @@ class Boat
             throw new \RangeException($message);
         }
 
-        $this->changeResourceQuantity($resourceType,$this::MINUS,$quantity);
+        $this->changeResourceQuantity($resourceType, $this::MINUS, $quantity);
     }
 
     public function freeSpace()
@@ -102,18 +100,17 @@ class Boat
     public function changeResourceQuantity($resourceId, $operator, $quantity)
     {
         if ($operator == $this::PLUS) {
-            if ($resourceId == $this::WOOD){
+            if ($resourceId == $this::WOOD) {
                 $this->wood += $quantity;
             }
-            if ($resourceId == $this::JEWELS){
+            if ($resourceId == $this::JEWELS) {
                 $this->jewels += $quantity;
             }
-        }
-        else if ($operator == $this::MINUS) {
-            if ($resourceId == $this::WOOD){
+        } else if ($operator == $this::MINUS) {
+            if ($resourceId == $this::WOOD) {
                 $this->wood -= $quantity;
             }
-            if ($resourceId == $this::JEWELS){
+            if ($resourceId == $this::JEWELS) {
                 $this->jewels -= $quantity;
             }
         }
