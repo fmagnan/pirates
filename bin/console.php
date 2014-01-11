@@ -12,6 +12,9 @@ $interpreter = new \Ethmael\Bin\Interpreter(new \Ethmael\Kernel\CommandLineRespo
 $interpreter->registerCommand(new \Ethmael\Bin\Command\Status($registry));
 $interpreter->registerCommand(new \Ethmael\Bin\Command\Launch($registry));
 $interpreter->registerCommand(new \Ethmael\Bin\Command\VisitBoat($registry));
+$interpreter->registerCommand(new \Ethmael\Bin\Command\RenamePlayer($registry));
+$interpreter->registerCommand(new \Ethmael\Bin\Command\RenameBoat($registry));
+$interpreter->registerCommand(new \Ethmael\Bin\Command\BuyResourceToTrader($registry));
 
 $console = new Ethmael\Bin\Console(STDIN);
 $console->run(STDOUT, $interpreter);

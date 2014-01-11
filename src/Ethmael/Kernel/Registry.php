@@ -39,9 +39,9 @@ class Registry
         $saigon = new City("Saigon");
         $saigon->newDescription("Les Charmes de l'Asie, capitale du commerce, haaaaa Saigon !");
         $luigi = new Trader(Cst::WOOD, 10, 500);
-        $luigi->newName("Luigi");
+        $luigi->newName("luigi");
         $mario = new Trader(Cst::JEWELS, 1000, 80);
-        $mario->newName("Mario");
+        $mario->newName("mario");
         $saigon->addTrader($luigi);
         $saigon->addTrader($mario);
 
@@ -64,6 +64,18 @@ class Registry
         //$pirate->getBoat()->addResource(Boat::JEWELS,20);
         $pirate->setLocation($this->game->getCityWithName("Saigon"));
         $this->game->addPirate($pirate);
+    }
+
+    public function buyResourcetoTrader($traderName, $quantity)
+    {
+        $game = $this->getGame();
+        $pirate = $game->getPirate();
+        $place = $pirate->isLocatedIn()->name();
+        $city = $game->getCityWithName($place);
+        $trader = $city->getTraderByName($traderName);
+        $trader->sell($pirate, $quantity);
+
+        return $trader;
     }
 
 }

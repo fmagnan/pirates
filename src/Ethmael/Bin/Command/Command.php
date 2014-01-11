@@ -18,6 +18,6 @@ abstract class Command
         $this->usage = $usage;
     }
 
-    abstract public function run(Response $response);
+    abstract public function run(Response $response, array $args=[]);
 
 }

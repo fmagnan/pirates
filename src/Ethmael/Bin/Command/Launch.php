@@ -12,7 +12,7 @@ class Launch extends Command
         parent::__construct($registry, 'launch', 'launch: launch a new game');
     }
 
-    public function run(Response $response)
+    public function run(Response $response, array $args=[])
     {
         $this->registry->initCities();
         $this->registry->initPirate();

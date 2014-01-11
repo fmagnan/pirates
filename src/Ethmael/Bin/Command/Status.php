@@ -14,7 +14,7 @@ class Status extends Command
         parent::__construct($registry, 'status', 'status: display current game status');
     }
 
-    public function run(Response $response)
+    public function run(Response $response, array $args=[])
     {
         $player = $this->registry->getPlayer();
         $response->addLine('Player name: ' . $player->showName());

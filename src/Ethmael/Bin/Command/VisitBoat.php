@@ -12,7 +12,7 @@ class VisitBoat extends Command
         parent::__construct($registry, 'visitboat', 'visitboat: visit your own boat');
     }
 
-    public function run(Response $response)
+    public function run(Response $response, array $args=[])
     {
         $game = $this->registry->getGame();
         $pirate = $game->getPirate();

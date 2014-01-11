@@ -21,19 +21,16 @@ class Interpreter
         $this->commands[$command->alias] = $command;
     }
 
-    protected function sanitizeCommand($command)
-    {
-        return trim(strtolower($command));
-    }
-
     public function consume($request)
     {
         $this->response->reset();
-        if (!$this->isRequestUnderstood($request)) {
+        $parts = explode(' ', $request);
+        $alias = array_shift($parts);
+        if (!isset($this->commands[$alias])) {
             $this->showAvailableCommands();
         } else {
-            $command = $this->commands[$request];
-            $command->run($this->response);
+            $command = $this->commands[$alias];
+            $command->run($this->response, $parts);
         }
     }
 
@@ -43,11 +40,6 @@ class Interpreter
         foreach ($this->commands as $command) {
             $this->response->addLine($command->usage);
         }
-    }
-
-    public function isRequestUnderstood($request)
-    {
-        return isset($this->commands[$request]);
     }
 
     public function getResponse()
