@@ -3,6 +3,7 @@
 namespace Ethmael\Kernel;
 
 use Ethmael\Domain\City;
+use Ethmael\Domain\Cst;
 use Ethmael\Domain\Game;
 use Ethmael\Domain\Pirate;
 use Ethmael\Domain\Player;
