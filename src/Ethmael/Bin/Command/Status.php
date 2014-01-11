@@ -3,6 +3,7 @@
 namespace Ethmael\Bin\Command;
 
 use Ethmael\Domain\Boat;
+use Ethmael\Domain\Cst;
 use Ethmael\Kernel\Registry;
 use Ethmael\Kernel\Response;
 
