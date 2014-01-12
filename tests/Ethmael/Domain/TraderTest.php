@@ -2,13 +2,21 @@
 
 namespace Ethmael\Domain;
 
+use Ethmael\Utils\Config;
+
 class TraderTest extends \PHPUnit_Framework_TestCase
 {
     protected $trader;
+    protected $config;
+
 
     public function setUp()
     {
         $this->trader = new Trader(Cst::WOOD, 10, 12);
+
+        $projectRootPath = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR. '..' . DIRECTORY_SEPARATOR. '..' . DIRECTORY_SEPARATOR;
+        $projectRootPath = $projectRootPath . "config". DIRECTORY_SEPARATOR;
+        $this->config = Config::loadConfigFile($projectRootPath . "data.yml");
     }
 
     /**
@@ -18,7 +26,7 @@ class TraderTest extends \PHPUnit_Framework_TestCase
      */
     public function traderCannotSellMoreThanItsQuantity()
     {
-        $dreadPirateRoberts = new Pirate();
+        $dreadPirateRoberts = new Pirate($this->config);
         $dreadPirateRoberts->buyNewBoat("France");
         $this->trader->sell($dreadPirateRoberts, 40);
     }
@@ -30,7 +38,7 @@ class TraderTest extends \PHPUnit_Framework_TestCase
      */
     public function traderCannotSellToPirateWithoutFreeSpace()
     {
-        $dreadPirateRoberts = new Pirate();
+        $dreadPirateRoberts = new Pirate($this->config);
         $dreadPirateRoberts->buyNewBoat("France");
         $dreadPirateRoberts->giveGold(500);
         $dreadPirateRoberts->getBoat()->addResource(Cst::WOOD,99);
@@ -44,7 +52,7 @@ class TraderTest extends \PHPUnit_Framework_TestCase
      */
     public function traderCannotSellToPoorPirate()
     {
-        $dreadPirateRoberts = new Pirate();
+        $dreadPirateRoberts = new Pirate($this->config);
         $dreadPirateRoberts->giveGold(50);
         $dreadPirateRoberts->buyNewBoat("France");
         $this->trader->sell($dreadPirateRoberts, 8);
@@ -55,7 +63,7 @@ class TraderTest extends \PHPUnit_Framework_TestCase
      */
     public function quantityStockDecreasesWhenTraderSells()
     {
-        $roberts = new Pirate();
+        $roberts = new Pirate($this->config);
         $roberts->buyNewBoat("France");
         $roberts->giveGold(500);
         $this->trader->sell($roberts, 4);
@@ -67,7 +75,7 @@ class TraderTest extends \PHPUnit_Framework_TestCase
      */
     public function pirateQuantityStockIncreaseWhenTraderSells()
     {
-        $roberts = new Pirate();
+        $roberts = new Pirate($this->config);
         $roberts->buyNewBoat("France");
         $roberts->giveGold(500);
         $this->trader->sell($roberts, 4);

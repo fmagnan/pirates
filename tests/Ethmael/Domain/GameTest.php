@@ -2,8 +2,18 @@
 
 namespace Ethmael\Domain;
 
+use Ethmael\Utils\Config;
+
 class GameTest extends \PHPUnit_Framework_TestCase
 {
+    protected $config;
+
+    public function setUp()
+    {
+        $projectRootPath = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR. '..' . DIRECTORY_SEPARATOR. '..' . DIRECTORY_SEPARATOR;
+        $projectRootPath = $projectRootPath . "config". DIRECTORY_SEPARATOR;
+        $this->config = Config::loadConfigFile($projectRootPath . "data.yml");
+    }
 
     /**
      * @test
@@ -59,7 +69,7 @@ class GameTest extends \PHPUnit_Framework_TestCase
     {
         $ofThrones = new Game();
 
-        $pirate = new Pirate();
+        $pirate = new Pirate($this->config);
         $ofThrones->addPirate($pirate);
 
         $newPirate = $ofThrones->getPirate();

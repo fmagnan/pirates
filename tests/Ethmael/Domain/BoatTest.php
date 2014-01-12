@@ -8,8 +8,19 @@
 
 namespace Ethmael\Domain;
 
+use Ethmael\Utils\Config;
 
 class BoatTest extends \PHPUnit_Framework_TestCase {
+
+
+    protected $config;
+
+    public function setUp()
+    {
+        $projectRootPath = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR. '..' . DIRECTORY_SEPARATOR. '..' . DIRECTORY_SEPARATOR;
+        $projectRootPath = $projectRootPath . "config". DIRECTORY_SEPARATOR;
+        $this->config = Config::loadConfigFile($projectRootPath . "data.yml");
+    }
 
     /**
      * @test

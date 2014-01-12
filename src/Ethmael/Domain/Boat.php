@@ -10,6 +10,7 @@ class Boat
     protected $capacity;
     protected $wood;
     protected $jewels;
+    protected $resources;
 
     const PLUS = 100;
     const MINUS = 101;

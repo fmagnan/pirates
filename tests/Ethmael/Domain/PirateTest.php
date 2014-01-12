@@ -2,14 +2,25 @@
 
 namespace Ethmael\Domain;
 
+use Ethmael\Utils\Config;
+
 class PirateTest extends \PHPUnit_Framework_TestCase
 {
+    protected $config;
+
+    public function setUp()
+    {
+        $projectRootPath = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR. '..' . DIRECTORY_SEPARATOR. '..' . DIRECTORY_SEPARATOR;
+        $projectRootPath = $projectRootPath . "config". DIRECTORY_SEPARATOR;
+        $this->config = Config::loadConfigFile($projectRootPath . "data.yml");
+    }
+
     /**
      * @test
      */
     public function decreasePurseAmount()
     {
-        $jackSparrow = new Pirate();
+        $jackSparrow = new Pirate($this->config);
         $jackSparrow->giveGold(50);
         $jackSparrow->takeGold(38);
         $this->assertEquals(12, $jackSparrow->countGold());
@@ -22,7 +33,7 @@ class PirateTest extends \PHPUnit_Framework_TestCase
      */
     public function takeMoreGoldThanItsPurse()
     {
-        $jackSparrow = new Pirate();
+        $jackSparrow = new Pirate($this->config);
         $jackSparrow->takeGold(12);
     }
 
@@ -31,7 +42,7 @@ class PirateTest extends \PHPUnit_Framework_TestCase
      */
     public function PirateIsAbleToBuyNewBoat()
     {
-        $albator = new Pirate();
+        $albator = new Pirate($this->config);
         $albator->buyNewBoat("Arcadia");
         $this->assertEquals("Arcadia", $albator->boatName());
     }
@@ -41,7 +52,7 @@ class PirateTest extends \PHPUnit_Framework_TestCase
      */
     public function PirateInSaigonCanDrinkBearInSaigon()
     {
-        $albator = new Pirate();
+        $albator = new Pirate($this->config);
         $saigon = new City("Saigon");
 
         $albator->setLocation($saigon);

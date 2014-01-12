@@ -9,8 +9,14 @@ class Pirate
     protected $boat;
     protected $actualCity;
 
-    public function __construct()
+    /*
+     * Array with all parameters of the game.
+     */
+    protected $gameConfig;
+
+    public function __construct($config)
     {
+        $this->gameConfig = $config;
         $this->gold = 0;
     }
 
