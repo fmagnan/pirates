@@ -7,24 +7,37 @@ class Pirate
 
     protected $gold;
     protected $boat;
-    protected $actualCity;
+    protected $currentCity;
+    protected $gameConfig; //Array with all parameters of the game.
 
     /*
-     * Array with all parameters of the game.
+     * $config : game config file loaded in an array.
      */
-    protected $gameConfig;
-
     public function __construct($config)
     {
         $this->gameConfig = $config;
         $this->gold = 0;
     }
 
+    /*
+     * This function give gold to the pirate.
+     * Pirate always accept gold !
+     * $amount : amount of gold given to the pirate
+     * @return : new amount of gold.
+     */
     public function giveGold($amount)
     {
         $this->gold += $amount;
+        return $this->countGold();
     }
 
+    /*
+     * This function take gold from the pirate.
+     * And the pirate doesn't like that.
+     * $amount : amount of gold taken from the pirate
+     * @return : new amount of gold.
+     * exception : send exception if the pirate hasn't enough gold.
+     */
     public function takeGold($amount)
     {
         if ($amount > $this->gold) {
@@ -32,6 +45,8 @@ class Pirate
             throw new \RangeException($message);
         }
         $this->gold -= $amount;
+
+        return $this->countGold();
     }
 
     public function countGold()
@@ -56,11 +71,11 @@ class Pirate
     }
 
     public function setLocation ($city) {
-        $this->actualCity = $city;
+        $this->currentCity = $city;
     }
 
     public function isLocatedIn () {
-        return $this->actualCity;
+        return $this->currentCity;
     }
 
     public function getBoat()
