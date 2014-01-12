@@ -49,7 +49,7 @@ class Core
 
     public function initPirate($game)
     {
-        $pirate = new Pirate();
+        $pirate = new Pirate($this->config);
         $pirate->giveGold(500000);
         $pirate->buyNewBoat("Petit Bateau en Mousse");
         //$pirate->getBoat()->addResource(Boat::WOOD,10);
