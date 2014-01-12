@@ -2,24 +2,28 @@
 
 namespace Ethmael\Bin\Command;
 
+use Ethmael\Domain\Player;
 use Ethmael\Kernel\Registry;
 use Ethmael\Kernel\Response;
 
 class RenamePlayer extends Command
 {
-    public function __construct(Registry $registry)
+    protected $player;
+
+    public function __construct(Player $player)
     {
-        parent::__construct($registry, 'rename', 'rename <new_name>: change player\'s name');
+        $this->player = $player;
+        parent::__construct('rename', 'rename <new_name>: change player\'s name');
     }
 
-    public function run(Response $response, array $args=[])
+    public function run(Response $response, array $args = [])
     {
-        if(!isset($args[0])) {
+        if (!isset($args[0])) {
             $response->addLine('missing player\'s name!');
             return;
         }
         $newName = $args[0];
-        $this->registry->getEntity('player')->rename($newName);
+        $this->player->rename($newName);
         $response->addLine('You are now known as ' . $newName);
     }
 

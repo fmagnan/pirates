@@ -7,9 +7,12 @@ use Ethmael\Kernel\Response;
 
 class RenameBoat extends Command
 {
-    public function __construct(Registry $registry)
+    protected $game;
+
+    public function __construct($game)
     {
-        parent::__construct($registry, 'boatname', 'boatname <new_name>: change pirate\'s boat\'s name');
+        $this->game=$game;
+        parent::__construct('boatname', 'boatname <new_name>: change pirate\'s boat\'s name');
     }
 
     public function run(Response $response, array $args=[])
@@ -19,7 +22,7 @@ class RenameBoat extends Command
             return;
         }
         $newName = $args[0];
-        $this->registry->getEntity('game')->getPirate()->getBoat()->changeName($newName);
+        $this->game->getPirate()->getBoat()->changeName($newName);
         $response->addLine('You\'re boat is now known as ' . $newName);
     }
 

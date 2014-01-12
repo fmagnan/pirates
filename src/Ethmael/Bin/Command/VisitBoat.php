@@ -7,15 +7,17 @@ use Ethmael\Kernel\Response;
 
 class VisitBoat extends Command
 {
-    public function __construct(Registry $registry)
+    protected $game;
+
+    public function __construct($game)
     {
-        parent::__construct($registry, 'visitboat', 'visitboat: visit your own boat');
+        $this->game = $game;
+        parent::__construct('visitboat', 'visitboat: visit your own boat');
     }
 
     public function run(Response $response, array $args=[])
     {
-        $game = $this->registry->getEntity('game');
-        $pirate = $game->getPirate();
+        $pirate = $this->game->getPirate();
 
         $lines = [
             "Vous avez beau chercher, il n'y a aucune bière dans votre cabine !",

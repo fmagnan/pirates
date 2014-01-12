@@ -9,15 +9,13 @@ abstract class Command
 {
     public $alias;
     public $usage;
-    protected $registry;
 
-    public function __construct(Registry $registry, $alias, $usage)
+    public function __construct($alias, $usage)
     {
-        $this->registry=$registry;
         $this->alias = $alias;
         $this->usage = $usage;
     }
 
-    abstract public function run(Response $response, array $args=[]);
+    abstract public function run(Response $response, array $args = []);
 
 }

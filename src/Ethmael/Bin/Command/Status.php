@@ -9,18 +9,21 @@ use Ethmael\Kernel\Response;
 
 class Status extends Command
 {
-    public function __construct(Registry $registry)
+    protected $game;
+    protected $player;
+
+    public function __construct($player, $game)
     {
-        parent::__construct($registry, 'status', 'status: display current game status');
+        $this->player = $player;
+        $this->game = $game;
+        parent::__construct('status', 'status: display current game status');
     }
 
     public function run(Response $response, array $args=[])
     {
-        $player = $this->registry->getEntity('player');
-        $response->addLine('Player name: ' . $player->showName());
+        $response->addLine('Player name: ' . $this->player->showName());
 
-        $game = $this->registry->getEntity('game');
-        $pirate = $game->getPirate();
+        $pirate = $this->game->getPirate();
         if (is_null($pirate)) {
             return;
         }
