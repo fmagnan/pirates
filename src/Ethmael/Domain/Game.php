@@ -33,6 +33,12 @@ class Game
     {
         return $this->pirate;
     }
+    public function getCities()
+    {
+        return $this->cities;
+    }
+
+
 
     public function getCityWithName($name)
     {
