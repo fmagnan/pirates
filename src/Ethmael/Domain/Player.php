@@ -6,7 +6,7 @@ class Player
 {
     protected $name;
 
-    public function __construct($name)
+    public function __construct($name='John Doe')
     {
         $this->rename($name);
     }

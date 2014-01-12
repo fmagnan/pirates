@@ -2,11 +2,10 @@
 
 require __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
 
-$game = new \Ethmael\Domain\Game();
-$player = new \Ethmael\Domain\Player('Jaime');
 $registry = new \Ethmael\Kernel\Registry();
-$registry->bind('game', $game);
-$registry->bind('player', $player);
+$registry->bind('game', new \Ethmael\Domain\Game());
+$registry->bind('player', new \Ethmael\Domain\Player());
+$registry->bind('core', new \Ethmael\Kernel\Core());
 
 $interpreter = new \Ethmael\Bin\Interpreter(new \Ethmael\Kernel\CommandLineResponse());
 $interpreter->registerCommand(new \Ethmael\Bin\Command\Status($registry));

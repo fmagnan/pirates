@@ -14,12 +14,11 @@ class Launch extends Command
 
     public function run(Response $response, array $args=[])
     {
-        $this->registry->initCities();
-        $this->registry->initPirate();
-
+        $core = $this->registry->getEntity('core');
         $game = $this->registry->getEntity('game');
         $player = $this->registry->getEntity('player');
-        $pirate = $game->getPirate();
+        $core->initCities($game);
+        $pirate = $core->initPirate($game);
 
         $response->addLine('Re-Bonjour jeune pirate.', $player->showName());
         $response->addLine('Vous êtes le Capitaine du merveilleux navire ' . $pirate->boatName());

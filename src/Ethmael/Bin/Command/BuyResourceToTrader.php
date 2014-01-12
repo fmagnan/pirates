@@ -26,7 +26,11 @@ class BuyResourceToTrader extends Command
         $traderName = $args[0];
         $quantity = $args[1];
 
-        $trader = $this->registry->buyResourcetoTrader($traderName, $quantity);
+        $game = $this->registry->getEntity('game');
+        $core = $this->registry->getEntity('core');
+
+        //@todo gerer l'exception qui est levee quand on ne peut pas acheter
+        $trader = $core->buyResourcetoTrader($game, $traderName, $quantity);
         $response->addLine(sprintf('You bought %d resources of type n°%s to %s', $quantity, $trader->getType(), $traderName));
         $response->addLine(sprintf('%s has %s unities left', $traderName, $trader->getQuantity()));
     }
