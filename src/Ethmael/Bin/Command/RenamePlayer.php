@@ -19,7 +19,7 @@ class RenamePlayer extends Command
             return;
         }
         $newName = $args[0];
-        $this->registry->getPlayer()->rename($newName);
+        $this->registry->getEntity('player')->rename($newName);
         $response->addLine('You are now known as ' . $newName);
     }
 

@@ -27,7 +27,7 @@ class BuyResourceToTrader extends Command
         $quantity = $args[1];
 
         $trader = $this->registry->buyResourcetoTrader($traderName, $quantity);
-        $response->addLine(sprintf('You bought resource %d n°%s to %s', $quantity, $trader->getType(), $traderName));
+        $response->addLine(sprintf('You bought %d resources of type n°%s to %s', $quantity, $trader->getType(), $traderName));
         $response->addLine(sprintf('%s has %s unities left', $traderName, $trader->getQuantity()));
     }
 

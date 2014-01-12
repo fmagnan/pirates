@@ -14,7 +14,7 @@ class VisitBoat extends Command
 
     public function run(Response $response, array $args=[])
     {
-        $game = $this->registry->getGame();
+        $game = $this->registry->getEntity('game');
         $pirate = $game->getPirate();
 
         $lines = [

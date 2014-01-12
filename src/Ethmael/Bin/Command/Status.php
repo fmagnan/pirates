@@ -16,10 +16,10 @@ class Status extends Command
 
     public function run(Response $response, array $args=[])
     {
-        $player = $this->registry->getPlayer();
+        $player = $this->registry->getEntity('player');
         $response->addLine('Player name: ' . $player->showName());
 
-        $game = $this->registry->getGame();
+        $game = $this->registry->getEntity('game');
         $pirate = $game->getPirate();
         if (is_null($pirate)) {
             return;

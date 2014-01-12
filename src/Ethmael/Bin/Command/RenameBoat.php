@@ -19,7 +19,7 @@ class RenameBoat extends Command
             return;
         }
         $newName = $args[0];
-        $this->registry->getGame()->getPirate()->getBoat()->changeName($newName);
+        $this->registry->getEntity('game')->getPirate()->getBoat()->changeName($newName);
         $response->addLine('You\'re boat is now known as ' . $newName);
     }
 

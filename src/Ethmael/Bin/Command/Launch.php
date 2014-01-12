@@ -17,8 +17,8 @@ class Launch extends Command
         $this->registry->initCities();
         $this->registry->initPirate();
 
-        $game = $this->registry->getGame();
-        $player = $this->registry->getPlayer();
+        $game = $this->registry->getEntity('game');
+        $player = $this->registry->getEntity('player');
         $pirate = $game->getPirate();
 
         $response->addLine('Re-Bonjour jeune pirate.', $player->showName());
