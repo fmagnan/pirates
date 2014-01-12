@@ -16,7 +16,7 @@ class Core
     {
         $yaml = new Parser();
         try {
-            $file = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'Config' . DIRECTORY_SEPARATOR . 'data.yml';
+            $file = __DIR__ . DIRECTORY_SEPARATOR . '..' .DIRECTORY_SEPARATOR . '..' .DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'data.yml';
             $value = $yaml->parse(file_get_contents($file));
         } catch (ParseException $e) {
             printf("Unable to parse the YAML string: %s", $e->getMessage());
