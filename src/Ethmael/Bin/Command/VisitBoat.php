@@ -29,8 +29,8 @@ class VisitBoat extends Command
             $lines[] = "Le problème, c'est que les cales sont vides ! Il va falloir remplir tout ça.";
         } else {
             $lines[] = "Pour l'instant, nous avons en cale :";
-            $lines[] = sprintf("- %d caisses de bois.", $pirate->getBoat()->getStock(Boat::WOOD));
-            $lines[] = sprintf("- %d coffres de joyaux.", $pirate->getBoat()->getStock(Boat::JEWELS));
+            $lines[] = sprintf("- %d caisses de bois.", $pirate->getBoat()->getStock("Bois"));
+            $lines[] = sprintf("- %d coffres de joyaux.", $pirate->getBoat()->getStock("Bois"));
         }
 
         $response->addMultiLines($lines);

@@ -50,7 +50,7 @@ class Trader
 
         $amount = $quantity * $this->unitPrice;
         $pirate->takeGold($amount);
-        $pirate->getBoat()->addResource(Cst::WOOD, $quantity);
+        $pirate->getBoat()->addResource("Bois", $quantity);
         $this->quantity -= $quantity;
     }
 

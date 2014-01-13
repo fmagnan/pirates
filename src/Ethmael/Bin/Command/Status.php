@@ -32,8 +32,8 @@ class Status extends Command
 
         $response->addLine('Pirate Boat name: ' . $pirate->boatName());
         $response->addLine('Pirate Boat capacity: ' . $boat->getCapacity());
-        $response->addLine('Pirate Boat WOOD Stock: ' . $boat->getStock(Cst::WOOD));
-        $response->addLine('Pirate Boat JEWELS Stock: ' . $boat->getStock(Cst::JEWELS));
+        $response->addLine('Pirate Boat WOOD Stock: ' . $boat->getStock("Bois"));
+        $response->addLine('Pirate Boat JEWELS Stock: ' . $boat->getStock("Bois"));
         $response->addLine('Current City name: ' . $place->name());
         $response->addLine('Current City description: ' . $place->description());
     }

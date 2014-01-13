@@ -2,6 +2,8 @@
 
 namespace Ethmael\Domain;
 
+use Ethmael\Utils\Math;
+
 class Boat
 {
 
@@ -11,18 +13,49 @@ class Boat
     protected $wood;
     protected $jewels;
     protected $resources;
+    protected $gameConfig; //Array with all parameters of the game.
 
     const PLUS = 100;
     const MINUS = 101;
 
 
-    public function __construct($name = "default")
+    /*
+     * $config : game config file loaded in an array.
+     */
+    public function __construct($config)
     {
-        $this->name = $name;
+
+        $this->gameConfig = $config;
+
+        // Get randomly one name for the boat (in config file)
+        $boatNames = $this->gameConfig["CityName"];
+        $liste = Math::randomN(1, 0, count($boatNames) - 1);
+        $this->name = $boatNames[$liste[0]];
+
+        // New boat is level 1 boat
         $this->level = 1;
+
+        // Capacity is level x 100
         $this->capacity = $this->level * 100;
+
+        $this->initResource();
+
+
         $this->wood = 0;
         $this->jewels = 0;
+    }
+
+    /*
+     * This function use gameConfig to load an array of resource.
+     * Array[ [Res1,0][Res2,0][Res3,0][Res4,0] ]
+     */
+    public function initResource()
+    {
+        $resNames = $this->gameConfig["ResourceName"];
+        foreach ($resNames as $item) {
+            $this->resources[$item] = 0;
+        }
+
     }
 
     public function getLevel()
@@ -51,21 +84,18 @@ class Boat
         $this->capacity = $this->level * 100;
     }
 
-    public function getStock($resource = 0)
+    public function getStock($resourceName = "allStock")
     {
-        if ($resource == Cst::ANY) {
-            return ($this->wood + $this->jewels);
+        if ($resourceName == "allStock") {
+            $stock = 0;
+            foreach ($this->resources as $line) {
+                $stock += $line;
+            }
+            return $stock;
         }
-
-        if ($resource == Cst::WOOD) {
-            return $this->wood;
+        else {
+            return $this->resources[$resourceName];
         }
-
-        if ($resource == Cst::JEWELS) {
-            return $this->jewels;
-        }
-
-        return 0;
     }
 
     public function addResource($resourceType, $quantity)
@@ -74,8 +104,8 @@ class Boat
             $message = sprintf('not enough free space to add %d resources ', $quantity);
             throw new \RangeException($message);
         }
+        $this->resources[$resourceType] += $quantity;
 
-        $this->changeResourceQuantity($resourceType, $this::PLUS, $quantity);
     }
 
     public function removeResource($resourceType, $quantity)
@@ -84,31 +114,13 @@ class Boat
             $message = sprintf('not enough Resource to get %d ', $quantity);
             throw new \RangeException($message);
         }
-
-        $this->changeResourceQuantity($resourceType, $this::MINUS, $quantity);
+        $this->resources[$resourceType] -= $quantity;
     }
 
     public function freeSpace()
     {
-        return $this->capacity - $this->getStock();
+        return ($this->capacity - $this->getStock());
     }
 
-    public function changeResourceQuantity($resourceId, $operator, $quantity)
-    {
-        if ($operator == $this::PLUS) {
-            if ($resourceId == Cst::WOOD) {
-                $this->wood += $quantity;
-            }
-            if ($resourceId == Cst::JEWELS) {
-                $this->jewels += $quantity;
-            }
-        } else if ($operator == $this::MINUS) {
-            if ($resourceId == Cst::WOOD) {
-                $this->wood -= $quantity;
-            }
-            if ($resourceId == Cst::JEWELS) {
-                $this->jewels -= $quantity;
-            }
-        }
-    }
+
 }

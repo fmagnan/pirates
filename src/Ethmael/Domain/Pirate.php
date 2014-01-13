@@ -57,9 +57,9 @@ class Pirate
         return $this->gold;
     }
 
-    public function buyNewBoat($name)
+    public function buyNewBoat()
     {
-        $newBoat = new Boat($name);
+        $newBoat = new Boat($this->gameConfig);
         $this->boat = $newBoat;
     }
 

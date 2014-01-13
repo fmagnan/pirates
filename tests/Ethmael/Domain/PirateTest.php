@@ -39,13 +39,13 @@ class PirateTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     */
+       Name is random -> Test to be deleted
     public function PirateIsAbleToBuyNewBoat()
     {
         $albator = new Pirate($this->config);
         $albator->buyNewBoat("Arcadia");
         $this->assertEquals("Arcadia", $albator->boatName());
-    }
+    }*/
 
     /**
      * @test
