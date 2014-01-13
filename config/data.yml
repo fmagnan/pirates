@@ -1,4 +1,4 @@
-City:
+CityName:
  - "Port Royale"
  - "Tortuga"
  - "Tortage"
@@ -11,7 +11,7 @@ City:
  - "Fort de la Roche"
  - "Mahebourg"
  - "Guajira"
-Resource:
+ResourceName:
  - "Bois"
  - "Coton"
  - "Tissu"
@@ -24,3 +24,9 @@ Resource:
  - "Soie"
  - "Diamant"
  - "Opium"
+BoateName:
+ - "Le Petit Bateau en Mousse"
+ - "L'Arcadia"
+ - "Atlantis"
+ - "Le Goéland"
+ - "Le Titanic"

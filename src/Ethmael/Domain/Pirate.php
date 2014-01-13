@@ -49,6 +49,9 @@ class Pirate
         return $this->countGold();
     }
 
+    /*
+    * @return : the amount og gold owned by the pirate.
+    */
     public function countGold()
     {
         return $this->gold;

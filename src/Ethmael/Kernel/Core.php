@@ -22,7 +22,7 @@ class Core
 
     public function initCities($game)
     {
-        $cities = $this->config["City"];
+        $cities = $this->config["CityName"];
         $liste = Math::randomN(2, 0, count($cities) - 1);
 
         $ville1 = $cities[$liste[0]];
