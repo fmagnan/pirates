@@ -72,7 +72,7 @@ class City
     public function getTraderByName($traderName)
     {
         foreach ($this->traders as $item) {
-            if ($traderName == $item->name()) {
+            if ($traderName == $item->showTraderName()) {
                 return $item;
             }
         }

@@ -127,7 +127,7 @@ class Core
     public function buyResourcetoTrader($game, $traderName, $quantity)
     {
         $pirate = $game->getPirate();
-        $place = $pirate->isLocatedIn()->name();
+        $place = $pirate->isLocatedIn()->showCityName();
         $city = $game->getCityWithName($place);
         $trader = $city->getTraderByName($traderName);
         $trader->sell($pirate, $quantity);
