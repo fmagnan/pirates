@@ -48,6 +48,17 @@ class City
         }
     }
 
+    public function countOpenShop()
+    {
+        $nbShopOpen = 0;
+        foreach ($this->traders as $item){
+            if ($item->isOpen()) {
+                $nbShopOpen +=1;
+            }
+        }
+        return $nbShopOpen;
+    }
+
     public function canDealWith($resource)
     {
         foreach ($this->traders as $item) {

@@ -54,7 +54,8 @@ class Status extends Command
         $response->addLine('-----CITIES---------------------');
         $cities = $this->game->getCities();
         foreach ($cities as $city){
-            $response->addLine('- '. $city->showCityName(). ' : '.$city->showCityDescription());
+            $response->addLine('- '. $city->showCityName(). ' ('.$city->countOpenShop().' traders opened): '.$city->showCityDescription());
+
             $traders = $city->getAvailableTraders();
             foreach ($traders as $trader){
 
