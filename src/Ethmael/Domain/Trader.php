@@ -82,9 +82,11 @@ class Trader
         return $this->resourceName;
     }
 
-    public function changeResourceToSell($resourceName)
+    public function changeResourceToSell($resourceName, $price)
     {
         $this->resourceName = $resourceName;
+        $this->changeBasePrice($price);
+        $this->changeActualPrice($price);
     }
 
     public function showResourceAvailable()

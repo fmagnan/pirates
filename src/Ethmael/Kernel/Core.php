@@ -55,10 +55,11 @@ class Core
                 $traderName = $traders[$i][0];
                 $traderWelcomeMsg = $traders[$i][1];
                 $resourceToSell = $resources[$i][0];
+                $basicResourcePrice = $resources[$i][2];
                 $newTrader = new Trader($this->config);
                 $newTrader->changeTraderName($traderName);
                 $newTrader->changeWelcomeMessage($traderWelcomeMsg);
-                $newTrader->changeResourceToSell($resourceToSell);
+                $newTrader->changeResourceToSell($resourceToSell,$basicResourcePrice);
                 $newTrader->provisionResource(100);
                 $city->addShop($newTrader);
             }

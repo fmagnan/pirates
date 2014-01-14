@@ -10,8 +10,7 @@ CityName:
  - ["Fort de la Roche", "Desc"]
  - ["Mahebourg", "Desc"]
  - ["Guajira", "Desc"]
-ResourceName:
-# [nomResource, niveau, prix de base]
+ResourceName: # [nomResource, niveau, prix de base]
  - ["Bois", 1, 10]
  - ["Coton", 1, 10]
  - ["Tissu", 1, 10]
