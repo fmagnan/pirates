@@ -25,6 +25,7 @@ $pirate = $core->initPirate($game);
 
 $interpreter = new \Ethmael\Bin\Interpreter(new \Ethmael\Kernel\CommandLineResponse());
 $interpreter->registerCommand(new \Ethmael\Bin\Command\Status($player, $game));
+$interpreter->registerCommand(new \Ethmael\Bin\Command\StatusDebug($player, $game));
 $interpreter->registerCommand(new \Ethmael\Bin\Command\VisitBoat($game));
 $interpreter->registerCommand(new \Ethmael\Bin\Command\RenamePlayer($player));
 $interpreter->registerCommand(new \Ethmael\Bin\Command\RenameBoat($game));

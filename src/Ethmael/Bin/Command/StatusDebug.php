@@ -7,7 +7,7 @@ use Ethmael\Domain\Cst;
 use Ethmael\Kernel\Registry;
 use Ethmael\Kernel\Response;
 
-class Status extends Command
+class StatusDebug extends Command
 {
     protected $game;
     protected $player;
@@ -16,7 +16,7 @@ class Status extends Command
     {
         $this->player = $player;
         $this->game = $game;
-        parent::__construct('s', 's: display current game status');
+        parent::__construct('sd', 'sd: display current DEBUG game status');
     }
 
     public function run(Response $response, array $args=[])
@@ -51,11 +51,12 @@ class Status extends Command
 
 
 
-        $response->addLine('-----CITY---------------------');
+        $response->addLine('-----CITIES---------------------');
+        $cities = $this->game->getCities();
+        foreach ($cities as $city){
+            $response->addLine('- '. $city->showCityName(). ' ('.$city->countOpenShop().' traders opened): '.$city->showCityDescription());
 
-            $response->addLine('- '. $place->showCityName(). ' ('.$place->countOpenShop().' traders opened): '.$place->showCityDescription());
-
-            $traders = $place->getAvailableTraders();
+            $traders = $city->getAvailableTraders();
             foreach ($traders as $trader){
 
                 if ($trader->isOpen()){
@@ -67,7 +68,7 @@ class Status extends Command
                 //}
             }
             $response->addLine('');
-
+        }
         $response->addLine('--------------------------------');
 
 
