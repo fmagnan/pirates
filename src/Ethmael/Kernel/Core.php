@@ -20,43 +20,40 @@ class Core
         $this->config = $config;
     }
 
-    public function initCities($game)
+    public function initCities($game, $nbCities = 2)
     {
         $cities = $this->config["CityName"];
-        $liste = Math::randomN(2, 0, count($cities) - 1);
+        $liste = Math::randomN($nbCities, 0, count($cities) - 1);
 
+        for ($i = 0; $i < $nbCities; $i++) {
+            $cityName = $cities[$liste[$i]];
+            $newCity = new City($this->config);
+            $newCity->newCityName($cityName);
+            $game->addCity($newCity);
+        }
 
-        $ville1 = $cities[$liste[0]];
-        $ville2 = $cities[$liste[1]];
+        //print_r ($game->getCities());
+    }
 
-        $saigon = new City($this->config);
-        $saigon->newCityName($ville1);
-        $saigon->newCityDescription("Les Charmes de l'Asie, capitale du commerce, haaaaa Saigon !");
+    /*
+     * Put nbTrader in each city
+     */
+    public function initTraders($game, $nbTraders = 2)
+    {
+        $traders = $this->config["TraderName"];
+        $liste = Math::randomN($nbTraders, 0, count($traders) - 1);
 
-        $luigi = new Trader($this->config);
-        $luigi->initTrader(Cst::WOOD, 10, 500);
-        $luigi->changeTraderName("luigi");
+        $cities = $game->getCities();
 
-        $mario = new Trader($this->config);
-        $mario->initTrader(Cst::JEWELS, 1000, 80);
-        $mario->changeTraderName("mario");
-
-        $saigon->addShop($luigi);
-        $saigon->addShop($mario);
-
-        $puertoRico = new City($this->config);
-        $puertoRico->newCityName($ville2);
-        $trader1 = new Trader($this->config);
-        $trader1->initTrader(Cst::WOOD, 15, 300);
-
-        $trader2 = new Trader($this->config);
-        $trader2->initTrader(Cst::JEWELS, 600, 50);
-
-        $puertoRico->addShop($trader1);
-        $puertoRico->addShop($trader2);
-
-        $game->addCity($saigon);
-        $game->addCity($puertoRico);
+        foreach ($cities as $city){
+            for ($i = 0; $i < $nbTraders; $i++) {
+                $traderName = $traders[$liste[$i]];
+                $newTrader = new Trader($this->config);
+                $newTrader->changeTraderName($traderName);
+                $city->addShop($newTrader);
+            }
+            //print_r($city->getAvailableTraders());
+        }
     }
 
     public function initPirate($game)

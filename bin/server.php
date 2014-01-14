@@ -18,6 +18,8 @@ $game = new \Ethmael\Domain\Game();
 $player = new \Ethmael\Domain\Player();
 
 $core->initCities($game);
+$core->initTraders($game);
+//print_r($game->getCities());
 $pirate = $core->initPirate($game);
 
 $interpreter = new \Ethmael\Bin\Interpreter(new \Ethmael\Kernel\CommandLineResponse());
