@@ -57,17 +57,20 @@ class Status extends Command
             $response->addLine('- '. $city->showCityName(). ' : '.$city->showCityDescription());
             $traders = $city->getAvailableTraders();
             foreach ($traders as $trader){
-                $response->addLine('--- Trader : '. $trader->showTraderName().' : '.$trader->showWelcomeMessage());
+
                 if ($trader->isOpen()){
+                $response->addLine('--- Trader : '. $trader->showTraderName().' : '.$trader->showWelcomeMessage());
                 $response->addLine('     OPEN  : '.$trader->showResourceAvailable().' '. $trader->showResource().  ' available at '.$trader->showActualPrice().' golds each.');
                 }
-                else {
-                    $response->addLine('     CLOSED : '.$trader->showResourceAvailable().' '. $trader->showResource().  ' available at '.$trader->showActualPrice().' golds each.');
-                }
+                //else {
+                //    $response->addLine('     CLOSED : '.$trader->showResourceAvailable().' '. $trader->showResource().  ' available at '.$trader->showActualPrice().' golds each.');
+                //}
             }
             $response->addLine('');
         }
         $response->addLine('--------------------------------');
+
+
     }
 
 }

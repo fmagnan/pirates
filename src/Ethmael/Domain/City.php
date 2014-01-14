@@ -30,19 +30,19 @@ class City
         $this->traders[] = $trader;
     }
 
-    public function closeShop(Trader $trader)
+    public function closeShop($resource)
     {
         foreach ($this->traders as $item){
-            if ($item == $trader) {
+            if ($item->showResource() == $resource) {
                 $item->closeShop();
             }
         }
     }
 
-    public function openShop(Trader $trader)
+    public function openShop($resource)
     {
         foreach ($this->traders as $item){
-            if ($item == $trader) {
+            if ($item->showResource() == $resource) {
                 $item->openShop();
             }
         }

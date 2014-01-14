@@ -19,8 +19,9 @@ $player = new \Ethmael\Domain\Player();
 
 $core->initCities($game);
 $core->initTraders($game);
-//print_r($game->getCities());
+$core->dispatchTraders($game);
 $pirate = $core->initPirate($game);
+
 
 $interpreter = new \Ethmael\Bin\Interpreter(new \Ethmael\Kernel\CommandLineResponse());
 $interpreter->registerCommand(new \Ethmael\Bin\Command\Status($player, $game));

@@ -20,7 +20,7 @@ class Core
         $this->config = $config;
     }
 
-    public function initCities($game, $nbCities = 11)
+    public function initCities($game, $nbCities = 12)
     {
         $cities = $this->config["CityName"];
         $liste = Math::randomN($nbCities, 0, count($cities) - 1);
@@ -65,6 +65,51 @@ class Core
             }
             //print_r($city->getAvailableTraders());
         }
+    }
+
+    /*
+     * Resource lvl 1 : sold in 5 cities
+     * Resource lvl 2 : sold in 4 cities
+     * Resource lvl 3 : sold in 4 cities
+     */
+    public function dispatchTraders($game)
+    {
+        $resources = $this->config["ResourceName"];
+        foreach ($resources as $res){
+            if ($res[1] == 1){
+                $resLVL1[] = $res[0];
+            }
+            elseif ($res[1] == 2){
+                $resLVL2[] = $res[0];
+            }
+            elseif ($res[1] == 3){
+                $resLVL3[] = $res[0];
+            }
+        }
+
+        $cities = $game->getCities();
+
+        foreach ($resLVL1 as $res){
+            $numCities = Math::randomN(5, 0, count($cities) - 1);
+            foreach ($numCities as $numCity) {
+                $cities[$numCity]->OpenShop($res);
+            }
+        }
+
+        foreach ($resLVL2 as $res){
+            $numCities = Math::randomN(4, 0, count($cities) - 1);
+            foreach ($numCities as $numCity) {
+                $cities[$numCity]->OpenShop($res);
+            }
+        }
+
+        foreach ($resLVL3 as $res){
+            $numCities = Math::randomN(4, 0, count($cities) - 1);
+            foreach ($numCities as $numCity) {
+                $cities[$numCity]->OpenShop($res);
+            }
+        }
+
     }
 
     public function initPirate($game)
