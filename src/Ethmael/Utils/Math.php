@@ -22,7 +22,7 @@ class Math
             throw new \RangeException($message);
         }
 
-        if (($valMax - $valMin)<$nbValues) {
+        if (($valMax - $valMin)<$nbValues-1) {
             $message = sprintf('Not possible to get %d values between %d and %d', $nbValues,$valMin, $valMax);
             throw new \RangeException($message);
         }

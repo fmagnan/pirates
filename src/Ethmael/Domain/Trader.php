@@ -31,9 +31,8 @@ class Trader
         // Get randomly one name for the trader (in config file)
         $TraderNames = $this->gameConfig["TraderName"];
         $liste = Math::randomN(1, 0, count($TraderNames) - 1);
-        $this->traderName = $TraderNames[$liste[0]];
-
-        $this->welcomeMessage = "Hello";
+        $this->traderName = $TraderNames[$liste[0]][0];
+        $this->welcomeMessage = $TraderNames[$liste[0]][1];
         $this->shopOpen = true;
     }
 

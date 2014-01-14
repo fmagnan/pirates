@@ -26,13 +26,15 @@ class Core
         $liste = Math::randomN($nbCities, 0, count($cities) - 1);
 
         for ($i = 0; $i < $nbCities; $i++) {
-            $cityName = $cities[$liste[$i]];
+            $cityName = $cities[$liste[$i]][0];
+            $cityDesc = $cities[$liste[$i]][1];
             $newCity = new City($this->config);
             $newCity->newCityName($cityName);
+            $newCity->newCityDescription($cityDesc);
             $game->addCity($newCity);
         }
 
-        //print_r ($game->getCities());
+        //print_r ($this->config);
     }
 
     /*
@@ -47,9 +49,11 @@ class Core
 
         foreach ($cities as $city){
             for ($i = 0; $i < $nbTraders; $i++) {
-                $traderName = $traders[$liste[$i]];
+                $traderName = $traders[$liste[$i]][0];
+                $traderWelcomeMsg = $traders[$liste[$i]][1];
                 $newTrader = new Trader($this->config);
                 $newTrader->changeTraderName($traderName);
+                $newTrader->changeWelcomeMessage($traderWelcomeMsg);
                 $city->addShop($newTrader);
             }
             //print_r($city->getAvailableTraders());
