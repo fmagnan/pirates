@@ -43,7 +43,7 @@ class Boat
     {
         $resNames = $this->gameConfig["ResourceName"];
         foreach ($resNames as $item) {
-            $this->resources[$item] = 0;
+            $this->resources[$item[0]] = 0;
         }
 
     }
@@ -72,6 +72,12 @@ class Boat
     {
         $this->level += 1;
         $this->capacity = $this->level * 100;
+    }
+
+    public function getResources()
+    {
+        //print_r($this->resources);
+        return $this->resources;
     }
 
     public function showStock($resourceName = "allStock")

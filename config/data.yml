@@ -11,18 +11,18 @@ CityName:
  - ["Mahebourg", "Desc"]
  - ["Guajira", "Desc"]
 ResourceName:
- - "Bois"
- - "Coton"
- - "Tissu"
- - "Tabac"
- - "Rhum"
- - "Fer"
- - "Armes"
- - "Rubis"
- - "Ivoire"
- - "Soie"
- - "Diamant"
- - "Opium"
+ - ["Bois", 1, 10]
+ - ["Coton", 1, 10]
+ - ["Tissu", 1, 10]
+ - ["Tabac", 1, 10]
+ - ["Rhum", 1, 10]
+ - ["Fer", 1, 10]
+ - ["Armes", 2, 100]
+ - ["Rubis", 2, 100]
+ - ["Ivoire", 2, 100]
+ - ["Soie", 2, 100]
+ - ["Diamant", 3, 1000]
+ - ["Opium", 3, 1000]
 BoatName:
  - "Le Petit Bateau en Mousse"
  - "L'Arcadia"

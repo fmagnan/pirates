@@ -71,10 +71,10 @@ class CityTest extends \PHPUnit_Framework_TestCase
 
         $city = new City($this->config);
         $trader1 = new Trader($this->config);
-        $trader1->initTrader($resourceList[0],10,10);
+        $trader1->initTrader($resourceList[0][0],10,10);
         $city->addShop($trader1);
 
-        $this->assertFalse($city->canDealWith($resourceList[1]));
+        $this->assertFalse($city->canDealWith($resourceList[1][0]));
     }
 
     /**
@@ -87,9 +87,9 @@ class CityTest extends \PHPUnit_Framework_TestCase
 
         $city = new City($this->config);
         $wood = new Trader($this->config);
-        $wood->initTrader($resourceList[0], 10);
+        $wood->initTrader($resourceList[0][0], 10);
         $city->addShop($wood);
-        $this->assertTrue($city->canDealWith($resourceList[0]));
+        $this->assertTrue($city->canDealWith($resourceList[0][0]));
     }
 
     /**

@@ -9,7 +9,8 @@ class Trader
 
     protected $resourceName;
     protected $stock;
-    protected $unitPrice;
+    protected $actualPrice;
+    protected $basePrice;
     protected $shopOpen;
     protected $traderName;
     protected $welcomeMessage;
@@ -22,11 +23,10 @@ class Trader
 
         // Get by default first resource (in config file)
         $resourceList = $this->gameConfig["ResourceName"];
-        $this->resourceName = $resourceList[0];
-
-        //$this->resourceName = $type;
+        $this->resourceName = $resourceList[0][0];
+        $this->changeBasePrice($resourceList[0][2]);
+        $this->changeActualPrice($resourceList[0][2]);
         $this->stock = 0;
-        $this->unitPrice =0 ;
 
         // Get randomly one name for the trader (in config file)
         $TraderNames = $this->gameConfig["TraderName"];
@@ -40,7 +40,7 @@ class Trader
     {
         $this->resourceName = $resourceName;
         $this->stock = $quantity;
-        $this->unitPrice = $unitPrice;
+        $this->actualPrice = $unitPrice;
     }
 
 
@@ -56,7 +56,7 @@ class Trader
             throw new \RangeException($message);
         }
 
-        $amount = $quantity * $this->unitPrice;
+        $amount = $quantity * $this->actualPrice;
         $pirate->takeGold($amount);
         $pirate->getBoat()->addResource("Bois", $quantity);
         $this->stock -= $quantity;
@@ -77,14 +77,24 @@ class Trader
         return $this->stock;
     }
 
-    public function showPrice()
+    public function showActualPrice()
     {
-        return $this->unitPrice;
+        return $this->actualPrice;
     }
 
-    public function changePrice($newPrice)
+    public function changeActualPrice($newPrice)
     {
-        $this->unitPrice = $newPrice;
+        $this->actualPrice = $newPrice;
+    }
+
+    public function showBasePrice()
+    {
+        return $this->basePrice;
+    }
+
+    public function changeBasePrice($newPrice)
+    {
+        $this->basePrice = $newPrice;
     }
 
     public function changeTraderName($name)
