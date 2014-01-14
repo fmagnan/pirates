@@ -12,11 +12,12 @@ class TraderTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->trader = new Trader(Cst::WOOD, 10, 12);
-
         $projectRootPath = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR. '..' . DIRECTORY_SEPARATOR. '..' . DIRECTORY_SEPARATOR;
         $projectRootPath = $projectRootPath . "config". DIRECTORY_SEPARATOR;
         $this->config = Config::loadConfigFile($projectRootPath . "data.yml");
+
+        $this->trader = new Trader($this->config);
+        $this->trader->initTrader(Cst::WOOD, 10, 12);
     }
 
     /**
@@ -67,7 +68,7 @@ class TraderTest extends \PHPUnit_Framework_TestCase
         $roberts->buyNewBoat();
         $roberts->giveGold(500);
         $this->trader->sell($roberts, 4);
-        $this->assertEquals(8, $this->trader->getQuantity());
+        $this->assertEquals(8, $this->trader->showResourceAvailable());
     }
 
     /**
@@ -79,7 +80,7 @@ class TraderTest extends \PHPUnit_Framework_TestCase
         $roberts->buyNewBoat();
         $roberts->giveGold(500);
         $this->trader->sell($roberts, 4);
-        $this->assertEquals(4, $roberts->getBoat()->getStock("Bois"));
+        $this->assertEquals(4, $roberts->getBoat()->showStock("Bois"));
     }
 
     /**
@@ -87,8 +88,8 @@ class TraderTest extends \PHPUnit_Framework_TestCase
      */
     public function traderNameCanBeChanged()
     {
-        $this->trader->newName("Luigi");
-        $this->assertEquals("Luigi", $this->trader->name());
+        $this->trader->changeTraderName("Luigi");
+        $this->assertEquals("Luigi", $this->trader->showTraderName());
     }
 
     /**
@@ -96,8 +97,25 @@ class TraderTest extends \PHPUnit_Framework_TestCase
      */
     public function traderWelcomeSentenceCanBeChanged()
     {
-        $this->trader->newWelcome("Jourbon");
-        $this->assertEquals("Jourbon", $this->trader->welcomeMessage());
+        $this->trader->changeWelcomeMessage("Jourbon");
+        $this->assertEquals("Jourbon", $this->trader->showWelcomeMessage());
+    }
+
+    /**
+     * @test
+     */
+    public function newTraderShopIsOpen()
+    {
+        $this->assertEquals(true, $this->trader->isOpen());
+    }
+
+    /**
+     * @test
+     */
+    public function closingShopCloseIt()
+    {
+        $this->trader->closeShop();
+        $this->assertEquals(false, $this->trader->isOpen());
     }
 
 }

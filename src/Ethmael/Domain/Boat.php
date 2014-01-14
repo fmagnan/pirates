@@ -10,17 +10,11 @@ class Boat
     protected $name;
     protected $level;
     protected $capacity;
-    protected $wood;
-    protected $jewels;
     protected $resources;
     protected $gameConfig; //Array with all parameters of the game.
 
-    const PLUS = 100;
-    const MINUS = 101;
-
-
     /*
-     * $config : game config file loaded in an array.
+     * $config : game config file in array format.
      */
     public function __construct($config)
     {
@@ -28,7 +22,7 @@ class Boat
         $this->gameConfig = $config;
 
         // Get randomly one name for the boat (in config file)
-        $boatNames = $this->gameConfig["CityName"];
+        $boatNames = $this->gameConfig["BoatName"];
         $liste = Math::randomN(1, 0, count($boatNames) - 1);
         $this->name = $boatNames[$liste[0]];
 
@@ -39,10 +33,6 @@ class Boat
         $this->capacity = $this->level * 100;
 
         $this->initResource();
-
-
-        $this->wood = 0;
-        $this->jewels = 0;
     }
 
     /*
@@ -58,12 +48,12 @@ class Boat
 
     }
 
-    public function getLevel()
+    public function showLevel()
     {
         return $this->level;
     }
 
-    public function getName()
+    public function showBoatName()
     {
         return $this->name;
     }
@@ -73,7 +63,7 @@ class Boat
         $this->name = $name;
     }
 
-    public function getCapacity()
+    public function showCapacity()
     {
         return $this->capacity;
     }
@@ -84,7 +74,7 @@ class Boat
         $this->capacity = $this->level * 100;
     }
 
-    public function getStock($resourceName = "allStock")
+    public function showStock($resourceName = "allStock")
     {
         if ($resourceName == "allStock") {
             $stock = 0;
@@ -100,7 +90,7 @@ class Boat
 
     public function addResource($resourceType, $quantity)
     {
-        if ($quantity > $this->freeSpace()) {
+        if ($quantity > $this->showFreeSpace()) {
             $message = sprintf('not enough free space to add %d resources ', $quantity);
             throw new \RangeException($message);
         }
@@ -110,16 +100,16 @@ class Boat
 
     public function removeResource($resourceType, $quantity)
     {
-        if ($quantity > $this->getStock($resourceType)) {
+        if ($quantity > $this->showStock($resourceType)) {
             $message = sprintf('not enough Resource to get %d ', $quantity);
             throw new \RangeException($message);
         }
         $this->resources[$resourceType] -= $quantity;
     }
 
-    public function freeSpace()
+    public function showFreeSpace()
     {
-        return ($this->capacity - $this->getStock());
+        return ($this->capacity - $this->showStock());
     }
 
 

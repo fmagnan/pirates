@@ -43,7 +43,7 @@ class Game
     public function getCityWithName($name)
     {
         foreach ($this->cities as $value) {
-            if ($value->name() == $name) {
+            if ($value->showCityName() == $name) {
                 return $value;
             }
         }

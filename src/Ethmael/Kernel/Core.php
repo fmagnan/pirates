@@ -25,23 +25,35 @@ class Core
         $cities = $this->config["CityName"];
         $liste = Math::randomN(2, 0, count($cities) - 1);
 
+
         $ville1 = $cities[$liste[0]];
         $ville2 = $cities[$liste[1]];
 
-        $saigon = new City($ville1);
-        $saigon->newDescription("Les Charmes de l'Asie, capitale du commerce, haaaaa Saigon !");
-        $luigi = new Trader(Cst::WOOD, 10, 500);
-        $luigi->newName("luigi");
-        $mario = new Trader(Cst::JEWELS, 1000, 80);
-        $mario->newName("mario");
-        $saigon->addTrader($luigi);
-        $saigon->addTrader($mario);
+        $saigon = new City($this->config);
+        $saigon->newCityName($ville1);
+        $saigon->newCityDescription("Les Charmes de l'Asie, capitale du commerce, haaaaa Saigon !");
 
-        $puertoRico = new City("Puerto Rico");
-        $woodInRico = new Trader(Cst::WOOD, 15, 300);
-        $jewelsInRico = new Trader(Cst::JEWELS, 600, 50);
-        $puertoRico->addTrader($woodInRico);
-        $puertoRico->addTrader($jewelsInRico);
+        $luigi = new Trader($this->config);
+        $luigi->initTrader(Cst::WOOD, 10, 500);
+        $luigi->changeTraderName("luigi");
+
+        $mario = new Trader($this->config);
+        $mario->initTrader(Cst::JEWELS, 1000, 80);
+        $mario->changeTraderName("mario");
+
+        $saigon->addShop($luigi);
+        $saigon->addShop($mario);
+
+        $puertoRico = new City($this->config);
+        $puertoRico->newCityName($ville2);
+        $trader1 = new Trader($this->config);
+        $trader1->initTrader(Cst::WOOD, 15, 300);
+
+        $trader2 = new Trader($this->config);
+        $trader2->initTrader(Cst::JEWELS, 600, 50);
+
+        $puertoRico->addShop($trader1);
+        $puertoRico->addShop($trader2);
 
         $game->addCity($saigon);
         $game->addCity($puertoRico);

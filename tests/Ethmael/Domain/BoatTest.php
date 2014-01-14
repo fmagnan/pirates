@@ -29,7 +29,7 @@ class BoatTest extends \PHPUnit_Framework_TestCase {
     public function newBoatIsLevelOneBoat()
     {
         $clemenceau = new Boat($this->config);
-        $this->assertEquals(1, $clemenceau->getLevel());
+        $this->assertEquals(1, $clemenceau->showLevel());
 
     }
 
@@ -40,20 +40,9 @@ class BoatTest extends \PHPUnit_Framework_TestCase {
     public function newBoatHasEmptyStock()
     {
         $clemenceau = new Boat($this->config);
-        $this->assertEquals(0, $clemenceau->getStock());
+        $this->assertEquals(0, $clemenceau->showStock());
 
     }
-
-    /**
-     * @test
-     *
-     name is random. Test to be deleted
-    public function newBoatHasName()
-    {
-        $clemenceau = new Boat($this->config);
-        $this->assertEquals("default", $clemenceau->getName());
-
-    }*/
 
     /**
      * @test
@@ -63,7 +52,7 @@ class BoatTest extends \PHPUnit_Framework_TestCase {
     {
         $clemenceau = new Boat($this->config);
         $clemenceau->changeName("Arcadia");
-        $this->assertEquals("Arcadia", $clemenceau->getName());
+        $this->assertEquals("Arcadia", $clemenceau->showBoatName());
 
     }
 
@@ -74,7 +63,7 @@ class BoatTest extends \PHPUnit_Framework_TestCase {
     public function newBoatHasHundredFreeSpace()
     {
         $clemenceau = new Boat($this->config);
-        $this->assertEquals(100, $clemenceau->freeSpace());
+        $this->assertEquals(100, $clemenceau->showFreeSpace());
 
     }
 
@@ -85,7 +74,7 @@ class BoatTest extends \PHPUnit_Framework_TestCase {
     {
         $clemenceau = new Boat($this->config);
         $clemenceau->addResource("Bois",12);
-        $this->assertEquals(12, $clemenceau->getStock("Bois"));
+        $this->assertEquals(12, $clemenceau->showStock("Bois"));
 
     }
 
@@ -108,7 +97,7 @@ class BoatTest extends \PHPUnit_Framework_TestCase {
         $clemenceau = new Boat($this->config);
         $clemenceau->addResource("Bois",50);
         $clemenceau->removeResource("Bois",38);
-        $this->assertEquals(12, $clemenceau->getStock("Bois"));
+        $this->assertEquals(12, $clemenceau->showStock("Bois"));
 
     }
 
@@ -133,8 +122,8 @@ class BoatTest extends \PHPUnit_Framework_TestCase {
     {
         $clemenceau = new Boat($this->config);
         $clemenceau->upgradeBoatLevel();
-        $this->assertEquals(2, $clemenceau->getLevel());
-        $this->assertEquals(200, $clemenceau->getCapacity());
+        $this->assertEquals(2, $clemenceau->showLevel());
+        $this->assertEquals(200, $clemenceau->showCapacity());
 
     }
 

@@ -23,7 +23,7 @@ class PirateTest extends \PHPUnit_Framework_TestCase
         $jackSparrow = new Pirate($this->config);
         $jackSparrow->giveGold(50);
         $jackSparrow->takeGold(38);
-        $this->assertEquals(12, $jackSparrow->countGold());
+        $this->assertEquals(12, $jackSparrow->showGold());
     }
 
     /**
@@ -39,13 +39,14 @@ class PirateTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-       Name is random -> Test to be deleted
-    public function PirateIsAbleToBuyNewBoat()
+     */
+    public function PirateCanChangeBoatName()
     {
         $albator = new Pirate($this->config);
-        $albator->buyNewBoat("Arcadia");
-        $this->assertEquals("Arcadia", $albator->boatName());
-    }*/
+        $albator->buyNewBoat();
+        $albator->changeBoatName("Azerty");
+        $this->assertEquals("Azerty", $albator->showBoatName());
+    }
 
     /**
      * @test
@@ -53,10 +54,11 @@ class PirateTest extends \PHPUnit_Framework_TestCase
     public function PirateInSaigonCanDrinkBearInSaigon()
     {
         $albator = new Pirate($this->config);
-        $saigon = new City("Saigon");
+        $saigon = new City($this->config);
+        $saigon->newCityName("Saigon");
 
         $albator->setLocation($saigon);
-        $this->assertEquals("Saigon", $albator->isLocatedIn()->name());
+        $this->assertEquals("Saigon", $albator->isLocatedIn()->showCityName());
     }
 
 

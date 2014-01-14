@@ -20,8 +20,8 @@ class CityTest extends \PHPUnit_Framework_TestCase
      */
     public function newCityHasDefaultName()
     {
-        $city = new City();
-        $this->assertEquals("defaultName",$city->Name());
+        $city = new City($this->config);
+        $this->assertEquals("defaultName",$city->showCityName());
     }
 
     /**
@@ -29,15 +29,15 @@ class CityTest extends \PHPUnit_Framework_TestCase
      */
     public function newCityHasDefaultDescription()
     {
-        $city = new City();
-        $this->assertEquals("une ville quelconque",$city->description());
+        $city = new City($this->config);
+        $this->assertEquals("Une ville quelconque",$city->showCityDescription());
     }
 
     public function descriptionOfCityCanBeChanged()
     {
-        $city = new City();
-        $city->newDescription("Wow!");
-        $this->assertEquals("Wow!",$city->description());
+        $city = new City($this->config);
+        $city->newCityDescription("Wow!");
+        $this->assertEquals("Wow!",$city->showCityDescription());
     }
 
     /**
@@ -45,8 +45,9 @@ class CityTest extends \PHPUnit_Framework_TestCase
      */
     public function cityCanHaveName()
     {
-        $city = new City("Saigon");
-        $this->assertEquals("Saigon",$city->Name());
+        $city = new City($this->config);
+        $city->newCityName("Saigon");
+        $this->assertEquals("Saigon",$city->showCityName());
     }
 
     /**
@@ -54,33 +55,41 @@ class CityTest extends \PHPUnit_Framework_TestCase
      */
     public function cityCanChangeHerName()
     {
-        $city = new City("Saigon");
-        $city->newName("Puerto Rico");
-        $this->assertEquals("Puerto Rico",$city->Name());
+        $city = new City($this->config);
+        $city->newCityName("Puerto Rico");
+        $this->assertEquals("Puerto Rico",$city->showCityName());
     }
 
     /**
      * @test
      */
-    public function cityWithWoodDoesNotDealWithJewels()
-    {
 
-        $city = new City();
-        $wood = new Trader(Cst::WOOD, 10);
-        $city->addTrader($wood);
-        $jewels = new Trader(Cst::JEWELS, 10);
-        $this->assertFalse($city->canDealWith($jewels));
+    public function cityCanDealOnlyRes1OnlyIfTraderExist()
+    {
+        // Get the list of available resources
+        $resourceList = $this->config["ResourceName"];
+
+        $city = new City($this->config);
+        $trader1 = new Trader($this->config);
+        $trader1->initTrader($resourceList[0],10,10);
+        $city->addShop($trader1);
+
+        $this->assertFalse($city->canDealWith($resourceList[1]));
     }
 
     /**
      * @test
      */
-    public function cityWithWoodCanDealWithWood()
+    public function cityWithResource0CanDealWithResource0()
     {
-        $city = new City();
-        $wood = new Trader(Cst::WOOD, 10);
-        $city->addTrader($wood);
-        $this->assertTrue($city->canDealWith($wood));
+        // Get the list of available resources
+        $resourceList = $this->config["ResourceName"];
+
+        $city = new City($this->config);
+        $wood = new Trader($this->config);
+        $wood->initTrader($resourceList[0], 10);
+        $city->addShop($wood);
+        $this->assertTrue($city->canDealWith($resourceList[0]));
     }
 
     /**
@@ -88,7 +97,7 @@ class CityTest extends \PHPUnit_Framework_TestCase
      */
     public function emptyCityHasNoTraderAvailable()
     {
-        $city = new City();
+        $city = new City($this->config);
         $this->assertEmpty($city->getAvailableTraders());
     }
 

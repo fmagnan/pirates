@@ -7,39 +7,51 @@ class City
     protected $cityName;
     protected $cityDescription;
     protected $traders;
+    protected $gameConfig; //Array with all parameters of the game.
 
 
-    public function __construct($name="defaultName")
+    public function __construct($config)
     {
+        $this->gameConfig = $config;
         $this->traders = [];
-        $this->cityName = $name;
-        $this->cityDescription = "une ville quelconque";
+        $this->cityName = "defaultName";
+        $this->cityDescription = "Une ville quelconque";
     }
 
-    public function newName($name)
-    {
-        $this->cityName = $name;
-    }
 
-    public function newDescription($desc)
-    {
-        $this->cityDescription = $desc;
-    }
 
     public function getAvailableTraders()
     {
         return $this->traders;
     }
 
-    public function addTrader(Trader $trader)
+    public function addShop(Trader $trader)
     {
         $this->traders[] = $trader;
     }
 
-    public function canDealWith(Trader $trader)
+    public function closeShop(Trader $trader)
+    {
+        foreach ($this->traders as $item){
+            if ($item == $trader) {
+                $item->closeShop();
+            }
+        }
+    }
+
+    public function openShop(Trader $trader)
+    {
+        foreach ($this->traders as $item){
+            if ($item == $trader) {
+                $item->openShop();
+            }
+        }
+    }
+
+    public function canDealWith($resource)
     {
         foreach ($this->traders as $item) {
-            if ($trader->getType() === $item->getType()) {
+            if ($resource == $item->showResource()) {
                 return true;
             }
         }
@@ -57,12 +69,22 @@ class City
         throw new \RangeException($message);
     }
 
-    public function name()
+    public function newCityName($name)
+    {
+        $this->cityName = $name;
+    }
+
+    public function newCityDescription($desc)
+    {
+        $this->cityDescription = $desc;
+    }
+
+    public function showCityName()
     {
         return $this->cityName;
     }
 
-    public function description()
+    public function showCityDescription()
     {
         return $this->cityDescription;
     }

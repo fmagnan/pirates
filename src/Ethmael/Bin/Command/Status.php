@@ -30,12 +30,12 @@ class Status extends Command
         $boat = $pirate->getBoat();
         $place = $pirate->isLocatedIn();
 
-        $response->addLine('Pirate Boat name: ' . $pirate->boatName());
-        $response->addLine('Pirate Boat capacity: ' . $boat->getCapacity());
-        $response->addLine('Pirate Boat WOOD Stock: ' . $boat->getStock("Bois"));
-        $response->addLine('Pirate Boat JEWELS Stock: ' . $boat->getStock("Bois"));
-        $response->addLine('Current City name: ' . $place->name());
-        $response->addLine('Current City description: ' . $place->description());
+        $response->addLine('Pirate Boat name: ' . $pirate->showBoatName());
+        $response->addLine('Pirate Boat capacity: ' . $boat->showCapacity());
+        $response->addLine('Pirate Boat WOOD Stock: ' . $boat->showStock("Bois"));
+        $response->addLine('Pirate Boat JEWELS Stock: ' . $boat->showStock("Bois"));
+        $response->addLine('Current City name: ' . $place->showCityName());
+        $response->addLine('Current City description: ' . $place->showCityDescription());
     }
 
 }

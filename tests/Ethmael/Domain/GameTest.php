@@ -31,14 +31,18 @@ class GameTest extends \PHPUnit_Framework_TestCase
     {
         $ofThrones = new Game();
 
-        $saigon = new City("Saigon");
-        $wood = new Trader(Cst::WOOD, 10);
-        $saigon->addTrader($wood);
+        $saigon = new City($this->config);
+        $saigon->newCityName("Saigon");
+        $wood = new Trader($this->config);
+        $wood->initTrader(Cst::WOOD, 10);
+        $saigon->addShop($wood);
         $ofThrones->addCity($saigon);
 
-        $PuertoRico = new City("Puerto Rico");
-        $wood = new Trader(Cst::WOOD, 10);
-        $PuertoRico->addTrader($wood);
+        $PuertoRico = new City($this->config);
+        $PuertoRico->newCityName("Puerto Rico");
+        $wood2 = new Trader($this->config);
+        $wood2->initTrader(Cst::WOOD, 10);
+        $PuertoRico->addShop($wood2);
         $ofThrones->addCity($PuertoRico);
 
         $this->assertEquals(2,$ofThrones->countCity());
@@ -51,14 +55,15 @@ class GameTest extends \PHPUnit_Framework_TestCase
     {
         $ofThrones = new Game();
 
-        $saigon = new City("Saigon");
+        $saigon = new City($this->config);
+        $saigon->newCityName("Saigon");
         $ofThrones->addCity($saigon);
 
-        $PuertoRico = new City("Puerto Rico");
+        $PuertoRico = new City($this->config);
         $ofThrones->addCity($PuertoRico);
 
         $cityRetrieved = $ofThrones->getCityWithName("Saigon");
-        $this->assertEquals("Saigon",$cityRetrieved->name());
+        $this->assertEquals("Saigon",$cityRetrieved->showCityName());
     }
 
 
