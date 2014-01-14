@@ -11,6 +11,7 @@ CityName:
  - ["Mahebourg", "Desc"]
  - ["Guajira", "Desc"]
 ResourceName:
+# [nomResource, niveau, prix de base]
  - ["Bois", 1, 10]
  - ["Coton", 1, 10]
  - ["Tissu", 1, 10]
@@ -36,3 +37,9 @@ TraderName:
  - ["Luigi", "Desc"]
  - ["Mario", "Desc"]
  - ["Momo", "Desc"]
+ - ["Mitch Mc Mitch2", "Desc"]
+ - ["Jhon McLane2", "Desc"]
+ - ["Bill Gates2", "Desc"]
+ - ["Luigi2", "Desc"]
+ - ["Mario2", "Desc"]
+ - ["Momo2", "Desc"]

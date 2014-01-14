@@ -20,7 +20,7 @@ class Core
         $this->config = $config;
     }
 
-    public function initCities($game, $nbCities = 2)
+    public function initCities($game, $nbCities = 11)
     {
         $cities = $this->config["CityName"];
         $liste = Math::randomN($nbCities, 0, count($cities) - 1);
@@ -38,22 +38,28 @@ class Core
     }
 
     /*
-     * Put nbTrader in each city
+     * create as many trader as available resources
      */
-    public function initTraders($game, $nbTraders = 2)
+    public function initTraders($game)
     {
         $traders = $this->config["TraderName"];
-        $liste = Math::randomN($nbTraders, 0, count($traders) - 1);
+        $resources = $this->config["ResourceName"];
+        $nbResources = count($resources);
+
+        //$liste = Math::randomN($nbTraders, 0, count($traders) - 1);
 
         $cities = $game->getCities();
 
         foreach ($cities as $city){
-            for ($i = 0; $i < $nbTraders; $i++) {
-                $traderName = $traders[$liste[$i]][0];
-                $traderWelcomeMsg = $traders[$liste[$i]][1];
+            for ($i = 0; $i < $nbResources; $i++) {
+                $traderName = $traders[$i][0];
+                $traderWelcomeMsg = $traders[$i][1];
+                $resourceToSell = $resources[$i][0];
                 $newTrader = new Trader($this->config);
                 $newTrader->changeTraderName($traderName);
                 $newTrader->changeWelcomeMessage($traderWelcomeMsg);
+                $newTrader->changeResourceToSell($resourceToSell);
+                $newTrader->provisionResource(100);
                 $city->addShop($newTrader);
             }
             //print_r($city->getAvailableTraders());
@@ -65,8 +71,6 @@ class Core
         $pirate = new Pirate($this->config);
         $pirate->giveGold(500000);
         $pirate->buyNewBoat();
-        //$pirate->getBoat()->addResource(Boat::WOOD,10);
-        //$pirate->getBoat()->addResource(Boat::JEWELS,20);
         $cities = $game->getCities();
         $pirate->setLocation($cities[0]);
         $game->addPirate($pirate);

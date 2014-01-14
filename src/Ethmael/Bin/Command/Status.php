@@ -16,7 +16,7 @@ class Status extends Command
     {
         $this->player = $player;
         $this->game = $game;
-        parent::__construct('status', 'status: display current game status');
+        parent::__construct('s', 's: display current game status');
     }
 
     public function run(Response $response, array $args=[])
@@ -58,7 +58,12 @@ class Status extends Command
             $traders = $city->getAvailableTraders();
             foreach ($traders as $trader){
                 $response->addLine('--- Trader : '. $trader->showTraderName().' : '.$trader->showWelcomeMessage());
-                $response->addLine('    '.$trader->showResourceAvailable().' '. $trader->showResource().  ' available at '.$trader->showActualPrice().' golds each.');
+                if ($trader->isOpen()){
+                $response->addLine('     OPEN  : '.$trader->showResourceAvailable().' '. $trader->showResource().  ' available at '.$trader->showActualPrice().' golds each.');
+                }
+                else {
+                    $response->addLine('     CLOSED : '.$trader->showResourceAvailable().' '. $trader->showResource().  ' available at '.$trader->showActualPrice().' golds each.');
+                }
             }
             $response->addLine('');
         }

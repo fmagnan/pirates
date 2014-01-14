@@ -33,7 +33,7 @@ class Trader
         $liste = Math::randomN(1, 0, count($TraderNames) - 1);
         $this->traderName = $TraderNames[$liste[0]][0];
         $this->welcomeMessage = $TraderNames[$liste[0]][1];
-        $this->shopOpen = true;
+        $this->closeShop();
     }
 
     public function initTrader($resourceName, $unitPrice, $quantity = 0)
@@ -60,6 +60,21 @@ class Trader
         $pirate->takeGold($amount);
         $pirate->getBoat()->addResource("Bois", $quantity);
         $this->stock -= $quantity;
+    }
+
+    public function provisionResource($quantity)
+    {
+        $this->stock += $quantity;
+    }
+
+    public function destroyResource($quantity)
+    {
+        if ($quantity > $this->stock) {
+            $this->stock = 0;
+        }
+        else {
+            $this->stock -= $quantity;
+        }
     }
 
     public function showResource()
