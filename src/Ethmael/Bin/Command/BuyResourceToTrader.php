@@ -14,7 +14,7 @@ class BuyResourceToTrader extends Command
     {
         $this->core = $core;
         $this->game = $game;
-        parent::__construct('buy', 'buy <trader> <quantity>: change player\'s name');
+        parent::__construct('buy', 'buy <trader> <quantity>: buy resource to a Trader');
     }
 
     public function run(Response $response, array $args = [])

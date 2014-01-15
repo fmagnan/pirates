@@ -60,12 +60,13 @@ class StatusDebug extends Command
             foreach ($traders as $trader){
 
                 if ($trader->isOpen()){
-                $response->addLine('--- Trader : '. $trader->showTraderName().' : '.$trader->showWelcomeMessage());
-                $response->addLine('     OPEN  : '.$trader->showResourceAvailable().' '. $trader->showResource().  ' available at '.$trader->showActualPrice().' golds each.');
+                    $response->addLine('--- Trader : '. $trader->showTraderName().' : '.$trader->showWelcomeMessage());
+                    $response->addLine('     OPEN   : '.$trader->showResourceAvailable().' '. $trader->showResource().  ' available at '.$trader->showActualPrice().' golds each.');
                 }
-                //else {
-                //    $response->addLine('     CLOSED : '.$trader->showResourceAvailable().' '. $trader->showResource().  ' available at '.$trader->showActualPrice().' golds each.');
-                //}
+                else {
+                    $response->addLine('--- Trader : '. $trader->showTraderName().' : '.$trader->showWelcomeMessage());
+                    $response->addLine('     CLOSED : '.$trader->showResourceAvailable().' '. $trader->showResource().  ' available at '.$trader->showActualPrice().' golds each.');
+                }
             }
             $response->addLine('');
         }
