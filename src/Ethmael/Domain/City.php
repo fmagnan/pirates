@@ -80,6 +80,15 @@ class City
         throw new \RangeException($message);
     }
 
+    public function upgradeBoat(Pirate $pirate)
+    {
+        $actualBoatCapacity = $pirate->showBoatCapacity();
+        $upgradePrice = $actualBoatCapacity * 20;
+        $pirate->takeGold($upgradePrice);
+        $boat = $pirate->getBoat();
+        $boat->upgradeBoatLevel();
+    }
+
     public function newCityName($name)
     {
         $this->cityName = $name;

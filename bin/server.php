@@ -31,6 +31,7 @@ $interpreter->registerCommand(new \Ethmael\Bin\Command\RenamePlayer($player));
 $interpreter->registerCommand(new \Ethmael\Bin\Command\RenameBoat($game));
 $interpreter->registerCommand(new \Ethmael\Bin\Command\BuyResourceToTrader($core, $game));
 $interpreter->registerCommand(new \Ethmael\Bin\Command\SellResourceToTrader($core, $game));
+$interpreter->registerCommand(new \Ethmael\Bin\Command\UpgradeBoat($core, $game));
 $interpreter->registerCommand(new \Ethmael\Bin\Command\Travel($core, $game));
 
 $console = new Ethmael\Bin\Console(STDIN);
