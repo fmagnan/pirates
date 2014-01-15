@@ -33,8 +33,8 @@ class SellResourceToTrader extends Command
 
         try{
             $trader = $this->core->sellResourcetoTrader($this->game, $traderName, $quantity);
-            $response->addLine(sprintf('You sold %d resources of type n°%s to %s', $quantity, $trader->showResource(), $traderName));
-            $response->addLine(sprintf('%s has %s unities left', $traderName, $trader->showResourceAvailable()));
+            $response->addLine(sprintf('Vous avez vendu %d caisses de %s à %s', $quantity, $trader->showResource(), $traderName));
+            $response->addLine(sprintf('%s a maintenant %s caisses.', $traderName, $trader->showResourceAvailable()));
         } catch (\RangeException $e) {
             $response->addLine($e->getMessage());
         }

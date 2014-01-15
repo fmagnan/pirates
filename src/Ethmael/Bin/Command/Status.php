@@ -21,54 +21,35 @@ class Status extends Command
 
     public function run(Response $response, array $args=[])
     {
-        $response->addLine('-----PLAYER---------------------');
-        $response->addLine('Name         : ' . $this->player->showName());
-        $response->addLine('Current Turn : ' . $this->game->showCurrentTurn());
-        $response->addLine('--------------------------------');
-        $response->addLine('');
-
-
-
-        $response->addLine('-----PIRATE---------------------');
         $pirate = $this->game->getPirate();
-        if (is_null($pirate)) {
-            return;
-        }
+        if (is_null($pirate)) {return;}
         $boat = $pirate->getBoat();
         $resourceList = $boat->getResources();
         $place = $pirate->isLocatedIn();
-        $response->addLine('Gold          : ' . $pirate->showGold());
-        $response->addLine('Location      : ' . $place->showCityName());
-        $response->addLine('Boat name     : ' . $pirate->showBoatName());
-        $response->addLine('Boat capacity : ' . $pirate->showBoatCapacity());
-        //print_r($boat);
-        $keys = array_keys($resourceList);
-        foreach($keys as $key){
-            $response->addLine(' - '.$key.' : ' . $resourceList[$key]);
-        }
 
         $response->addLine('--------------------------------');
-        $response->addLine('');
+        $response->addLine('Tour de jeu -> ' . $this->game->showCurrentTurn());
+        $response->addLine($this->player->showName().', votre bourse contient ' . $pirate->showGold().' pièces d\'or !');
+        $response->addLine('Vous êtes à ' . $place->showCityName().'.');
+        $response->addLine('La capacité de votre bateau (' . $pirate->showBoatName().') est de '. $pirate->showBoatCapacity().' caisses.');
+        $response->addLine('Vous transportez actuellement '. $pirate->showBoatStock().' caisse(s).');
 
-
-
-        $response->addLine('-----CITY---------------------');
-
-            $response->addLine('- '. $place->showCityName(). ' ('.$place->countOpenShop().' traders opened): '.$place->showCityDescription());
-
-            $traders = $place->getAvailableTraders();
-            foreach ($traders as $trader){
-
-                if ($trader->isOpen()){
-                $response->addLine('--- Trader : '. $trader->showTraderName().' : '.$trader->showWelcomeMessage());
-                $response->addLine('     OPEN  : '.$trader->showResourceAvailable().' '. $trader->showResource().  ' available at '.$trader->showActualPrice().' golds each.');
-                }
-                //else {
-                //    $response->addLine('     CLOSED : '.$trader->showResourceAvailable().' '. $trader->showResource().  ' available at '.$trader->showActualPrice().' golds each.');
-                //}
+        $keys = array_keys($resourceList);
+        foreach($keys as $key){
+            if ($resourceList[$key]>0) {
+                $response->addLine(' - '. $resourceList[$key].' caisse(s) de '.$key.'.');
             }
-            $response->addLine('');
+        }
 
+        $response->addLine('');
+        $response->addLine('A '. $place->showCityName(). ' '.$place->countOpenShop().' marchands sont ouverts : ');
+
+        $traders = $place->getAvailableTraders();
+        foreach ($traders as $trader){
+            if ($trader->isOpen()){
+            $response->addLine('- Marchand <'. $trader->showTraderName().'> : Ressource <'.$trader->showResource().'> : stock <'.$trader->showResourceAvailable().'> : Prix unitaire <'. $trader->showActualPrice().'> po.');
+            }
+        }
         $response->addLine('--------------------------------');
 
 

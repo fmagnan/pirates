@@ -115,7 +115,7 @@ class Core
     public function initPirate($game)
     {
         $pirate = new Pirate($this->config);
-        $pirate->giveGold(500000);
+        $pirate->giveGold(1000);
         $pirate->buyNewBoat();
         $cities = $game->getCities();
         $pirate->setLocation($cities[0]);

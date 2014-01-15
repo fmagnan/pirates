@@ -33,8 +33,8 @@ class BuyResourceToTrader extends Command
 
         try {
             $trader = $this->core->buyResourcetoTrader($this->game, $traderName, $quantity);
-            $response->addLine(sprintf('You bought %d resources of type n°%s to %s', $quantity, $trader->showResource(), $traderName));
-            $response->addLine(sprintf('%s has %s unities left', $traderName, $trader->showResourceAvailable()));
+            $response->addLine(sprintf('Vous avez acheté %d caisses de %s à %s.', $quantity, $trader->showResource(), $traderName));
+            $response->addLine(sprintf('Il reste à %s %s caisses.', $traderName, $trader->showResourceAvailable()));
         } catch (\RangeException $e) {
             $response->addLine($e->getMessage());
         }
