@@ -2,6 +2,8 @@
 
 namespace Ethmael\Domain;
 
+use Ethmael\Utils\Math;
+
 class Game
 {
     protected $cities;
@@ -49,17 +51,35 @@ class Game
                 return $value;
             }
         }
-        return false;
+
+        $message = sprintf('This City (%s) do not exists.',$name);
+        throw new \Exception($message);
+
     }
 
     public function newTurn()
     {
         if ($this->currentTurn == $this->gameLength) {
             $message = sprintf('End of game.');
-            throw new \RangeException($message);
+            throw new \Exception($message);
         }
 
         $this->currentTurn += 1;
+        $this->newResourceEvaluation();
+    }
+
+    public function newResourceEvaluation()
+    {
+        foreach ($this->cities as $city) {
+            foreach ($city->getAvailableTraders() as $trader) {
+                $actualPrice = $trader->showActualPrice();
+                $basePrice = $trader->showBasePrice();
+                $variation = Math::randomN(1, -20, 20);
+
+                $newPrice = $actualPrice + ($basePrice * $variation[0] / 100);
+                $trader->changeActualPrice($newPrice);
+            }
+        }
     }
 
     public function showCurrentTurn()

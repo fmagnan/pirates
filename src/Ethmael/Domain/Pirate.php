@@ -60,6 +60,10 @@ class Pirate
     }
 
     public function setLocation ($city) {
+        if ($this->currentCity == $city) {
+            $message = sprintf('You are already into this city (%s) do not exists.',$city->showCityName());
+            throw new \Exception($message);
+        }
         $this->currentCity = $city;
     }
 

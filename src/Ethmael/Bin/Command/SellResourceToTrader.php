@@ -31,10 +31,13 @@ class SellResourceToTrader extends Command
         $traderName = $args[0];
         $quantity = $args[1];
 
-        //@todo gerer l'exception qui est levee quand on n'a pas assez de resource pour les vendre au marchand
-        $trader = $this->core->sellResourcetoTrader($this->game, $traderName, $quantity);
-        $response->addLine(sprintf('You sold %d resources of type n°%s to %s', $quantity, $trader->showResource(), $traderName));
-        $response->addLine(sprintf('%s has %s unities left', $traderName, $trader->showResourceAvailable()));
+        try{
+            $trader = $this->core->sellResourcetoTrader($this->game, $traderName, $quantity);
+            $response->addLine(sprintf('You sold %d resources of type n°%s to %s', $quantity, $trader->showResource(), $traderName));
+            $response->addLine(sprintf('%s has %s unities left', $traderName, $trader->showResourceAvailable()));
+        } catch (\RangeException $e) {
+            $response->addLine($e->getMessage());
+        }
     }
 
 }

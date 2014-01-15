@@ -29,12 +29,14 @@ class Travel extends Command
 
 
         $pirate = $this->game->getPirate();
-        //@todo gerer l'exception qui est levee quand la ville n'existe pas
-        $destination = $this->game->getCityWithName($cityName);
-        //@todo gerer l'exception qui est levee quand la ville est la même que la current
-        $pirate->setLocation($destination);
-        //@todo gerer l'exception qui est levee quand la partie est finie
-        $this->game->newTurn();
+
+        try {
+            $destination = $this->game->getCityWithName($cityName);
+            $pirate->setLocation($destination);
+            $this->game->newTurn();
+        } catch (\Exception $e) {
+            $response->addLine($e->getMessage());
+        }
     }
 
 }

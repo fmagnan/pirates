@@ -31,10 +31,13 @@ class BuyResourceToTrader extends Command
         $traderName = $args[0];
         $quantity = $args[1];
 
-        //@todo gerer l'exception qui est levee quand on ne peut pas acheter
-        $trader = $this->core->buyResourcetoTrader($this->game, $traderName, $quantity);
-        $response->addLine(sprintf('You bought %d resources of type n°%s to %s', $quantity, $trader->showResource(), $traderName));
-        $response->addLine(sprintf('%s has %s unities left', $traderName, $trader->showResourceAvailable()));
+        try {
+            $trader = $this->core->buyResourcetoTrader($this->game, $traderName, $quantity);
+            $response->addLine(sprintf('You bought %d resources of type n°%s to %s', $quantity, $trader->showResource(), $traderName));
+            $response->addLine(sprintf('%s has %s unities left', $traderName, $trader->showResourceAvailable()));
+        } catch (\RangeException $e) {
+            $response->addLine($e->getMessage());
+        }
     }
 
 }
