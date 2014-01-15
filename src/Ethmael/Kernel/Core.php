@@ -134,4 +134,15 @@ class Core
 
         return $trader;
     }
+
+    public function sellResourcetoTrader($game, $traderName, $quantity)
+    {
+        $pirate = $game->getPirate();
+        $place = $pirate->isLocatedIn()->showCityName();
+        $city = $game->getCityWithName($place);
+        $trader = $city->getTraderByName($traderName);
+        $trader->buy($pirate, $quantity);
+
+        return $trader;
+    }
 }

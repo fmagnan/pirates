@@ -62,6 +62,20 @@ class Trader
         $this->stock -= $quantity;
     }
 
+    public function buy(Pirate $pirate, $quantity)
+    {
+        if ($quantity > $pirate->showBoatStock($this->showResource())) {
+            $message = sprintf('Pirate has not enough to sell %d units', $quantity);
+            throw new \RangeException($message);
+        }
+
+
+        $amount = $quantity * $this->actualPrice;
+        $pirate->giveGold($amount);
+        $pirate->getBoat()->removeResource($this->showResource(), $quantity);
+        $this->stock += $quantity;
+    }
+
     public function provisionResource($quantity)
     {
         $this->stock += $quantity;
