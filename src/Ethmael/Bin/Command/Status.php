@@ -22,7 +22,8 @@ class Status extends Command
     public function run(Response $response, array $args=[])
     {
         $response->addLine('-----PLAYER---------------------');
-        $response->addLine('Name: ' . $this->player->showName());
+        $response->addLine('Name         : ' . $this->player->showName());
+        $response->addLine('Current Turn : ' . $this->game->showCurrentTurn());
         $response->addLine('--------------------------------');
         $response->addLine('');
 
