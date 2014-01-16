@@ -17,7 +17,7 @@ class TraderTest extends \PHPUnit_Framework_TestCase
         $this->config = Config::loadConfigFile($projectRootPath . "data.yml");
 
         $this->trader = new Trader($this->config);
-        $this->trader->initTrader(Cst::WOOD, 10, 12);
+        $this->trader->initTrader("Bois", 10, 12);
     }
 
     /**
@@ -104,9 +104,9 @@ class TraderTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function newTraderShopIsOpen()
+    public function newTraderShopIsClosed()
     {
-        $this->assertEquals(true, $this->trader->isOpen());
+        $this->assertEquals(false, $this->trader->isOpen());
     }
 
     /**
