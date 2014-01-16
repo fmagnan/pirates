@@ -109,6 +109,7 @@ class Core
                 $cities[$numCity]->OpenShop($res);
             }
         }
+        $game->newResourceEvaluation();
 
     }
 

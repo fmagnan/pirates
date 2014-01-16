@@ -33,7 +33,7 @@ class Travel extends Command
         try {
             $destination = $this->game->getCityWithName($cityName);
             $pirate->setLocation($destination);
-            $this->game->newTurn();
+            $this->game->newTurn($response);
         } catch (\Exception $e) {
             $response->addLine($e->getMessage());
         }

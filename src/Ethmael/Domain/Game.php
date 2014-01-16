@@ -3,6 +3,7 @@
 namespace Ethmael\Domain;
 
 use Ethmael\Utils\Math;
+use Ethmael\Kernel\Response;
 
 class Game
 {
@@ -69,15 +70,18 @@ class Game
         return $message.'.';
     }
 
-    public function newTurn()
+    public function newTurn(Response $response)
     {
         if ($this->currentTurn == $this->gameLength) {
-            $message = sprintf('End of game.');
+
+            $message = 'End of game.';
             throw new \Exception($message);
         }
 
         $this->currentTurn += 1;
         $this->newResourceEvaluation();
+        $event = new Event();
+        $event->launchEvent(rand(1,3),rand(1,12),$this->getCities(),$this->getPirate(),$response);
     }
 
     public function newResourceEvaluation()
@@ -88,7 +92,7 @@ class Game
                 $basePrice = $trader->showBasePrice();
                 $variation = Math::randomN(1, -20, 20);
 
-                $newPrice = $actualPrice + ($basePrice * $variation[0] / 100);
+                $newPrice = intval($basePrice + ($basePrice * $variation[0] / 100));
                 $trader->changeActualPrice($newPrice);
             }
         }

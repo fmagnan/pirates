@@ -39,6 +39,19 @@ class Pirate
         return $this->showGold();
     }
 
+    public function stealGold($amount)
+    {
+
+        if ($this->gold < $amount) {
+            $this->gold = 0;
+        }
+        else {
+            $this->gold -= $amount;
+        }
+
+        return $this->showGold();
+    }
+
     public function showGold()
     {
         return $this->gold;
