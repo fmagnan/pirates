@@ -74,7 +74,7 @@ class Game
     {
         if ($this->currentTurn == $this->gameLength) {
 
-            $message = 'End of game.';
+            $message = 'End of game. Score : '.$this->pirate->showGold();
             throw new \Exception($message);
         }
 
