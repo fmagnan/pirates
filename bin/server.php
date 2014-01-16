@@ -33,6 +33,7 @@ $interpreter->registerCommand(new \Ethmael\Bin\Command\BuyResourceToTrader($core
 $interpreter->registerCommand(new \Ethmael\Bin\Command\SellResourceToTrader($core, $game));
 $interpreter->registerCommand(new \Ethmael\Bin\Command\UpgradeBoat($core, $game));
 $interpreter->registerCommand(new \Ethmael\Bin\Command\Travel($core, $game));
+$interpreter->registerCommand(new \Ethmael\Bin\Command\CityList($core, $game));
 
 $console = new Ethmael\Bin\Console(STDIN);
 $console->run(STDOUT, $interpreter);

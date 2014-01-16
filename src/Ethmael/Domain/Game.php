@@ -57,6 +57,18 @@ class Game
 
     }
 
+    public function showCityList()
+    {
+
+
+        $message = "";
+        foreach ($this->cities as $value) {
+            $message = $message.' - '.$value->showCityName();
+        }
+
+        return $message.'.';
+    }
+
     public function newTurn()
     {
         if ($this->currentTurn == $this->gameLength) {

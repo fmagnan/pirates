@@ -8,6 +8,7 @@ class Pirate
     protected $gold;
     protected $boat;
     protected $currentCity;
+    protected $visitedCities = array();
     protected $gameConfig; //Array with all parameters of the game.
 
     /*
@@ -61,10 +62,11 @@ class Pirate
 
     public function setLocation ($city) {
         if ($this->currentCity == $city) {
-            $message = sprintf('You are already into this city (%s) do not exists.',$city->showCityName());
+            $message = sprintf('You are already into this city (%s).',$city->showCityName());
             throw new \Exception($message);
         }
         $this->currentCity = $city;
+        $this->addVisitedCity($city);
     }
 
     public function isLocatedIn () {
@@ -87,6 +89,26 @@ class Pirate
             return $this->boat->showStock();
         }
         return $this->boat->showStock($resource);
+    }
+
+    public function getVisitedCities()
+    {
+        return $this->visitedCities;
+    }
+
+    public function addVisitedCity($newCity)
+    {
+        $found = false;
+
+        foreach ($this->visitedCities as $city) {
+            if ($city === $newCity) {
+                $found = true;
+            }
+        }
+        if ($found == false) {
+            $this->visitedCities[]=$newCity;
+        }
+
     }
 
 }
