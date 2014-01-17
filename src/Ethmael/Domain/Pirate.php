@@ -63,6 +63,16 @@ class Pirate
         $this->boat = $newBoat;
     }
 
+    public function upgradeBoatLevel()
+    {
+        $this->boat->upgradeBoatLevel();
+    }
+
+    public function downgradeBoatLevel()
+    {
+        $this->boat->downgradeBoatLevel();
+    }
+
     public function changeBoatName($name)
     {
         $this->boat->changeName($name);
@@ -123,5 +133,16 @@ class Pirate
         }
 
     }
+
+    public function looseStock()
+    {
+        $this->boat->destroyStock();
+    }
+
+    public function giveResource($resourceName,$quantity)
+    {
+        $this->boat->addAsManyResourceAsPossible($resourceName,$quantity);
+    }
+
 
 }

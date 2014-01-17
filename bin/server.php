@@ -14,7 +14,7 @@ try {
 }
 
 $core = new \Ethmael\Kernel\Core($config);
-$game = new \Ethmael\Domain\Game();
+$game = new \Ethmael\Domain\Game($config);
 $player = new \Ethmael\Domain\Player();
 
 $core->initCities($game);

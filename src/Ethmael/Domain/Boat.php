@@ -74,6 +74,12 @@ class Boat
         $this->capacity = $this->level * 100;
     }
 
+    public function downgradeBoatLevel()
+    {
+        $this->level -= 1;
+        $this->capacity = $this->level * 100;
+    }
+
     public function getResources()
     {
         //print_r($this->resources);
@@ -104,6 +110,15 @@ class Boat
 
     }
 
+    public function addAsManyResourceAsPossible($resourceType, $quantity)
+    {
+        if ($quantity > $this->showFreeSpace()) {
+            $quantity = $this->showFreeSpace();
+        }
+        $this->addResource($resourceType, $quantity);
+
+    }
+
     public function removeResource($resourceType, $quantity)
     {
         if ($quantity > $this->showStock($resourceType)) {
@@ -119,4 +134,8 @@ class Boat
     }
 
 
+    public function destroyStock()
+    {
+        $this->initResource();
+    }
 }

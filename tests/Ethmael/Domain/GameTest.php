@@ -20,7 +20,7 @@ class GameTest extends \PHPUnit_Framework_TestCase
      */
     public function newGameHasNoCity()
     {
-        $game = new Game();
+        $game = new Game($this->config);
         $this->assertEquals(0,$game->countCity());
     }
 
@@ -29,7 +29,7 @@ class GameTest extends \PHPUnit_Framework_TestCase
      */
     public function GameHasTwoCitiesAfterAddingTwoCities()
     {
-        $ofThrones = new Game();
+        $ofThrones = new Game($this->config);
 
         $saigon = new City($this->config);
         $saigon->newCityName("Saigon");
@@ -53,7 +53,7 @@ class GameTest extends \PHPUnit_Framework_TestCase
      */
     public function WeCanRetrieveACityByTheName()
     {
-        $ofThrones = new Game();
+        $ofThrones = new Game($this->config);
 
         $saigon = new City($this->config);
         $saigon->newCityName("Saigon");
@@ -72,7 +72,7 @@ class GameTest extends \PHPUnit_Framework_TestCase
      */
     public function GameHasOnePirateAfterAddingOnePirate()
     {
-        $ofThrones = new Game();
+        $ofThrones = new Game($this->config);
 
         $pirate = new Pirate($this->config);
         $ofThrones->addPirate($pirate);

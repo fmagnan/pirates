@@ -11,12 +11,14 @@ class Game
     protected $pirate;
     protected $currentTurn;
     protected $gameLength;
+    protected $gameConfig;
 
-    public function __construct()
+    public function __construct($config)
     {
+        $this->gameConfig = $config;
         $this->cities = [];
         $this->pirate=null;
-        $this->gameLength = 5;
+        $this->gameLength = 20;
         $this->currentTurn = 1;
     }
 
@@ -81,7 +83,7 @@ class Game
         $this->currentTurn += 1;
         $this->newResourceEvaluation();
         $event = new Event();
-        $event->launchEvent(rand(1,3),rand(1,12),$this->getCities(),$this->getPirate(),$response);
+        $event->launchEvent($this->gameConfig, rand(1,3),rand(1,12),$this->getCities(),$this->getPirate(),$response);
     }
 
     public function newResourceEvaluation()
