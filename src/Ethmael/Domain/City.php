@@ -76,7 +76,7 @@ class City
                 return $item;
             }
         }
-        $message = sprintf("Ce marchand n''existe pas %s", $traderName);
+        $message = sprintf("Ce marchand n'existe pas %s", $traderName);
         throw new \RangeException($message);
     }
 

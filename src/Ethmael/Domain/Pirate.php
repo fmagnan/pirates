@@ -83,7 +83,7 @@ class Pirate
         return $this->boat->showBoatName();
     }
 
-    public function setLocation ($city) {
+    public function setLocation (City $city) {
         if ($this->currentCity == $city) {
             $message = sprintf('You are already into this city (%s).',$city->showCityName());
             throw new \Exception($message);
@@ -106,12 +106,9 @@ class Pirate
         return $this->boat->showCapacity();
     }
 
-    public function showBoatStock($resource = null)
+    public function showBoatStock($resourceName = 'allStock')
     {
-        if ($resource == null){
-            return $this->boat->showStock();
-        }
-        return $this->boat->showStock($resource);
+        return $this->boat->showStock($resourceName);
     }
 
     public function getVisitedCities()

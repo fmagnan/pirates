@@ -58,7 +58,8 @@ class Trader
 
         $amount = $quantity * $this->actualPrice;
         $pirate->takeGold($amount);
-        $pirate->getBoat()->addResource($this->showResource(), $quantity);
+        $boat = $pirate->getBoat();
+        $boat->addResource($this->showResource(), $quantity);
         $this->stock -= $quantity;
     }
 

@@ -7,8 +7,6 @@ use Ethmael\Domain\Cst;
 use Ethmael\Domain\Pirate;
 use Ethmael\Domain\Trader;
 use Ethmael\Utils\Math;
-use Symfony\Component\Yaml\Parser;
-use Symfony\Component\Yaml\Exception\ParseException;
 
 class Core
 {

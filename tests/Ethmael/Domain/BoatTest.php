@@ -30,7 +30,6 @@ class BoatTest extends \PHPUnit_Framework_TestCase {
     {
         $clemenceau = new Boat($this->config);
         $this->assertEquals(1, $clemenceau->showLevel());
-
     }
 
     /**
