@@ -35,6 +35,23 @@ class BoatTest extends \PHPUnit_Framework_TestCase {
 
     /**
      * @test
+     * *
+     */
+    public function newBoatHasRandomNameFromConfigFile()
+    {
+        $clemenceau = new Boat($this->config);
+        $boatNames = $this->config["BoatName"];
+        $result = false;
+        foreach ($boatNames as $name) {
+            if ($name == $clemenceau->showBoatName()) {
+                $result = true;
+            }
+        }
+        $this->assertEquals(true, $result);
+    }
+
+    /**
+     * @test
      *
      */
     public function newBoatHasEmptyStock()
@@ -92,7 +109,7 @@ class BoatTest extends \PHPUnit_Framework_TestCase {
     /**
      * @test
      */
-    public function getJewelsDecreaseJewelsStock()
+    public function getWoodDecreaseWoodStock()
     {
         $clemenceau = new Boat($this->config);
         $clemenceau->addResource("Bois",50);
@@ -106,7 +123,7 @@ class BoatTest extends \PHPUnit_Framework_TestCase {
      * @expectedException        \RangeException
      * @expectedExceptionMessage not enough Resource
      */
-    public function getMoreJewelsThanBoatStock()
+    public function getMoreWoodThanBoatStock()
     {
         $clemenceau = new Boat($this->config);
         $clemenceau->addResource("Bois",50);
@@ -127,6 +144,22 @@ class BoatTest extends \PHPUnit_Framework_TestCase {
 
     }
 
+    /**
+     * @test
+     *
+     */
+    public function downgradeBoatDecreaseLevelAndCapacity()
+    {
+        $clemenceau = new Boat($this->config);
+        $clemenceau->upgradeBoatLevel();
+        $this->assertEquals(2, $clemenceau->showLevel());
+        $this->assertEquals(200, $clemenceau->showCapacity());
+
+        $clemenceau->downgradeBoatLevel();
+        $this->assertEquals(1, $clemenceau->showLevel());
+        $this->assertEquals(100, $clemenceau->showCapacity());
+
+    }
 
 
 

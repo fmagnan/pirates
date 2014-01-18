@@ -58,7 +58,7 @@ class Event {
     }
     public function boatEvent($gravity, $cities, Pirate $pirate, Response $response)
     {
-        if ($gravity < 2) { //Bonus
+        if ($gravity < 4) { //Bonus
             $pirateLevel = $pirate->showBoatCapacity()/100;
             if ($pirateLevel<12){
                 $pirate->upgradeBoatLevel();
