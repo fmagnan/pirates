@@ -27,8 +27,7 @@ class CoreTest extends \PHPUnit_Framework_TestCase {
     {
         $roberts = new Pirate($this->config);
         $roberts->giveGold(3000);
-        $laLicorne = new Boat($this->config);
-        $roberts->buyNewBoat($laLicorne);
+        $roberts->buyNewBoat();
         $mirage = new City($this->config);
         $mirage->newCityName('mirage');
         $mario = new Trader($this->config);
@@ -46,10 +45,7 @@ class CoreTest extends \PHPUnit_Framework_TestCase {
         $core->buyResourcetoTrader($game, 'mario', 6);
 
         $this->assertEquals(6, $roberts->showBoatStock());
-        /*
-         * @todo ce test echoue !
-            $this->assertEquals(6, $laLicorne->showStock());
-        */
+        $this->assertEquals(6, $roberts->showBoatStock());
 
     }
 
