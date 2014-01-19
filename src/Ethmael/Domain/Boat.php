@@ -94,8 +94,7 @@ class Boat
                 $stock += $line;
             }
             return $stock;
-        }
-        else {
+        } else {
             return $this->resources[$resourceName];
         }
     }

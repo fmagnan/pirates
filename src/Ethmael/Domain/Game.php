@@ -18,7 +18,7 @@ class Game
         $this->gameConfig = $config;
         $this->cities = [];
         $this->pirate=null;
-        $this->gameLength = 20;
+        $this->gameLength = $this->showParamNbTurn();
         $this->currentTurn = 1;
     }
 
@@ -105,4 +105,10 @@ class Game
         return $this->currentTurn;
     }
 
+    public function showParamNbTurn()
+    {
+        $nbTurn = $this->gameConfig["GameParameters"]["nbTurn"];
+        return $nbTurn;
+
+    }
 }

@@ -43,3 +43,5 @@ TraderName:
  - ["nic", "Desc"]
  - ["franck", "Desc"]
  - ["jean", "Desc"]
+GameParameters:
+ nbTurn: 20

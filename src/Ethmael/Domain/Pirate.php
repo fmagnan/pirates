@@ -83,7 +83,7 @@ class Pirate
         return $this->boat->showBoatName();
     }
 
-    public function setLocation ($city) {
+    public function setLocation (City $city) {
         if ($this->currentCity == $city) {
             $message = sprintf('You are already into this city (%s).',$city->showCityName());
             throw new \Exception($message);

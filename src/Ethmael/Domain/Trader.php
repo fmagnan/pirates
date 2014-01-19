@@ -9,7 +9,7 @@ class Trader
 
     protected $resourceName;
     protected $stock;
-    protected $actualPrice;
+    protected $sellingPrice;
     protected $basePrice;
     protected $shopOpen;
     protected $traderName;
@@ -40,7 +40,7 @@ class Trader
     {
         $this->resourceName = $resourceName;
         $this->stock = $quantity;
-        $this->actualPrice = $unitPrice;
+        $this->sellingPrice = $unitPrice;
     }
 
 
@@ -56,7 +56,7 @@ class Trader
             throw new \RangeException($message);
         }
 
-        $amount = $quantity * $this->actualPrice;
+        $amount = $quantity * $this->sellingPrice;
         $pirate->takeGold($amount);
         $pirate->getBoat()->addResource($this->showResource(), $quantity);
         $this->stock -= $quantity;
@@ -70,7 +70,7 @@ class Trader
         }
 
 
-        $amount = $quantity * $this->actualPrice;
+        $amount = $quantity * $this->sellingPrice;
         $pirate->giveGold($amount);
         $pirate->getBoat()->removeResource($this->showResource(), $quantity);
         $this->stock += $quantity;
@@ -110,12 +110,12 @@ class Trader
 
     public function showActualPrice()
     {
-        return $this->actualPrice;
+        return $this->sellingPrice;
     }
 
     public function changeActualPrice($newPrice)
     {
-        $this->actualPrice = $newPrice;
+        $this->sellingPrice = $newPrice;
     }
 
     public function showBasePrice()
