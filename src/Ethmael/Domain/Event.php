@@ -16,7 +16,7 @@ class Event {
 
     }
 
-    public function launchEvent($config, $eventNum, $gravity, $cities, $pirate, Response $response)
+    public function launchEvent($config, $eventNum, $gravity, $cities, $pirate, Reponse $response)
     {
         $this->gameConfig = $config;
         $response->addLine("DEBUG EVENT : numEvent=".$eventNum." gravity=".$gravity);

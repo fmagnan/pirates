@@ -106,12 +106,9 @@ class Pirate
         return $this->boat->showCapacity();
     }
 
-    public function showBoatStock($resource = null)
+    public function showBoatStock($resourceName = 'allStock')
     {
-        if ($resource == null){
-            return $this->boat->showStock();
-        }
-        return $this->boat->showStock($resource);
+        return $this->boat->showStock($resourceName);
     }
 
     public function getVisitedCities()

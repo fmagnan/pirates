@@ -16,7 +16,7 @@ class Boat
     /*
      * $config : game config file in array format.
      */
-    public function __construct($config)
+    public function __construct(array $config)
     {
 
         $this->gameConfig = $config;

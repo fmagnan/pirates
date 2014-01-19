@@ -1,3 +1,4 @@
+#!/usr/bin/php
 <?php
 
 $projectRootPath = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR;
