@@ -44,4 +44,53 @@ TraderName:
  - ["franck", "Desc"]
  - ["jean", "Desc"]
 GameParameters:
+ nbCities: 12
  nbTurn: 20
+Parameters:
+ nbCities: 12
+ nbTurn: 20
+Cities:
+ - ["portroyale", "Desc"]
+ - ["tortuga", "Desc"]
+ - ["belleile", "Desc"]
+ - ["mirage", "Desc"]
+ - ["bluelagon", "Desc"]
+ - ["dunkerque", "Desc"]
+ - ["saigon", "Desc"]
+ - ["maracaibo", "Desc"]
+ - ["fortdelaroche", "Desc"]
+ - ["mahebourg", "Desc"]
+ - ["guajira", "Desc"]
+ - ["vezoul", "Desc"]
+Resources: # [nomResource, niveau, prix de base]
+ - ["Bois", 1, 10]
+ - ["Coton", 1, 10]
+ - ["Tissu", 1, 10]
+ - ["Tabac", 1, 10]
+ - ["Rhum", 1, 10]
+ - ["Fer", 1, 10]
+ - ["Armes", 2, 100]
+ - ["Rubis", 2, 100]
+ - ["Ivoire", 2, 100]
+ - ["Soie", 2, 100]
+ - ["Diamant", 3, 1000]
+ - ["Opium", 3, 1000]
+Boats:
+ - ["Le Petit Bateau en Mousse"]
+ - ["L'Arcadia"]
+ - ["Atlantis"]
+ - ["Le Goéland"]
+ - ["Le Titanic"]
+Traders:
+ - ["pierre", "Desc"]
+ - ["paul", "Desc"]
+ - ["bill", "Desc"]
+ - ["luigi", "Desc"]
+ - ["mario", "Desc"]
+ - ["momo", "Desc"]
+ - ["jhon", "Desc"]
+ - ["fred", "Desc"]
+ - ["wil", "Desc"]
+ - ["nic", "Desc"]
+ - ["franck", "Desc"]
+ - ["jean", "Desc"]

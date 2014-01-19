@@ -22,24 +22,26 @@ class Trader
         $this->gameConfig = $config;
 
         // Get by default first resource (in config file)
-        $resourceList = $this->gameConfig["ResourceName"];
+        $resourceList = $this->gameConfig->getParam("ResourceName");
         $this->resourceName = $resourceList[0][0];
         $this->changeBasePrice($resourceList[0][2]);
         $this->changeActualPrice($resourceList[0][2]);
         $this->stock = 0;
 
         // Get randomly one name for the trader (in config file)
-        $TraderNames = $this->gameConfig["TraderName"];
+        $TraderNames = $this->gameConfig->getParam("TraderName");
         $liste = Math::randomN(1, 0, count($TraderNames) - 1);
         $this->traderName = $TraderNames[$liste[0]][0];
         $this->welcomeMessage = $TraderNames[$liste[0]][1];
         $this->closeShop();
     }
 
-    public function initTrader($resourceName, $unitPrice, $quantity = 0)
+    public function initTrader($traderName, $traderWelcome, $resourceName, $unitPrice, $quantity = 0)
     {
-        $this->resourceName = $resourceName;
-        $this->stock = $quantity;
+        $this->changeTraderName($traderName);
+        $this->changeWelcomeMessage($traderWelcome);
+        $this->changeResourceToSell($resourceName,$unitPrice);
+        $this->provisionResource($quantity);
         $this->sellingPrice = $unitPrice;
     }
 

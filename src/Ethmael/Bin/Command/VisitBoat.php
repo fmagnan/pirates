@@ -4,12 +4,13 @@ namespace Ethmael\Bin\Command;
 
 use Ethmael\Kernel\Registry;
 use Ethmael\Kernel\Response;
+use Ethmael\Domain\Game;
 
 class VisitBoat extends Command
 {
     protected $game;
 
-    public function __construct($game)
+    public function __construct(Game $game)
     {
         $this->game = $game;
         parent::__construct('visitboat', 'visitboat: visit your own boat');

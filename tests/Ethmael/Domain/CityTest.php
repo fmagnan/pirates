@@ -12,7 +12,7 @@ class CityTest extends \PHPUnit_Framework_TestCase
     {
         $projectRootPath = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR. '..' . DIRECTORY_SEPARATOR. '..' . DIRECTORY_SEPARATOR;
         $projectRootPath = $projectRootPath . "config". DIRECTORY_SEPARATOR;
-        $this->config = Config::loadConfigFile($projectRootPath . "data.yml");
+        $this->config = new \Ethmael\Domain\Settings($projectRootPath . "data.yml");
     }
 
     /**
@@ -21,7 +21,7 @@ class CityTest extends \PHPUnit_Framework_TestCase
     public function newCityHasDefaultName()
     {
         $city = new City($this->config);
-        $this->assertEquals("defaultName",$city->showCityName());
+        $this->assertEquals("nompardefaut",$city->showCityName());
     }
 
     /**
@@ -30,7 +30,7 @@ class CityTest extends \PHPUnit_Framework_TestCase
     public function newCityHasDefaultDescription()
     {
         $city = new City($this->config);
-        $this->assertEquals("Une ville quelconque",$city->showCityDescription());
+        $this->assertEquals("desc par defaut",$city->showCityDescription());
     }
 
     public function descriptionOfCityCanBeChanged()
@@ -67,11 +67,11 @@ class CityTest extends \PHPUnit_Framework_TestCase
     public function cityCanDealOnlyRes1OnlyIfTraderExist()
     {
         // Get the list of available resources
-        $resourceList = $this->config["ResourceName"];
+        $resourceList = $this->config->getParam("ResourceName");
 
         $city = new City($this->config);
         $trader1 = new Trader($this->config);
-        $trader1->initTrader($resourceList[0][0],10,10);
+        $trader1->initTrader("john","coucou",$resourceList[0][0],10,10);
         $city->addShop($trader1);
 
         $this->assertFalse($city->canDealWith($resourceList[1][0]));
@@ -83,11 +83,11 @@ class CityTest extends \PHPUnit_Framework_TestCase
     public function cityWithResource0CanDealWithResource0()
     {
         // Get the list of available resources
-        $resourceList = $this->config["ResourceName"];
+        $resourceList = $this->config->getParam("ResourceName");
 
         $city = new City($this->config);
         $wood = new Trader($this->config);
-        $wood->initTrader($resourceList[0][0], 10);
+        $wood->initTrader("","",$resourceList[0][0], 10);
         $city->addShop($wood);
         $this->assertTrue($city->canDealWith($resourceList[0][0]));
     }

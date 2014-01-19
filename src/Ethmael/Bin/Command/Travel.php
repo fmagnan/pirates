@@ -4,15 +4,15 @@ namespace Ethmael\Bin\Command;
 
 use Ethmael\Kernel\Registry;
 use Ethmael\Kernel\Response;
+use Ethmael\Domain\Game;
 
 class Travel extends Command
 {
-    protected $core;
+
     protected $game;
 
-    public function __construct($core, $game)
+    public function __construct(Game $game)
     {
-        $this->core = $core;
         $this->game = $game;
         parent::__construct('travel', 'travel <newCity> : travel to another city. New game turn.');
     }
@@ -26,12 +26,11 @@ class Travel extends Command
 
         $cityName = $args[0];
 
-
-
         $pirate = $this->game->getPirate();
 
         try {
-            $destination = $this->game->getCityWithName($cityName);
+            $map = $this->game->getMap();
+            $destination = $map->getCityWithName($cityName);
             $pirate->setLocation($destination);
             $this->game->newTurn($response);
         } catch (\Exception $e) {

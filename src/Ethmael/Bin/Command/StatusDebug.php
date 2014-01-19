@@ -3,7 +3,8 @@
 namespace Ethmael\Bin\Command;
 
 use Ethmael\Domain\Boat;
-use Ethmael\Domain\Cst;
+use Ethmael\Domain\Game;
+use Ethmael\Domain\Player;
 use Ethmael\Kernel\Registry;
 use Ethmael\Kernel\Response;
 
@@ -12,7 +13,7 @@ class StatusDebug extends Command
     protected $game;
     protected $player;
 
-    public function __construct($player, $game)
+    public function __construct(Player $player, Game $game)
     {
         $this->player = $player;
         $this->game = $game;
@@ -52,7 +53,8 @@ class StatusDebug extends Command
 
 
         $response->addLine('-----CITIES---------------------');
-        $cities = $this->game->getCities();
+        $map = $this->game->getMap();
+        $cities = $map->getCities();
         foreach ($cities as $city){
             $response->addLine('- '. $city->showCityName(). ' ('.$city->countOpenShop().' traders opened): '.$city->showCityDescription());
 

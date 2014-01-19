@@ -20,6 +20,12 @@ class Pirate
         $this->gold = 0;
     }
 
+    public function initPirate(City $city)
+    {
+        $this->giveGold(1000);
+        $this->buyNewBoat();
+        $this->setLocation($city);
+    }
 
     public function giveGold($amount)
     {

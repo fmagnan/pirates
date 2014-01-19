@@ -14,14 +14,18 @@ try {
     exit;
 }
 
-$core = new \Ethmael\Kernel\Core($config);
-$game = new \Ethmael\Domain\Game($config);
+$setting = new \Ethmael\Domain\Settings($file);
+$game = new \Ethmael\Domain\Game($setting);
 $player = new \Ethmael\Domain\Player();
 
-$core->initCities($game);
-$core->initTraders($game);
-$core->dispatchTraders($game);
-$pirate = $core->initPirate($game);
+$game->startGame();
+
+
+//$core = new \Ethmael\Kernel\Core($setting);
+//$core->initCities($game); //OK
+//$core->initTraders($game); //OK
+//$core->dispatchTraders($game); //OK
+//$pirate = $core->initPirate($game); //OK
 
 
 $interpreter = new \Ethmael\Bin\Interpreter(new \Ethmael\Kernel\CommandLineResponse());
@@ -30,11 +34,11 @@ $interpreter->registerCommand(new \Ethmael\Bin\Command\StatusDebug($player, $gam
 $interpreter->registerCommand(new \Ethmael\Bin\Command\VisitBoat($game));
 $interpreter->registerCommand(new \Ethmael\Bin\Command\RenamePlayer($player));
 $interpreter->registerCommand(new \Ethmael\Bin\Command\RenameBoat($game));
-$interpreter->registerCommand(new \Ethmael\Bin\Command\BuyResourceToTrader($core, $game));
-$interpreter->registerCommand(new \Ethmael\Bin\Command\SellResourceToTrader($core, $game));
-$interpreter->registerCommand(new \Ethmael\Bin\Command\UpgradeBoat($core, $game));
-$interpreter->registerCommand(new \Ethmael\Bin\Command\Travel($core, $game));
-$interpreter->registerCommand(new \Ethmael\Bin\Command\CityList($core, $game));
+$interpreter->registerCommand(new \Ethmael\Bin\Command\BuyResourceToTrader($game));
+$interpreter->registerCommand(new \Ethmael\Bin\Command\SellResourceToTrader($game));
+$interpreter->registerCommand(new \Ethmael\Bin\Command\UpgradeBoat($game));
+$interpreter->registerCommand(new \Ethmael\Bin\Command\Travel($game));
+$interpreter->registerCommand(new \Ethmael\Bin\Command\CityList($game));
 
 $console = new Ethmael\Bin\Console(STDIN);
 $console->run(STDOUT, $interpreter);

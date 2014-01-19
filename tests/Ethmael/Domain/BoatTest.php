@@ -19,7 +19,7 @@ class BoatTest extends \PHPUnit_Framework_TestCase {
     {
         $projectRootPath = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR. '..' . DIRECTORY_SEPARATOR. '..' . DIRECTORY_SEPARATOR;
         $projectRootPath = $projectRootPath . "config". DIRECTORY_SEPARATOR;
-        $this->config = Config::loadConfigFile($projectRootPath . "data.yml");
+        $this->config = new \Ethmael\Domain\Settings($projectRootPath . "data.yml");
     }
 
     /**
@@ -39,7 +39,7 @@ class BoatTest extends \PHPUnit_Framework_TestCase {
     public function newBoatHasRandomNameFromConfigFile()
     {
         $clemenceau = new Boat($this->config);
-        $boatNames = $this->config["BoatName"];
+        $boatNames = $this->config->getParam("BoatName");
         $result = false;
         foreach ($boatNames as $name) {
             if ($name == $clemenceau->showBoatName()) {

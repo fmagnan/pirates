@@ -4,16 +4,16 @@ namespace Ethmael\Bin\Command;
 
 use Ethmael\Kernel\Registry;
 use Ethmael\Kernel\Response;
+use Ethmael\Domain\Game;
+
 
 class SellResourceToTrader extends Command
 {
-    protected $core;
-    protected $game;
+     protected $game;
 
-    public function __construct($core, $game)
+    public function __construct(Game $game)
     {
-        $this->core = $core;
-        $this->game = $game;
+         $this->game = $game;
         parent::__construct('sell', 'sell <trader> <quantity>: sell resource to a Trader');
     }
 
@@ -32,7 +32,11 @@ class SellResourceToTrader extends Command
         $quantity = $args[1];
 
         try{
-            $trader = $this->core->sellResourcetoTrader($this->game, $traderName, $quantity);
+
+            $pirate = $this->game->getPirate();
+            $city = $pirate->isLocatedIn();
+            $trader = $city->getTraderByName($traderName);
+            $trader->buy($pirate, $quantity);
             $response->addLine(sprintf('Vous avez vendu %d caisses de %s à %s', $quantity, $trader->showResource(), $traderName));
             $response->addLine(sprintf('%s a maintenant %s caisses.', $traderName, $trader->showResourceAvailable()));
         } catch (\RangeException $e) {

@@ -5,7 +5,7 @@ use Ethmael\Kernel\Response;
 
 class Event {
 
-    protected $gameConfig; //Array with all parameters of the game.
+    protected $settings; //Array with all parameters of the game.
 
 
     /*
@@ -18,7 +18,7 @@ class Event {
 
     public function launchEvent($config, $eventNum, $gravity, $cities, $pirate, Response $response)
     {
-        $this->gameConfig = $config;
+        $this->settings = $config;
         $response->addLine("DEBUG EVENT : numEvent=".$eventNum." gravity=".$gravity);
         switch ($eventNum) {
             case 1:
@@ -90,7 +90,7 @@ class Event {
 
     public function stockEvent($gravity, $cities, Pirate $pirate, Response $response)
     {
-        $resources = $this->gameConfig["ResourceName"];
+        $resources = $this->settings->getParam("ResourceName");
         if ($gravity < 4) { //Bonus
             $numResource = rand(0,count($resources));
             $resource = $resources[$numResource][0];

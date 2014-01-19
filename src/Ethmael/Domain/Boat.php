@@ -16,13 +16,13 @@ class Boat
     /*
      * $config : game config file in array format.
      */
-    public function __construct(array $config)
+    public function __construct($config)
     {
 
         $this->gameConfig = $config;
 
         // Get randomly one name for the boat (in config file)
-        $boatNames = $this->gameConfig["BoatName"];
+        $boatNames = $this->gameConfig->getParam("BoatName");
         $liste = Math::randomN(1, 0, count($boatNames) - 1);
         $this->name = $boatNames[$liste[0]];
 
@@ -41,7 +41,7 @@ class Boat
      */
     public function initResource()
     {
-        $resNames = $this->gameConfig["ResourceName"];
+        $resNames = $this->gameConfig->getParam("ResourceName");
         foreach ($resNames as $item) {
             $this->resources[$item[0]] = 0;
         }

@@ -22,8 +22,9 @@ class RenameBoat extends Command
             return;
         }
         $newName = $args[0];
-        $this->game->getPirate()->getBoat()->changeName($newName);
-        $response->addLine('You\'re boat is now known as ' . $newName);
+        $pirate = $this->game->getPirate();
+        $pirate->changeBoatName($newName);
+        $response->addLine('You\'re boat is now known as ' . $pirate->showBoatName());
     }
 
 }

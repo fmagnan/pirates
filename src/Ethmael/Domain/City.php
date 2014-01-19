@@ -7,18 +7,37 @@ class City
     protected $cityName;
     protected $cityDescription;
     protected $traders;
-    protected $gameConfig; //Array with all parameters of the game.
+    protected $settings; //Array with all parameters of the game.
 
 
-    public function __construct($config)
+    public function __construct(Settings $config)
     {
-        $this->gameConfig = $config;
+        $this->settings = $config;
         $this->traders = [];
-        $this->cityName = "defaultName";
-        $this->cityDescription = "Une ville quelconque";
+        $this->changeCityName("nompardefaut");
+        $this->changeCityDescription("desc par defaut");
     }
 
+    public function initCity($cityName, $cityDescription)
+    {
+        $this->changeCityName($cityName);
+        $this->changeCityDescription($cityDescription);
+        $resources = $this->settings->getAllResources();
+        $nbResources = count($resources);
 
+        for ($i = 0; $i < $nbResources; $i++) {
+            $traderName = $this->settings->getTraderName($i);
+            $traderWelcomeMsg = $this->settings->getTraderWelcomeMsg($i);
+
+            $resourceToSell = $this->settings->getResourceName($i);
+            $basicResourcePrice = $this->settings->getResourceBasicPrice($i);
+
+            $newTrader = new Trader($this->settings);
+            $newTrader->initTrader($traderName,$traderWelcomeMsg,$resourceToSell,$basicResourcePrice,100);
+            $this->addShop($newTrader);
+        }
+
+    }
 
     public function getAvailableTraders()
     {
@@ -95,6 +114,16 @@ class City
     }
 
     public function newCityDescription($desc)
+    {
+        $this->cityDescription = $desc;
+    }
+
+    public function changeCityName($name)
+    {
+        $this->cityName = $name;
+    }
+
+    public function changeCityDescription($desc)
     {
         $this->cityDescription = $desc;
     }

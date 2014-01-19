@@ -4,15 +4,16 @@ namespace Ethmael\Bin\Command;
 
 use Ethmael\Kernel\Registry;
 use Ethmael\Kernel\Response;
+use Ethmael\Domain\Game;
 
 class UpgradeBoat extends Command
 {
-    protected $core;
+
     protected $game;
 
-    public function __construct($core, $game)
+    public function __construct(Game $game)
     {
-        $this->core = $core;
+
         $this->game = $game;
         parent::__construct('upgradeboat', 'upgradeboat : upgrade your boat to increase capacity.');
     }

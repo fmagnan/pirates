@@ -7,20 +7,32 @@ use Ethmael\Kernel\Response;
 
 class Game
 {
+    protected $map;
     protected $cities;
     protected $pirate;
     protected $currentTurn;
     protected $gameLength;
-    protected $gameConfig;
+    protected $settings;
 
     public function __construct($config)
     {
-        $this->gameConfig = $config;
+        $this->settings = $config;
+        $this->map = new Map($this->settings);
+        $this->pirate = new Pirate($this->settings);
+
         $this->cities = [];
-        $this->pirate=null;
         $this->gameLength = $this->showParamNbTurn();
+        $this->currentTurn = 0;
+    }
+
+
+    public function startGame()
+    {
+        $this->map->initMap();
+        $this->pirate->initPirate($this->map->getRandomCity());
         $this->currentTurn = 1;
     }
+
 
     public function countCity()
     {
@@ -47,30 +59,9 @@ class Game
         return $this->cities;
     }
 
-    public function getCityWithName($name)
-    {
-        foreach ($this->cities as $value) {
-            if ($value->showCityName() == $name) {
-                return $value;
-            }
-        }
-
-        $message = sprintf('This City (%s) do not exists.',$name);
-        throw new \Exception($message);
-
-    }
-
-    public function showCityList()
-    {
 
 
-        $message = "";
-        foreach ($this->cities as $value) {
-            $message = $message.' - '.$value->showCityName();
-        }
 
-        return $message.'.';
-    }
 
     public function newTurn(Response $response)
     {
@@ -83,7 +74,7 @@ class Game
         $this->currentTurn += 1;
         $this->newResourceEvaluation();
         $event = new Event();
-        $event->launchEvent($this->gameConfig, rand(1,3),rand(1,12),$this->getCities(),$this->getPirate(),$response);
+        $event->launchEvent($this->settings, rand(1,3),rand(1,12),$this->getCities(),$this->getPirate(),$response);
     }
 
     public function newResourceEvaluation()
@@ -107,8 +98,13 @@ class Game
 
     public function showParamNbTurn()
     {
-        $nbTurn = $this->gameConfig["GameParameters"]["nbTurn"];
-        return $nbTurn;
+        $param = $this->settings->getParam("GameParameters");
+        return $param["nbTurn"];
 
+    }
+
+    public function getMap()
+    {
+        return $this->map;
     }
 }

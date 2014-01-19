@@ -4,7 +4,7 @@ namespace Ethmael\Utils;
 
 class Config
 {
-       public static function loadConfigFile($path)
+    public static function loadConfigFile($path)
     {
         $yaml = new \Symfony\Component\Yaml\Parser();
         try {
@@ -15,6 +15,5 @@ class Config
         }
 
         return $config;
-
     }
 }

@@ -11,11 +11,9 @@ use Ethmael\Kernel\Response;
 class CityList extends Command
 {
     protected $game;
-    protected $player;
 
-    public function __construct($player, $game)
+    public function __construct(Game $game)
     {
-        $this->player = $player;
         $this->game = $game;
         parent::__construct('city', 'city: display list of cities');
     }
@@ -25,10 +23,11 @@ class CityList extends Command
         $pirate = $this->game->getPirate();
         if (is_null($pirate)) {return;}
 
-        $cities = $this->game->getCities();
+        $map = $this->game->getMap();
+
         $visitedCities = $pirate->getVisitedCities();
 
-        $response->addLine('Les villes disponibles sont : '.$this->game->showCityList());
+        $response->addLine('Les villes disponibles sont : '.$map->showCityList());
 
         $response->addLine('Les villes visitées sont :');
         foreach ($visitedCities as $vcity){

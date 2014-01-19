@@ -13,14 +13,14 @@ class Core
 
     protected $config;
 
-    public function __construct(array $config)
+    public function __construct($config)
     {
         $this->config = $config;
     }
 
     public function initCities($game, $nbCities = 12)
     {
-        $cities = $this->config["CityName"];
+        $cities = $this->config->getParam("CityName");
         $liste = Math::randomN($nbCities, 0, count($cities) - 1);
 
         for ($i = 0; $i < $nbCities; $i++) {
@@ -40,8 +40,8 @@ class Core
      */
     public function initTraders($game)
     {
-        $traders = $this->config["TraderName"];
-        $resources = $this->config["ResourceName"];
+        $traders = $this->config->getParam("TraderName");
+        $resources = $this->config->getParam("ResourceName");
         $nbResources = count($resources);
 
         //$liste = Math::randomN($nbTraders, 0, count($traders) - 1);
@@ -72,7 +72,7 @@ class Core
      */
     public function dispatchTraders($game)
     {
-        $resources = $this->config["ResourceName"];
+        $resources = $this->config->getParam("ResourceName");
         foreach ($resources as $res){
             if ($res[1] == 1){
                 $resLVL1[] = $res[0];
@@ -122,7 +122,7 @@ class Core
 
         return $pirate;
     }
-
+/*
     public function buyResourcetoTrader($game, $traderName, $quantity)
     {
         $pirate = $game->getPirate();
@@ -133,7 +133,7 @@ class Core
 
         return $trader;
     }
-
+*/
     public function sellResourcetoTrader($game, $traderName, $quantity)
     {
         $pirate = $game->getPirate();
