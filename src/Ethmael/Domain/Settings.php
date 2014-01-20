@@ -16,6 +16,7 @@ class Settings {
     const PARAMETERS = "Parameters";
     const NBCITIES = "nbCities";
     const NBTURN = "nbTurn";
+    const STARTINGGOLD = "startingGold";
 
     const CITIES = "Cities";
     const CITYNAME = 0;
@@ -129,5 +130,10 @@ class Settings {
     public function getParameterNbCities()
     {
         return $this->parameters[$this::NBCITIES];
+    }
+
+    public function getParameterStartingGold()
+    {
+        return $this->parameters[$this::STARTINGGOLD];
     }
 } 

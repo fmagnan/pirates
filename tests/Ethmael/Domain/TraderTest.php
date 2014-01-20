@@ -49,7 +49,7 @@ class TraderTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      * @expectedException        \RangeException
-     * @expectedExceptionMessage not enough gold
+     * @expectedExceptionMessage Pas assez d'or
      */
     public function traderCannotSellToPoorPirate()
     {

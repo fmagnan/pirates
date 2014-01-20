@@ -9,11 +9,8 @@ class Pirate
     protected $boat;
     protected $currentCity;
     protected $visitedCities = array();
-    protected $settings; //Array with all parameters of the game.
+    protected $settings;
 
-    /*
-     * $config : game config file loaded in an array.
-     */
     public function __construct($config)
     {
         $this->settings = $config;
@@ -22,7 +19,7 @@ class Pirate
 
     public function initPirate(City $city)
     {
-        $this->giveGold(1000);
+        $this->giveGold($this->settings->getParameterStartingGold());
         $this->buyNewBoat($this->settings->getRandomBoatName());
         $this->setLocation($city);
     }
@@ -37,7 +34,7 @@ class Pirate
     public function takeGold($amount)
     {
         if ($amount > $this->gold) {
-            $message = sprintf('not enough gold in purse to take %d', $amount);
+            $message = sprintf("Pas assez d'or pour payer %d po.", $amount);
             throw new \RangeException($message);
         }
         $this->gold -= $amount;
@@ -47,7 +44,6 @@ class Pirate
 
     public function stealGold($amount)
     {
-
         if ($this->gold < $amount) {
             $this->gold = 0;
         }
@@ -147,5 +143,12 @@ class Pirate
         $this->boat->addAsManyResourceAsPossible($resourceName,$quantity);
     }
 
+    /*
+     * -----  SHOW METHOD
+     */
 
+
+    /*
+     * -----  CHANGE METHOD
+     */
 }

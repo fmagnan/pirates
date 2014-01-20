@@ -1,6 +1,7 @@
 Parameters:
  nbCities: 12
  nbTurn: 20
+ startingGold: 1000
 Cities: # [nomVille, Description]
  - ["portroyale", "Desc"]
  - ["tortuga", "Desc"]
