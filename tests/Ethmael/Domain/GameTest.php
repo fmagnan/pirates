@@ -32,14 +32,14 @@ class GameTest extends \PHPUnit_Framework_TestCase
         $ofThrones = new Game($this->config);
 
         $saigon = new City($this->config);
-        $saigon->newCityName("Saigon");
+        $saigon->changeCityName("Saigon");
         $wood = new Trader($this->config);
         $wood->initTrader("","","Bois", 10);
         $saigon->addShop($wood);
         $ofThrones->addCity($saigon);
 
         $PuertoRico = new City($this->config);
-        $PuertoRico->newCityName("Puerto Rico");
+        $PuertoRico->changeCityName("Puerto Rico");
         $wood2 = new Trader($this->config);
         $wood2->initTrader("","","Bois", 10);
         $PuertoRico->addShop($wood2);
@@ -56,7 +56,7 @@ class GameTest extends \PHPUnit_Framework_TestCase
         $ofThrones = new Game($this->config);
 
         $saigon = new City($this->config);
-        $saigon->newCityName("Saigon");
+        $saigon->changeCityName("Saigon");
         $ofThrones->addCity($saigon);
 
         $PuertoRico = new City($this->config);

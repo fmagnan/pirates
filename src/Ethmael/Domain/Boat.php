@@ -95,8 +95,8 @@ class Boat
     }
 
     /*
-    * -----  SHOW METHOD
-    */
+     * -----  SHOW METHOD
+     */
     public function showLevel()
     {
         return $this->level;

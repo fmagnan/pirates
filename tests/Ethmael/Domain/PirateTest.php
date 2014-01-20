@@ -55,7 +55,7 @@ class PirateTest extends \PHPUnit_Framework_TestCase
     {
         $albator = new Pirate($this->config);
         $saigon = new City($this->config);
-        $saigon->newCityName("Saigon");
+        $saigon->changeCityName("Saigon");
 
         $albator->setLocation($saigon);
         $this->assertEquals("Saigon", $albator->isLocatedIn()->showCityName());

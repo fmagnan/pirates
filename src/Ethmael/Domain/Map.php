@@ -26,7 +26,7 @@ class Map {
             $cityName = $this->settings->getCityName($randomNum[$i]);
             $cityDesc = $this->settings->getCityDescription($randomNum[$i]);
 
-            $newCity = new City($this->settings);
+            $newCity = new City($this->settings, $cityName, $cityDesc);
             $newCity->initCity($cityName, $cityDesc);
             $this->cities[] = $newCity;
         }

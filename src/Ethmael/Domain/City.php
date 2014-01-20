@@ -7,21 +7,18 @@ class City
     protected $cityName;
     protected $cityDescription;
     protected $traders;
-    protected $settings; //Array with all parameters of the game.
+    protected $settings;
 
-
-    public function __construct(Settings $config)
+    public function __construct(Settings $config, $name="montpellier", $desc="Wow")
     {
         $this->settings = $config;
         $this->traders = [];
-        $this->changeCityName("nompardefaut");
-        $this->changeCityDescription("desc par defaut");
+        $this->changeCityName($name);
+        $this->changeCityDescription($desc);
     }
 
-    public function initCity($cityName, $cityDescription)
+    public function initCity()
     {
-        $this->changeCityName($cityName);
-        $this->changeCityDescription($cityDescription);
         $resources = $this->settings->getAllResources();
         $nbResources = count($resources);
 
@@ -36,12 +33,22 @@ class City
             $newTrader->initTrader($traderName,$traderWelcomeMsg,$resourceToSell,$basicResourcePrice,100);
             $this->addShop($newTrader);
         }
-
     }
 
     public function getAvailableTraders()
     {
         return $this->traders;
+    }
+
+    public function getTraderByName($traderName)
+    {
+        foreach ($this->traders as $item) {
+            if ($traderName == $item->showTraderName()) {
+                return $item;
+            }
+        }
+        $message = sprintf("Trader does not exist : %s.", $traderName);
+        throw new \Exception($message);
     }
 
     public function addShop(Trader $trader)
@@ -88,46 +95,17 @@ class City
         return false;
     }
 
-    public function getTraderByName($traderName)
-    {
-        foreach ($this->traders as $item) {
-            if ($traderName == $item->showTraderName()) {
-                return $item;
-            }
-        }
-        $message = sprintf("Ce marchand n'existe pas %s", $traderName);
-        throw new \RangeException($message);
-    }
-
     public function upgradeBoat(Pirate $pirate)
     {
         $actualBoatCapacity = $pirate->showBoatCapacity();
         $upgradePrice = $actualBoatCapacity * 20;
         $pirate->takeGold($upgradePrice);
-        $boat = $pirate->getBoat();
-        $boat->upgradeBoatLevel();
+        $pirate->upgradeBoatLevel();
     }
 
-    public function newCityName($name)
-    {
-        $this->cityName = $name;
-    }
-
-    public function newCityDescription($desc)
-    {
-        $this->cityDescription = $desc;
-    }
-
-    public function changeCityName($name)
-    {
-        $this->cityName = $name;
-    }
-
-    public function changeCityDescription($desc)
-    {
-        $this->cityDescription = $desc;
-    }
-
+    /*
+     * -----  SHOW METHOD
+     */
     public function showCityName()
     {
         return $this->cityName;
@@ -138,5 +116,17 @@ class City
         return $this->cityDescription;
     }
 
+    /*
+     * -----  CHANGE METHOD
+     */
+    public function changeCityName($name)
+    {
+        $this->cityName = $name;
+    }
+
+    public function changeCityDescription($desc)
+    {
+        $this->cityDescription = $desc;
+    }
 }
 
