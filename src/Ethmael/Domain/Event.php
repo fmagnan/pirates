@@ -1,94 +1,94 @@
 <?php
 
 namespace Ethmael\Domain;
-use Ethmael\Kernel\Response;
+
 
 class Event {
 
     protected $settings; //Array with all parameters of the game.
 
-
-    /*
-     * $config : game config file in array format.
-     */
-    public function __construct()
-    {
-
-    }
-
-    public function launchEvent($config, $eventNum, $gravity, $cities, $pirate, Response $response)
+    public function __construct($config)
     {
         $this->settings = $config;
-        $response->addLine("DEBUG EVENT : numEvent=".$eventNum." gravity=".$gravity);
+    }
+
+    public function launchEvent($eventNum, $gravity, $cities, $pirate)
+    {
         switch ($eventNum) {
             case 1:
-                $this->goldEvent($gravity, $cities, $pirate, $response);
+                return $this->goldEvent($gravity, $pirate);
                 break;
             case 2:
-                $this->boatEvent($gravity, $cities, $pirate, $response);
+                return $this->boatEvent($gravity, $pirate);
                 break;
             case 3:
-                $this->stockEvent($gravity, $cities, $pirate, $response);
+                return $this->stockEvent($gravity, $pirate);
                 break;
         }
     }
 
-    public function goldEvent($gravity, $cities, Pirate $pirate,Response $response)
+    public function goldEvent($gravity, Pirate $pirate)
     {
-        if ($gravity < 7) { //Bonus
+        if ($gravity < 6) { //Bonus
             $pirateLevel = $pirate->showBoatCapacity()/100;
-            $bonus = 9 - $gravity;
+            $bonus = 8 - $gravity;
             $nbGold = pow(($bonus + $pirateLevel),2)*10;
-            $response->addLine("Au cours de votre voyage, vous croisez un navire de la flotte marchande Belge.");
-            $response->addLine("A votre grande surprise, le bateau est vide ... Mais la bourse du Capitaine est pleine.");
-            $response->addLine("Vous coulez le bateau et son équipage et récupérez ".$nbGold." pièces d'or.");
+            $message = "Au cours de votre voyage, vous croisez un navire de la flotte marchande Belge.\n";
+            $message .="A votre grande surprise, le bateau est vide ... Mais la bourse du Capitaine est pleine.\n";
+            $message .="Vous coulez le bateau et son équipage et récupérez ".$nbGold." pièces d'or.\n";
             $pirate->giveGold($nbGold);
+            return $message;
         }
         else { //Malus
             $pirateLevel = $pirate->showBoatCapacity()/100;
-            $malus = $gravity - 4;
+            $malus = $gravity - 3;
             $nbGold = pow(($malus + $pirateLevel),2)*5;
-            $response->addLine("Le jour se lève sur la mer. A l'horizon, un drapeau flotte.");
-            $response->addLine("C'est un navire de guerre de la flotte Anglaise et il fonce droit sur vous !");
-            $response->addLine("Ne pouvant lutter, vous êtes abordé. Tel de vulgaires pirates, ils prennent l'or qu'ils trouvent.");
-            $response->addLine("C'est en les voyant partir que vous jurez devant votre équipage que vous récupèrerez ces ".$nbGold." pièces d'or par tous les moyens.");
-
+            $message ="Le jour se lève sur la mer. A l'horizon, un drapeau flotte.\n";
+            $message .="C'est un navire de guerre de la flotte Anglaise et il fonce droit sur vous !\n";
+            $message .="Ne pouvant lutter, vous êtes abordé. Tel de vulgaires pirates, ils prennent l'or qu'ils trouvent.\n";
+            $message .="C'est en les voyant partir que vous jurez devant votre équipage que vous récupèrerez ces ".$nbGold." pièces d'or par tous les moyens.\n";
             $pirate->stealGold($nbGold);
+            return $message;
         }
     }
-    public function boatEvent($gravity, $cities, Pirate $pirate, Response $response)
+    public function boatEvent($gravity, Pirate $pirate)
     {
-        if ($gravity < 4) { //Bonus
+        if ($gravity < 3) { //Bonus
             $pirateLevel = $pirate->showBoatCapacity()/100;
             if ($pirateLevel<12){
                 $pirate->upgradeBoatLevel();
-                $response->addLine("Vous tentez de convaincre ce capitaine d'eau douce qu'il n'a pas besoin d'un si gros bateau, mais il ne comprend pas !");
-                $response->addLine("Peu importe, ce gros bateau est maintenant à vous !");
+                $message ="Vous tentez de convaincre ce capitaine d'eau douce qu'il n'a pas besoin d'un si gros bateau, mais il ne comprend pas !\n";
+                $message .="Peu importe, ce gros bateau est maintenant à vous !\n";
+                return $message;
             }
             else {
-                $response->addLine("Vous avez beau lorgner sur ce navire que vous venez d'aborder, il n'est pas mieux que le votre.");
+                $message ="Vous avez beau lorgner sur ce navire que vous venez d'aborder, il n'est pas mieux que le votre.\n";
+                return $message;
             }
         }
-        else if ($gravity > 9) { //Malus
+        else if ($gravity > 8) { //Malus
             $pirateLevel = $pirate->showBoatCapacity()/100;
             if ($pirateLevel > 1){
                 $pirate->downgradeBoatLevel();
                 $pirate->looseStock();
-                $response->addLine("Le problème sur la mer, c'est que le plus fort a toujours raison !");
-                $response->addLine("C'est d'ailleurs un sacré problème lorsque l'on a le sabre sous la gorge.");
-                $response->addLine("C'est avec la larme à l'oeuil que vous voyez votre ancien navire et sa cargaison s'enfuir.");
-                $response->addLine("Il ne vous reste plus qu'à faire le tour de ce nouveau moyen de transport.");
+                $message ="Le problème sur la mer, c'est que le plus fort a toujours raison !\n";
+                $message .="C'est d'ailleurs un sacré problème lorsque l'on a le sabre sous la gorge.\n";
+                $message .="C'est avec la larme à l'oeuil que vous voyez votre ancien navire et sa cargaison s'enfuir.\n";
+                $message .="Il ne vous reste plus qu'à faire le tour de ce nouveau moyen de transport.\n";
+                return $message;
             }
             else {
-                $response->addLine("Votre bateau est dans un tel état que ce Pirate vous le laisse et continue sa route.");
+                $message ="Votre bateau est dans un tel état que ce Pirate vous le laisse et continue sa route.\n";
+                return $message;
             }
         }
         else {
-            $response->addLine("Vous voguez sur les mers du Sud sans encombre");
+            $message ="Vous voguez sur les mers du Sud sans encombre.\n";
+            return $message;
         }
     }
 
-    public function stockEvent($gravity, $cities, Pirate $pirate, Response $response)
+    public function stockEvent($gravity, Pirate $pirate)
     {
         $resources = $this->settings->getAllResources();
         if ($gravity < 4) { //Bonus
@@ -98,17 +98,19 @@ class Event {
             $quantityFound = (4 - $resourceLevel) * 10;
             $pirate->giveResource($resource,$quantityFound);
 
-            $response->addLine("Vous venez de trouver des caisses (".$resource." x ".$quantityFound.") flottant sur l'eau.");
-            $response->addLine("Vous les stockez dans votre calle, tout heureux de cette trouvaille.");
-
+            $message ="Vous venez de trouver des caisses (".$resource." x ".$quantityFound.") flottant sur l'eau.\n";
+            $message .="Vous les stockez dans votre calle, tout heureux de cette trouvaille.\n";
+            return $message;
         }
-        else if ($gravity > 9) { //Malus
+        else if ($gravity > 7) { //Malus
 
-            $response->addLine("Vous voguez sur les mers du Sud sans encombre");
+            $message ="Vous voguez sur les mers du Sud sans encombre, mais ça aurait pu être pire !.\n";
+            return $message;
 
         }
         else {
-            $response->addLine("Vous voguez sur les mers du Sud sans encombre");
+            $message = "Vous voguez sur les mers du Sud sans encombre.\n";
+            return $message;
         }
     }
 } 

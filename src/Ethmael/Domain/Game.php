@@ -59,10 +59,6 @@ class Game
         return $this->cities;
     }
 
-
-
-
-
     public function newTurn(Response $response)
     {
         if ($this->currentTurn == $this->gameLength) {
@@ -73,8 +69,9 @@ class Game
 
         $this->currentTurn += 1;
         $this->newResourceEvaluation();
-        $event = new Event();
-        $event->launchEvent($this->settings, rand(1,3),rand(1,12),$this->getCities(),$this->getPirate(),$response);
+        $event = new Event($this->settings);
+        $message = $event->launchEvent(rand(1,3),rand(1,10),$this->getCities(),$this->getPirate());
+        $response->addLine($message);
     }
 
     public function newResourceEvaluation()
