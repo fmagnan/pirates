@@ -15,6 +15,7 @@ class Settings {
 
     const PARAMETERS = "Parameters";
     const NBCITIES = "nbCities";
+    const NBTURN = "nbTurn";
 
     const CITIES = "Cities";
     const CITYNAME = 0;
@@ -47,11 +48,6 @@ class Settings {
         $this->resources = $this->configFile[$this::RESOURCES];
         $this->traders = $this->configFile[$this::TRADERS];
         $this->boats = $this->configFile[$this::BOATS];
-    }
-
-    public function getNbOfCities()
-    {
-        return $this->parameters[$this::NBCITIES];
     }
 
     public function getAllCities()
@@ -125,9 +121,13 @@ class Settings {
         return $this->parameters;
     }
 
-   /* public function getParam($name)
+    public function getParameterNbTurn()
     {
-        return $this->configFile[$name];
-    }*/
+        return $this->parameters[$this::NBTURN];
+    }
 
+    public function getParameterNbCities()
+    {
+        return $this->parameters[$this::NBCITIES];
+    }
 } 

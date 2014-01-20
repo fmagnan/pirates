@@ -1,7 +1,7 @@
 Parameters:
  nbCities: 12
  nbTurn: 20
-Cities:
+Cities: # [nomVille, Description]
  - ["portroyale", "Desc"]
  - ["tortuga", "Desc"]
  - ["belleile", "Desc"]
@@ -27,14 +27,14 @@ Resources: # [nomResource, niveau, prix de base]
  - ["Soie", 2, 100]
  - ["Diamant", 3, 1000]
  - ["Opium", 3, 1000]
-Boats:
+Boats: # [nomBateau]
  - ["Le Petit Bateau en Mousse"]
  - ["L'Arcadia"]
  - ["Atlantis"]
  - ["Le Goéland"]
  - ["Le Titanic"]
-Traders:
- - ["pierre", "Desc"]
+Traders: # [nomTrader, Welcome Message]
+ - ["pierre", "Oyé Oyé brave gens"]
  - ["paul", "Desc"]
  - ["bill", "Desc"]
  - ["luigi", "Desc"]

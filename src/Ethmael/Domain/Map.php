@@ -18,7 +18,7 @@ class Map {
     public function initMap()
     {
 
-        $nbCities = $this->settings->getNbOfCities();
+        $nbCities = $this->settings->getParameterNbCities();
         $cityList = $this->settings->getAllCities();
         $randomNum = Math::randomN($nbCities, 0, count($cityList) - 1);
 

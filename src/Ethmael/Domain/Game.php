@@ -25,7 +25,6 @@ class Game
         $this->currentTurn = 0;
     }
 
-
     public function startGame()
     {
         $this->map->initMap();
@@ -33,16 +32,10 @@ class Game
         $this->currentTurn = 1;
     }
 
-
     public function countCity()
     {
-        $numberOfCity = count($this->cities);
+        $numberOfCity = count($this->map->getCities());
         return $numberOfCity;
-    }
-
-    public function addCity($city)
-    {
-        $this->cities[] = $city;
     }
 
     public function addPirate($pirate)
@@ -56,13 +49,12 @@ class Game
     }
     public function getCities()
     {
-        return $this->cities;
+        return $this->map->getCities();
     }
 
     public function newTurn(Response $response)
     {
         if ($this->currentTurn == $this->gameLength) {
-
             $message = 'End of game. Score : '.$this->pirate->showGold();
             throw new \Exception($message);
         }
@@ -76,7 +68,7 @@ class Game
 
     public function newResourceEvaluation()
     {
-        foreach ($this->cities as $city) {
+        foreach ($this->map->getCities() as $city) {
             foreach ($city->getAvailableTraders() as $trader) {
                 $actualPrice = $trader->showActualPrice();
                 $basePrice = $trader->showBasePrice();
@@ -95,9 +87,7 @@ class Game
 
     public function showParamNbTurn()
     {
-        $param = $this->settings->getAllParameters();
-        return $param["nbTurn"];
-
+        return $this->settings->getParameterNbTurn();
     }
 
     public function getMap()
