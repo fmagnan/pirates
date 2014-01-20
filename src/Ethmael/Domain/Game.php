@@ -98,7 +98,7 @@ class Game
 
     public function showParamNbTurn()
     {
-        $param = $this->settings->getParam("GameParameters");
+        $param = $this->settings->getAllParameters();
         return $param["nbTurn"];
 
     }

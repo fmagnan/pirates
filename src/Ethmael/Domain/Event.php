@@ -90,7 +90,7 @@ class Event {
 
     public function stockEvent($gravity, $cities, Pirate $pirate, Response $response)
     {
-        $resources = $this->settings->getParam("ResourceName");
+        $resources = $this->settings->getAllResources();
         if ($gravity < 4) { //Bonus
             $numResource = rand(0,count($resources));
             $resource = $resources[$numResource][0];

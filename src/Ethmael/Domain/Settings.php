@@ -30,6 +30,7 @@ class Settings {
     const TRADERWELCOMEMSG = 1;
 
     const BOATS = "Boats";
+    const BOATNAME = 0;
 
     public function __construct($path)
     {
@@ -103,9 +104,30 @@ class Settings {
         return $this->resources[$num][$this::RESOURCEBASICPRICE];
     }
 
-    public function getParam($name)
+    public function getAllBoats()
+    {
+        return $this->boats;
+    }
+
+    public function getBoatName($num)
+    {
+        return $this->boats[$num][$this::BOATNAME];
+    }
+
+    public function getRandomBoatName()
+    {
+        $nb = count($this->boats);
+        return $this->getBoatName(rand(0,$nb-1));
+    }
+
+    public function getAllParameters()
+    {
+        return $this->parameters;
+    }
+
+   /* public function getParam($name)
     {
         return $this->configFile[$name];
-    }
+    }*/
 
 } 

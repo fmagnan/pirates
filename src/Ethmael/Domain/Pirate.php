@@ -9,21 +9,21 @@ class Pirate
     protected $boat;
     protected $currentCity;
     protected $visitedCities = array();
-    protected $gameConfig; //Array with all parameters of the game.
+    protected $settings; //Array with all parameters of the game.
 
     /*
      * $config : game config file loaded in an array.
      */
     public function __construct($config)
     {
-        $this->gameConfig = $config;
+        $this->settings = $config;
         $this->gold = 0;
     }
 
     public function initPirate(City $city)
     {
         $this->giveGold(1000);
-        $this->buyNewBoat();
+        $this->buyNewBoat($this->settings->getRandomBoatName());
         $this->setLocation($city);
     }
 
@@ -63,9 +63,9 @@ class Pirate
         return $this->gold;
     }
 
-    public function buyNewBoat()
+    public function buyNewBoat($name)
     {
-        $newBoat = new Boat($this->gameConfig);
+        $newBoat = new Boat($this->settings, $name);
         $this->boat = $newBoat;
     }
 

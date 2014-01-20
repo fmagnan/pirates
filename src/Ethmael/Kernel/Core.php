@@ -17,7 +17,7 @@ class Core
     {
         $this->config = $config;
     }
-
+/*
     public function initCities($game, $nbCities = 12)
     {
         $cities = $this->config->getParam("CityName");
@@ -34,10 +34,10 @@ class Core
 
         //print_r ($this->config);
     }
-
+*/
     /*
      * create as many trader as available resources
-     */
+
     public function initTraders($game)
     {
         $traders = $this->config->getParam("TraderName");
@@ -63,13 +63,13 @@ class Core
             }
             //print_r($city->getAvailableTraders());
         }
-    }
+    } */
 
     /*
      * Resource lvl 1 : sold in 5 cities
      * Resource lvl 2 : sold in 4 cities
      * Resource lvl 3 : sold in 4 cities
-     */
+
     public function dispatchTraders($game)
     {
         $resources = $this->config->getParam("ResourceName");
@@ -121,7 +121,7 @@ class Core
         $game->addPirate($pirate);
 
         return $pirate;
-    }
+    }*/
 /*
     public function buyResourcetoTrader($game, $traderName, $quantity)
     {
@@ -133,7 +133,7 @@ class Core
 
         return $trader;
     }
-*/
+
     public function sellResourcetoTrader($game, $traderName, $quantity)
     {
         $pirate = $game->getPirate();
@@ -143,5 +143,5 @@ class Core
         $trader->buy($pirate, $quantity);
 
         return $trader;
-    }
+    }*/
 }

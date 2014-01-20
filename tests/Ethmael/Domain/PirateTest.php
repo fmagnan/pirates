@@ -43,7 +43,7 @@ class PirateTest extends \PHPUnit_Framework_TestCase
     public function PirateCanChangeBoatName()
     {
         $albator = new Pirate($this->config);
-        $albator->buyNewBoat();
+        $albator->buyNewBoat("toto");
         $albator->changeBoatName("Azerty");
         $this->assertEquals("Azerty", $albator->showBoatName());
     }

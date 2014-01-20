@@ -14,22 +14,22 @@ class Trader
     protected $shopOpen;
     protected $traderName;
     protected $welcomeMessage;
-    protected $gameConfig; //Array with all parameters of the game.
+    protected $settings; //Array with all parameters of the game.
 
 
     public function __construct($config)
     {
-        $this->gameConfig = $config;
+        $this->settings = $config;
 
         // Get by default first resource (in config file)
-        $resourceList = $this->gameConfig->getParam("ResourceName");
+        $resourceList = $this->settings->getAllResources();
         $this->resourceName = $resourceList[0][0];
         $this->changeBasePrice($resourceList[0][2]);
         $this->changeActualPrice($resourceList[0][2]);
         $this->stock = 0;
 
         // Get randomly one name for the trader (in config file)
-        $TraderNames = $this->gameConfig->getParam("TraderName");
+        $TraderNames = $this->settings->getAllTraders();
         $liste = Math::randomN(1, 0, count($TraderNames) - 1);
         $this->traderName = $TraderNames[$liste[0]][0];
         $this->welcomeMessage = $TraderNames[$liste[0]][1];

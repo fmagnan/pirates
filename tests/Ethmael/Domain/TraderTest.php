@@ -28,7 +28,7 @@ class TraderTest extends \PHPUnit_Framework_TestCase
     public function traderCannotSellMoreThanItsQuantity()
     {
         $dreadPirateRoberts = new Pirate($this->config);
-        $dreadPirateRoberts->buyNewBoat();
+        $dreadPirateRoberts->buyNewBoat("toto");
         $this->trader->sell($dreadPirateRoberts, 40);
     }
 
@@ -40,7 +40,7 @@ class TraderTest extends \PHPUnit_Framework_TestCase
     public function traderCannotSellToPirateWithoutFreeSpace()
     {
         $dreadPirateRoberts = new Pirate($this->config);
-        $dreadPirateRoberts->buyNewBoat();
+        $dreadPirateRoberts->buyNewBoat("toto");
         $dreadPirateRoberts->giveGold(500);
         $dreadPirateRoberts->getBoat()->addResource("Bois",99);
         $this->trader->sell($dreadPirateRoberts, 2);
@@ -55,7 +55,7 @@ class TraderTest extends \PHPUnit_Framework_TestCase
     {
         $dreadPirateRoberts = new Pirate($this->config);
         $dreadPirateRoberts->giveGold(50);
-        $dreadPirateRoberts->buyNewBoat();
+        $dreadPirateRoberts->buyNewBoat("toto");
         $this->trader->sell($dreadPirateRoberts, 8);
     }
 
@@ -65,7 +65,7 @@ class TraderTest extends \PHPUnit_Framework_TestCase
     public function quantityStockDecreasesWhenTraderSells()
     {
         $roberts = new Pirate($this->config);
-        $roberts->buyNewBoat();
+        $roberts->buyNewBoat("toto");
         $roberts->giveGold(500);
         $this->trader->sell($roberts, 4);
         $this->assertEquals(8, $this->trader->showResourceAvailable());
@@ -77,7 +77,7 @@ class TraderTest extends \PHPUnit_Framework_TestCase
     public function pirateQuantityStockIncreaseWhenTraderSells()
     {
         $roberts = new Pirate($this->config);
-        $roberts->buyNewBoat();
+        $roberts->buyNewBoat("toto");
         $roberts->giveGold(500);
         $this->trader->sell($roberts, 4);
         $this->assertEquals(4, $roberts->getBoat()->showStock("Bois"));

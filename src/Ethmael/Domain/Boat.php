@@ -11,20 +11,15 @@ class Boat
     protected $level;
     protected $capacity;
     protected $resources;
-    protected $gameConfig; //Array with all parameters of the game.
+    protected $settings; //Array with all parameters of the game.
 
     /*
      * $config : game config file in array format.
      */
-    public function __construct($config)
+    public function __construct($config, $name)
     {
-
-        $this->gameConfig = $config;
-
-        // Get randomly one name for the boat (in config file)
-        $boatNames = $this->gameConfig->getParam("BoatName");
-        $liste = Math::randomN(1, 0, count($boatNames) - 1);
-        $this->name = $boatNames[$liste[0]];
+        $this->settings = $config;
+        $this->name = $name;
 
         // New boat is level 1 boat
         $this->level = 1;
@@ -41,7 +36,7 @@ class Boat
      */
     public function initResource()
     {
-        $resNames = $this->gameConfig->getParam("ResourceName");
+        $resNames = $this->settings->getAllResources();
         foreach ($resNames as $item) {
             $this->resources[$item[0]] = 0;
         }

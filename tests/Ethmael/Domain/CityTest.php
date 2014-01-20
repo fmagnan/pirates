@@ -67,7 +67,7 @@ class CityTest extends \PHPUnit_Framework_TestCase
     public function cityCanDealOnlyRes1OnlyIfTraderExist()
     {
         // Get the list of available resources
-        $resourceList = $this->config->getParam("ResourceName");
+        $resourceList = $this->config->getAllResources();
 
         $city = new City($this->config);
         $trader1 = new Trader($this->config);
@@ -83,7 +83,7 @@ class CityTest extends \PHPUnit_Framework_TestCase
     public function cityWithResource0CanDealWithResource0()
     {
         // Get the list of available resources
-        $resourceList = $this->config->getParam("ResourceName");
+        $resourceList = $this->config->getAllResources();
 
         $city = new City($this->config);
         $wood = new Trader($this->config);
