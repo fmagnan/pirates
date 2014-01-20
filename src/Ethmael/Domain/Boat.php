@@ -2,7 +2,6 @@
 
 namespace Ethmael\Domain;
 
-use Ethmael\Utils\Math;
 
 class Boat
 {
@@ -13,36 +12,91 @@ class Boat
     protected $resources;
     protected $settings; //Array with all parameters of the game.
 
-    /*
-     * $config : game config file in array format.
-     */
-    public function __construct($config, $name)
+    public function __construct(Settings $config, $name)
     {
         $this->settings = $config;
-        $this->name = $name;
-
-        // New boat is level 1 boat
-        $this->level = 1;
-
-        // Capacity is level x 100
-        $this->capacity = $this->level * 100;
-
+        $this->changeName($name);
+        $this->changeLevel(1);
+        $this->updateCapacity();
         $this->initResource();
     }
 
-    /*
-     * This function use gameConfig to load an array of resource.
-     * Array[ [Res1,0][Res2,0][Res3,0][Res4,0] ]
-     */
     public function initResource()
     {
         $resNames = $this->settings->getAllResources();
         foreach ($resNames as $item) {
             $this->resources[$item[0]] = 0;
         }
-
     }
 
+    public function destroyStock()
+    {
+        $this->initResource();
+    }
+
+    public function upgradeBoatLevel()
+    {
+        if ($this->showLevel() == 10 ) {
+            $message = "Boat level can't be updraded (boat already level 10).";
+            throw new \RangeException($message);
+        }
+
+        $this->changeLevel($this->showLevel() + 1);
+        $this->updateCapacity();
+    }
+
+    public function downgradeBoatLevel()
+    {
+        if ($this->showLevel() == 1 ) {
+            $message = "Boat level can't be downgraded (boat already level 1).";
+            throw new \RangeException($message);
+        }
+        $this->changeLevel($this->showLevel() - 1);
+        $this->updateCapacity();
+    }
+
+    public function getResources()
+    {
+        return $this->resources;
+    }
+
+    public function addResource($resourceType, $quantity)
+    {
+        if ($quantity > $this->showFreeSpace()) {
+            $message = sprintf('not enough free space to add %d resources ', $quantity);
+            throw new \RangeException($message);
+        }
+        $this->resources[$resourceType] += $quantity;
+    }
+
+    public function addAsManyResourceAsPossible($resourceType, $quantity)
+    {
+        if ($quantity > $this->showFreeSpace()) {
+            $quantity = $this->showFreeSpace();
+        }
+        $this->addResource($resourceType, $quantity);
+    }
+
+    public function removeResource($resourceType, $quantity)
+    {
+        if ($quantity > $this->showStock($resourceType)) {
+            $message = sprintf('not enough Resource to get %d ', $quantity);
+            throw new \RangeException($message);
+        }
+        $this->resources[$resourceType] -= $quantity;
+    }
+
+    public function removeAsManyResourceAsPossible($resourceType, $quantity)
+    {
+        if ($quantity > $this->showStock($resourceType)) {
+            $quantity = $this->showStock($resourceType);
+        }
+        $this->removeResource($resourceType, $quantity);
+    }
+
+    /*
+    * -----  SHOW METHOD
+    */
     public function showLevel()
     {
         return $this->level;
@@ -53,32 +107,14 @@ class Boat
         return $this->name;
     }
 
-    public function changeName($name)
-    {
-        $this->name = $name;
-    }
-
     public function showCapacity()
     {
         return $this->capacity;
     }
 
-    public function upgradeBoatLevel()
+    public function showFreeSpace()
     {
-        $this->level += 1;
-        $this->capacity = $this->level * 100;
-    }
-
-    public function downgradeBoatLevel()
-    {
-        $this->level -= 1;
-        $this->capacity = $this->level * 100;
-    }
-
-    public function getResources()
-    {
-        //print_r($this->resources);
-        return $this->resources;
+        return ($this->capacity - $this->showStock());
     }
 
     public function showStock($resourceName = "allStock")
@@ -94,42 +130,23 @@ class Boat
         }
     }
 
-    public function addResource($resourceType, $quantity)
+    /*
+     * -----  CHANGE METHOD
+     */
+    public function changeName($name)
     {
-        if ($quantity > $this->showFreeSpace()) {
-            $message = sprintf('not enough free space to add %d resources ', $quantity);
-            throw new \RangeException($message);
-        }
-        $this->resources[$resourceType] += $quantity;
-
+        $this->name = $name;
     }
 
-    public function addAsManyResourceAsPossible($resourceType, $quantity)
+    public function changeLevel($level)
     {
-        if ($quantity > $this->showFreeSpace()) {
-            $quantity = $this->showFreeSpace();
-        }
-        $this->addResource($resourceType, $quantity);
-
+        $this->level = $level;
     }
 
-    public function removeResource($resourceType, $quantity)
+    public function updateCapacity()
     {
-        if ($quantity > $this->showStock($resourceType)) {
-            $message = sprintf('not enough Resource to get %d ', $quantity);
-            throw new \RangeException($message);
-        }
-        $this->resources[$resourceType] -= $quantity;
-    }
-
-    public function showFreeSpace()
-    {
-        return ($this->capacity - $this->showStock());
+        $this->capacity = $this->level * 100;
     }
 
 
-    public function destroyStock()
-    {
-        $this->initResource();
-    }
 }
