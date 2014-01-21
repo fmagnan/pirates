@@ -54,11 +54,6 @@ class Pirate
         return $this->showGold();
     }
 
-    public function showGold()
-    {
-        return $this->gold;
-    }
-
     public function buyNewBoat($name)
     {
         $newBoat = new Boat($this->settings, $name);
@@ -73,16 +68,6 @@ class Pirate
     public function downgradeBoatLevel()
     {
         $this->boat->downgradeBoatLevel();
-    }
-
-    public function changeBoatName($name)
-    {
-        $this->boat->changeName($name);
-    }
-
-    public function showBoatName()
-    {
-        return $this->boat->showBoatName();
     }
 
     public function setLocation (City $city) {
@@ -103,16 +88,6 @@ class Pirate
         return $this->boat;
     }
 
-    public function showBoatCapacity()
-    {
-        return $this->boat->showCapacity();
-    }
-
-    public function showBoatStock($resourceName = 'allStock')
-    {
-        return $this->boat->showStock($resourceName);
-    }
-
     public function getVisitedCities()
     {
         return $this->visitedCities;
@@ -130,7 +105,6 @@ class Pirate
         if ($found == false) {
             $this->visitedCities[]=$newCity;
         }
-
     }
 
     public function looseStock()
@@ -146,9 +120,31 @@ class Pirate
     /*
      * -----  SHOW METHOD
      */
+    public function showBoatCapacity()
+    {
+        return $this->boat->showCapacity();
+    }
 
+    public function showBoatStock($resourceName = 'allStock')
+    {
+        return $this->boat->showStock($resourceName);
+    }
+
+    public function showBoatName()
+    {
+        return $this->boat->showBoatName();
+    }
+
+    public function showGold()
+    {
+        return $this->gold;
+    }
 
     /*
      * -----  CHANGE METHOD
      */
+    public function changeBoatName($name)
+    {
+        $this->boat->changeName($name);
+    }
 }

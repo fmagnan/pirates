@@ -92,7 +92,7 @@ class Event {
     {
         $resources = $this->settings->getAllResources();
         if ($gravity < 4) { //Bonus
-            $numResource = rand(0,count($resources));
+            $numResource = rand(0,count($resources)-1);
             $resource = $resources[$numResource][0];
             $resourceLevel = $resources[$numResource][1];
             $quantityFound = (4 - $resourceLevel) * 10;
