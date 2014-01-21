@@ -2,6 +2,9 @@ Parameters:
  nbCities: 12
  nbTurn: 20
  startingGold: 1000
+ nbResourceLevel1: 100
+ nbResourceLevel2: 50
+ nbResourceLevel3: 10
 Cities: # [nomVille, Description]
  - ["portroyale", "Desc"]
  - ["tortuga", "Desc"]

@@ -17,6 +17,9 @@ class Settings {
     const NBCITIES = "nbCities";
     const NBTURN = "nbTurn";
     const STARTINGGOLD = "startingGold";
+    const NBRESLVL1 = "nbResourceLevel1";
+    const NBRESLVL2 = "nbResourceLevel2";
+    const NBRESLVL3 = "nbResourceLevel3";
 
     const CITIES = "Cities";
     const CITYNAME = 0;
@@ -136,4 +139,33 @@ class Settings {
     {
         return $this->parameters[$this::STARTINGGOLD];
     }
+
+    public function getParameterNbResourcePerLevel($level)
+    {
+        if ($level == 1) {
+            return $this->parameters[$this::NBRESLVL1];
+        }
+        if ($level == 2) {
+            return $this->parameters[$this::NBRESLVL2];
+        }
+        if ($level == 3) {
+            return $this->parameters[$this::NBRESLVL3];
+        }
+    }
+
+    public function getParameterNbResourceLevel1()
+    {
+        return $this->parameters[$this::NBRESLVL1];
+    }
+
+    public function getParameterNbResourceLevel2()
+    {
+        return $this->parameters[$this::NBRESLVL2];
+    }
+
+    public function getParameterNbResourceLevel3()
+    {
+        return $this->parameters[$this::NBRESLVL3];
+    }
+
 } 

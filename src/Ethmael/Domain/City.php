@@ -28,9 +28,11 @@ class City
 
             $resourceToSell = $this->settings->getResourceName($i);
             $basicResourcePrice = $this->settings->getResourceBasicPrice($i);
+            $resourceLevel = $this->settings->getResourceLevel($i);
+            $resourceQuantity = $this->settings->getParameterNbResourcePerLevel($resourceLevel);
 
             $newTrader = new Trader($this->settings);
-            $newTrader->initTrader($traderName,$traderWelcomeMsg,$resourceToSell,$basicResourcePrice,100);
+            $newTrader->initTrader($traderName,$traderWelcomeMsg,$resourceToSell,$basicResourcePrice,$resourceQuantity);
             $this->addShop($newTrader);
         }
     }
