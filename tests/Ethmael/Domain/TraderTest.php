@@ -130,8 +130,8 @@ class TraderTest extends \PHPUnit_Framework_TestCase
      */
     public function traderNameCanBeChanged()
     {
-        $this->trader->changeTraderName("Luigi");
-        $this->assertEquals("Luigi", $this->trader->showTraderName());
+        $this->trader->changeName("Luigi");
+        $this->assertEquals("Luigi", $this->trader->showName());
     }
 
     /**

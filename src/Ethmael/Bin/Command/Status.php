@@ -47,7 +47,7 @@ class Status extends Command
         $traders = $place->getAvailableTraders();
         foreach ($traders as $trader){
             if ($trader->isOpen()){
-            $response->addLine('- Marchand <'. $trader->showTraderName().'> : Ressource <'.$trader->showResource().'> : stock <'.$trader->showResourceAvailable().'> : Prix unitaire <'. $trader->showActualPrice().'> po.');
+            $response->addLine('- Marchand <'. $trader->showName().'> : Ressource <'.$trader->showResource().'> : stock <'.$trader->showResourceAvailable().'> : Prix unitaire <'. $trader->showActualPrice().'> po.');
             }
         }
         $response->addLine('--------------------------------');

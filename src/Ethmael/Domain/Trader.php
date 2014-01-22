@@ -4,7 +4,7 @@ namespace Ethmael\Domain;
 
 use Ethmael\Utils\Math;
 
-class Trader
+class Trader extends LifeForm
 {
 
     protected $resourceName;
@@ -12,8 +12,6 @@ class Trader
     protected $sellingPrice;
     protected $basePrice;
     protected $shopOpen;
-    protected $traderName;
-    protected $welcomeMessage;
     protected $settings;
 
 
@@ -25,7 +23,7 @@ class Trader
 
     public function initTrader($traderName, $traderWelcome, $resourceName, $basicPrice, $quantity = 0)
     {
-        $this->changeTraderName($traderName);
+        $this->changeName($traderName);
         $this->changeWelcomeMessage($traderWelcome);
         $this->changeResourceToSell($resourceName,$basicPrice);
         $this->provisionResource($quantity);
@@ -103,16 +101,6 @@ class Trader
         return $this->resourceName;
     }
 
-    public function showWelcomeMessage()
-    {
-        return $this->welcomeMessage;
-    }
-
-    public function showTraderName()
-    {
-        return $this->traderName;
-    }
-
     public function showBasePrice()
     {
         return $this->basePrice;
@@ -131,15 +119,6 @@ class Trader
     /*
     * -----  CHANGE METHOD
     */
-    public function changeWelcomeMessage($name)
-    {
-        $this->welcomeMessage = $name;
-    }
-    public function changeTraderName($name)
-    {
-        $this->traderName = $name;
-    }
-
     public function changeActualPrice($newPrice)
     {
         $this->sellingPrice = $newPrice;

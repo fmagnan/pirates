@@ -2,10 +2,11 @@
 
 namespace Ethmael\Domain;
 
-class Pirate
+
+class Pirate extends LifeForm
 {
 
-    protected $gold;
+
     protected $boat;
     protected $currentCity;
     protected $visitedCities = array();
@@ -24,35 +25,7 @@ class Pirate
         $this->setLocation($city);
     }
 
-    public function giveGold($amount)
-    {
-        $this->gold += $amount;
-        return $this->showGold();
-    }
 
-
-    public function takeGold($amount)
-    {
-        if ($amount > $this->gold) {
-            $message = sprintf("Pas assez d'or pour payer %d po.", $amount);
-            throw new \RangeException($message);
-        }
-        $this->gold -= $amount;
-
-        return $this->showGold();
-    }
-
-    public function stealGold($amount)
-    {
-        if ($this->gold < $amount) {
-            $this->gold = 0;
-        }
-        else {
-            $this->gold -= $amount;
-        }
-
-        return $this->showGold();
-    }
 
     public function buyNewBoat($name)
     {
