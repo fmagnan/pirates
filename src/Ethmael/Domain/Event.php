@@ -24,6 +24,9 @@ class Event {
             case 3:
                 return $this->stockEvent($gravity, $pirate);
                 break;
+            case 4:
+                return $this->traderEvent($gravity, $pirate, $cities);
+                break;
         }
     }
 
@@ -112,5 +115,23 @@ class Event {
             $message = "Vous voguez sur les mers du Sud sans encombre.\n";
             return $message;
         }
+    }
+
+    public function traderEvent($gravity, Pirate $pirate, $cities)
+    {
+        $nbCities = count($cities);
+        $city = $cities[rand(0,$nbCities-1)];
+        $traders = $city->getOpenTraders();
+        $nbTraders = count($traders);
+        $trader = $traders[rand(0,$nbTraders-1)];
+
+        $currentTurn = $trader->showCurrentTurn();
+        $basicPrice = $trader->showBasePrice();
+        $newPrice = intval($basicPrice + ($basicPrice * (rand(-40,40) / 100)));
+        $trader->changeSellingPrice($newPrice,$currentTurn+1);
+
+        $message ="city : ".$city->showCityName()." Trader : ".$trader->showName()." Turn : ".intval($currentTurn+1)." Price : ".$newPrice."\n";
+        return $message;
+
     }
 } 

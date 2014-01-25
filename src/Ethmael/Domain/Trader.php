@@ -72,7 +72,7 @@ class Trader extends LifeForm
 
     public function buy(Pirate $pirate, $quantity)
     {
-        if ($quantity > $pirate->showBoatStock($this->showResource())) {
+        if ($quantity > $pirate->showStock($this->showResource())) {
             $message = sprintf("Vous n'avez pas assez de cette resource pour en vendre %d caisses", $quantity);
             throw new \RangeException($message);
         }
@@ -136,12 +136,31 @@ class Trader extends LifeForm
         return $this->stock;
     }
 
+    public function showStock($resourceName = "allStock")
+    {
+        if ($resourceName == "allStock" or $resourceName == $this->resourceName) {
+            return $this->stock;
+        } else {
+            return 0;
+        }
+    }
+
+    public function showCurrentTurn()
+    {
+        return $this->currentTurn;
+    }
+
     /*
     * -----  CHANGE METHOD
     */
     public function changeActualPrice($newPrice)
     {
         $this->sellingPrice[$this->currentTurn-1] = $newPrice;
+    }
+
+    public function changeSellingPrice($newPrice, $turn)
+    {
+        $this->sellingPrice[$turn -1] = $newPrice;
     }
 
     public function changeBasePrice($newPrice)

@@ -67,7 +67,7 @@ class Game
         $this->map->newTurn($this->currentTurn);
         $this->pirate->newTurn($this->currentTurn);
         $event = new Event($this->settings);
-        $message = $event->launchEvent(rand(1,3),rand(1,10),$this->getCities(),$this->getPirate());
+        $message = $event->launchEvent(rand(1,4),rand(1,10),$this->getCities(),$this->getPirate());
         $response->addLine($message);
     }
 

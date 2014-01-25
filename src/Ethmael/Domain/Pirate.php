@@ -105,7 +105,7 @@ class Pirate extends LifeForm
         return $this->boat->showCapacity();
     }
 
-    public function showBoatStock($resourceName = 'allStock')
+    public function showStock($resourceName = 'allStock')
     {
         return $this->boat->showStock($resourceName);
     }

@@ -32,7 +32,7 @@ class Status extends Command
         $response->addLine($this->player->showName().', votre bourse contient ' . $pirate->showGold().' pièces d\'or !');
         $response->addLine('Vous êtes à ' . $place->showCityName().'.');
         $response->addLine('La capacité de votre bateau (' . $pirate->showBoatName().') est de '. $pirate->showBoatCapacity().' caisses.');
-        $response->addLine('Vous transportez actuellement '. $pirate->showBoatStock().' caisse(s).');
+        $response->addLine('Vous transportez actuellement '. $pirate->showStock().' caisse(s).');
 
         $keys = array_keys($resourceList);
         foreach($keys as $key){
