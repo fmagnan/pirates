@@ -8,7 +8,7 @@ use Ethmael\Kernel\Response;
 class Game
 {
     protected $map;
-    protected $cities;
+    //protected $cities;
     protected $pirate;
     protected $currentTurn;
     protected $gameLength;
@@ -20,7 +20,7 @@ class Game
         $this->map = new Map($this->settings);
         $this->pirate = new Pirate($this->settings);
 
-        $this->cities = [];
+        //$this->cities = [];
         $this->gameLength = $this->showParamNbTurn();
         $this->currentTurn = 0;
     }
@@ -34,7 +34,7 @@ class Game
 
     public function countCity()
     {
-        $numberOfCity = count($this->map->getCities());
+        $numberOfCity = count($this->getCities());
         return $numberOfCity;
     }
 
@@ -52,6 +52,9 @@ class Game
         return $this->map->getCities();
     }
 
+    /*
+     * TODO launch new turn in map & pirate
+     */
     public function newTurn(Response $response)
     {
         if ($this->currentTurn == $this->gameLength) {
@@ -60,24 +63,12 @@ class Game
         }
 
         $this->currentTurn += 1;
-        $this->newResourceEvaluation();
+
+        $this->map->newTurn($this->currentTurn);
+        $this->pirate->newTurn($this->currentTurn);
         $event = new Event($this->settings);
         $message = $event->launchEvent(rand(1,3),rand(1,10),$this->getCities(),$this->getPirate());
         $response->addLine($message);
-    }
-
-    public function newResourceEvaluation()
-    {
-        foreach ($this->map->getCities() as $city) {
-            foreach ($city->getAvailableTraders() as $trader) {
-                $actualPrice = $trader->showActualPrice();
-                $basePrice = $trader->showBasePrice();
-                $variation = Math::randomN(1, -20, 20);
-
-                $newPrice = intval($basePrice + ($basePrice * $variation[0] / 100));
-                $trader->changeActualPrice($newPrice);
-            }
-        }
     }
 
     public function showCurrentTurn()

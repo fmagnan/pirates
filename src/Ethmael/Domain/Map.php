@@ -92,6 +92,16 @@ class Map {
         }
     }
 
+    /*
+     * TODO launch new turn in the map (in all cities)
+     */
+    public function newTurn($turn)
+    {
+        foreach($this->getCities() as $city) {
+            $city->newTurn($turn);
+        }
+    }
+
     public function getRandomCity()
     {
         $nbCities = count($this->cities);

@@ -36,6 +36,19 @@ class City
             $this->addShop($newTrader);
         }
     }
+    /*
+ * TODO launch new turn in the city (in all traders)
+ */
+    public function newTurn($turn)
+    {
+        foreach ($this->getAvailableTraders() as $trader) {
+
+            $trader->newTurn($turn);
+        }
+
+    }
+
+
 
     public function getAvailableTraders()
     {

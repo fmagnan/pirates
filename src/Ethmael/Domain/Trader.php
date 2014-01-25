@@ -30,6 +30,15 @@ class Trader extends LifeForm
         $this->sellingPrice = $basicPrice;
     }
 
+    /*
+    * TODO launch new turn in the trader
+    */
+    public function newTurn($turn)
+    {
+        $newPrice = intval($this->basePrice + ($this->basePrice * (rand(-20,20) / 100)));
+        $this->changeActualPrice($newPrice);
+    }
+
 
     public function sell(Pirate $pirate, $quantity)
     {

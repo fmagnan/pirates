@@ -25,6 +25,13 @@ class Pirate extends LifeForm
         $this->setLocation($city);
     }
 
+    /*
+     * TODO launch new turn for the pirate (in the boat)
+     */
+    public function newTurn($turn)
+    {
+        $this->boat->newTurn($turn);
+    }
 
 
     public function buyNewBoat($name)

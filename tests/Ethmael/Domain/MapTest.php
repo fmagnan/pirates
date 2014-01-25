@@ -17,9 +17,9 @@ class MapTest extends \PHPUnit_Framework_TestCase {
 
     /**
      * @test
-     * TODO
+     * TODO create test for Map class
      */
-    public function newBoatIsLevelOneBoat()
+    public function tbd()
     {
         $this->assertEquals(true, true);
     }

@@ -29,6 +29,15 @@ class Boat
         }
     }
 
+    /*
+     * TODO launch new turn in the boat (equipage)
+    */
+    public function newTurn($turn)
+    {
+
+    }
+
+
     public function destroyStock()
     {
         $this->initResource();
