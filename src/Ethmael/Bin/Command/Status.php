@@ -2,9 +2,9 @@
 
 namespace Ethmael\Bin\Command;
 
-use Ethmael\Domain\Boat;
 use Ethmael\Domain\Cst;
 use Ethmael\Kernel\Registry;
+use Ethmael\Kernel\Request;
 use Ethmael\Kernel\Response;
 
 class Status extends Command
@@ -19,7 +19,7 @@ class Status extends Command
         parent::__construct('s', 's: display current game status');
     }
 
-    public function run(Response $response, array $args=[])
+    public function run(Request $request, Response $response)
     {
         $pirate = $this->game->getPirate();
         if (is_null($pirate)) {return;}

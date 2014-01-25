@@ -6,6 +6,7 @@ use Ethmael\Domain\Boat;
 use Ethmael\Domain\Game;
 use Ethmael\Domain\Cst;
 use Ethmael\Kernel\Registry;
+use Ethmael\Kernel\Request;
 use Ethmael\Kernel\Response;
 
 class CityList extends Command
@@ -18,7 +19,7 @@ class CityList extends Command
         parent::__construct('city', 'city: display list of cities');
     }
 
-    public function run(Response $response, array $args=[])
+    public function run(Request $resquest, Response $response)
     {
         $pirate = $this->game->getPirate();
         if (is_null($pirate)) {return;}

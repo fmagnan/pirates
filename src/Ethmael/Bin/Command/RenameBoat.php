@@ -3,9 +3,10 @@
 namespace Ethmael\Bin\Command;
 
 use Ethmael\Kernel\Registry;
+use Ethmael\Kernel\Request;
 use Ethmael\Kernel\Response;
 
-class RenameBoat extends Command
+class RenameBoat extends OneArgumentCommand
 {
     protected $game;
 
@@ -15,13 +16,9 @@ class RenameBoat extends Command
         parent::__construct('boatname', 'boatname <new_name>: change pirate\'s boat\'s name');
     }
 
-    public function run(Response $response, array $args=[])
+    public function run(Request $request, Response $response)
     {
-        if(!isset($args[0])) {
-            $response->addLine('missing boat\'s name!');
-            return;
-        }
-        $newName = $args[0];
+        $newName = $this->getArgument($request, $response);
         $pirate = $this->game->getPirate();
         $pirate->changeBoatName($newName);
         $response->addLine('You\'re boat is now known as ' . $pirate->showBoatName());

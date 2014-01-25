@@ -3,10 +3,11 @@
 namespace Ethmael\Bin\Command;
 
 use Ethmael\Kernel\Registry;
+use Ethmael\Kernel\Request;
 use Ethmael\Kernel\Response;
 use Ethmael\Domain\Game;
 
-class Travel extends Command
+class Travel extends OneArgumentCommand
 {
 
     protected $game;
@@ -17,25 +18,16 @@ class Travel extends Command
         parent::__construct('travel', 'travel <newCity> : travel to another city. New game turn.');
     }
 
-    public function run(Response $response, array $args = [])
+    public function run(Request $request, Response $response)
     {
-        if (!isset($args[0])) {
-            $response->addLine('missing city!');
-            return;
-        }
-
-        $cityName = $args[0];
+        $cityName = $this->getArgument($request, $response);
 
         $pirate = $this->game->getPirate();
 
-        try {
-            $map = $this->game->getMap();
-            $destination = $map->getCityWithName($cityName);
-            $pirate->setLocation($destination);
-            $this->game->newTurn($response);
-        } catch (\Exception $e) {
-            $response->addLine($e->getMessage());
-        }
+        $map = $this->game->getMap();
+        $destination = $map->getCityWithName($cityName);
+        $pirate->setLocation($destination);
+        $this->game->newTurn($response);
     }
 
 }

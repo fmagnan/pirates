@@ -3,6 +3,7 @@
 namespace Ethmael\Bin\Command;
 
 use Ethmael\Kernel\Registry;
+use Ethmael\Kernel\Request;
 use Ethmael\Kernel\Response;
 use Ethmael\Domain\Game;
 
@@ -16,7 +17,7 @@ class VisitBoat extends Command
         parent::__construct('visitboat', 'visitboat: visit your own boat');
     }
 
-    public function run(Response $response, array $args=[])
+    public function run(Request $request, Response $response)
     {
         $pirate = $this->game->getPirate();
 

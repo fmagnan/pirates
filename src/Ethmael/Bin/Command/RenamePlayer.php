@@ -4,9 +4,10 @@ namespace Ethmael\Bin\Command;
 
 use Ethmael\Domain\Player;
 use Ethmael\Kernel\Registry;
+use Ethmael\Kernel\Request;
 use Ethmael\Kernel\Response;
 
-class RenamePlayer extends Command
+class RenamePlayer extends OneArgumentCommand
 {
     protected $player;
 
@@ -16,13 +17,9 @@ class RenamePlayer extends Command
         parent::__construct('rename', 'rename <new_name>: change player\'s name');
     }
 
-    public function run(Response $response, array $args = [])
+    public function run(Request $request, Response $response)
     {
-        if (!isset($args[0])) {
-            $response->addLine('missing player\'s name!');
-            return;
-        }
-        $newName = $args[0];
+        $newName = $this->getArgument($request, $response);
         $this->player->rename($newName);
         $response->addLine('You are now known as ' . $newName);
     }

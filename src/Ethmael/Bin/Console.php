@@ -2,6 +2,8 @@
 
 namespace Ethmael\Bin;
 
+use Ethmael\Kernel\Request;
+
 class Console
 {
     protected $inputStream;
@@ -18,13 +20,17 @@ class Console
     {
         while (true) {
             $this->out($outputStream, self::PROMPT, false);
-            $request = $this->readLine();
+            $request = new Request($this->readLine());
             if ('quit' === $request) {
                 $this->quit();
             }
-            $interpreter->consume($request);
-            $response = $interpreter->getResponse();
-            $this->out($outputStream, $response);
+            try {
+                $interpreter->consume($request);
+                $response = $interpreter->getResponse();
+                $this->out($outputStream, $response);
+            } catch (\Exception $e) {
+                $this->out($outputStream, $e->getMessage());
+            }
         }
     }
 
@@ -37,7 +43,7 @@ class Console
     protected function readLine()
     {
         $line = fgets($this->inputStream, self::SIZE_OF_LINE);
-        $line = trim(strtolower($line));
+        $line = trim($line);
 
         return $line;
     }

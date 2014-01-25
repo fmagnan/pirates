@@ -6,6 +6,7 @@ use Ethmael\Domain\Boat;
 use Ethmael\Domain\Game;
 use Ethmael\Domain\Player;
 use Ethmael\Kernel\Registry;
+use Ethmael\Kernel\Request;
 use Ethmael\Kernel\Response;
 
 class StatusDebug extends Command
@@ -20,14 +21,12 @@ class StatusDebug extends Command
         parent::__construct('sd', 'sd: display current DEBUG game status');
     }
 
-    public function run(Response $response, array $args=[])
+    public function run(Request $request, Response $response)
     {
         $response->addLine('-----PLAYER---------------------');
         $response->addLine('Name: ' . $this->player->showName());
         $response->addLine('--------------------------------');
         $response->addLine('');
-
-
 
         $response->addLine('-----PIRATE---------------------');
         $pirate = $this->game->getPirate();

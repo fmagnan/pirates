@@ -3,6 +3,7 @@
 namespace Ethmael\Bin;
 
 use Ethmael\Bin\Command\Command;
+use Ethmael\Kernel\Request;
 use Ethmael\Kernel\Response;
 
 class Interpreter
@@ -21,16 +22,15 @@ class Interpreter
         $this->commands[$command->alias] = $command;
     }
 
-    public function consume($request)
+    public function consume(Request $request)
     {
         $this->response->reset();
-        $parts = explode(' ', $request);
-        $alias = array_shift($parts);
+        $alias = $request->getCommand();
         if (!isset($this->commands[$alias])) {
             $this->showAvailableCommands();
         } else {
             $command = $this->commands[$alias];
-            $command->run($this->response, $parts);
+            $command->run($request, $this->response);
         }
     }
 
