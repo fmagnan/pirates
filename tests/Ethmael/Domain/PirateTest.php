@@ -114,9 +114,9 @@ class PirateTest extends \PHPUnit_Framework_TestCase
         $albator = new Pirate($this->settings);
         $albator->buyNewBoat("toto");
         $albator->giveResource("Bois", 300);
-        $this->assertEquals(100, $albator->showBoatStock());
+        $this->assertEquals(100, $albator->showStock());
         $albator->looseStock();
-        $this->assertEquals(0, $albator->showBoatStock());
+        $this->assertEquals(0, $albator->showStock());
     }
 
 

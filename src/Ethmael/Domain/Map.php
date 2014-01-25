@@ -135,4 +135,13 @@ class Map {
         throw new \Exception($message);
 
     }
+
+    public function showStock($resourceName = "allStock")
+    {
+        $stock = 0;
+        foreach ($this->cities as $city) {
+            $stock += $city->showStock($resourceName);
+        }
+        return $stock;
+    }
 } 

@@ -107,7 +107,7 @@ class TraderTest extends \PHPUnit_Framework_TestCase
         $dreadPirateRoberts->giveGold(500);
         $dreadPirateRoberts->getBoat()->addResource("Bois",10);
         $this->trader->buy($dreadPirateRoberts, 2);
-        $this->assertEquals(8, $dreadPirateRoberts->showBoatStock("Bois"));
+        $this->assertEquals(8, $dreadPirateRoberts->showStock("Bois"));
     }
 
     /**

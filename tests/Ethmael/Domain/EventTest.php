@@ -87,10 +87,10 @@ class EventTest extends \PHPUnit_Framework_TestCase {
         $map->initMap();
         $pirate = new Pirate($this->settings);
         $pirate->buyNewBoat("toto");
-        $this->assertEquals(0, $pirate->showBoatStock());
+        $this->assertEquals(0, $pirate->showStock());
         $event = new Event($this->settings);
         $event->launchEvent(3,1,$map->getCities(),$pirate);
-        $this->assertGreaterThan(0, $pirate->showBoatStock());
+        $this->assertGreaterThan(0, $pirate->showStock());
     }
 }
  

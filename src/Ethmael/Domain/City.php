@@ -45,14 +45,22 @@ class City
 
             $trader->newTurn($turn);
         }
-
     }
-
-
 
     public function getAvailableTraders()
     {
         return $this->traders;
+    }
+
+    public function getOpenTraders()
+    {
+        $openTraders = [];
+        foreach ($this->traders as $trader) {
+            if ($trader->isOpen()) {
+                $openTraders[] = $trader;
+            }
+        }
+        return $openTraders;
     }
 
     public function getTraderByName($traderName)
@@ -129,6 +137,17 @@ class City
     public function showCityDescription()
     {
         return $this->cityDescription;
+    }
+
+    public function showStock($resourceName = "allStock")
+    {
+        $stock = 0;
+        foreach ($this->traders as $trader) {
+            if ($trader->isOpen()) {
+                $stock += $trader->showStock($resourceName);
+            }
+        }
+        return $stock;
     }
 
     /*
