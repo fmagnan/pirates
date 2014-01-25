@@ -13,12 +13,14 @@ class Trader extends LifeForm
     protected $basePrice;
     protected $shopOpen;
     protected $settings;
+    protected $currentTurn;
 
 
     public function __construct(Settings $config)
     {
         $this->settings = $config;
         $this->closeShop();
+        $this->currentTurn = 1;
     }
 
     public function initTrader($traderName, $traderWelcome, $resourceName, $basicPrice, $quantity = 0)
@@ -27,7 +29,27 @@ class Trader extends LifeForm
         $this->changeWelcomeMessage($traderWelcome);
         $this->changeResourceToSell($resourceName,$basicPrice);
         $this->provisionResource($quantity);
-        $this->sellingPrice = $basicPrice;
+        $this->initSellingPriceForGame();
+    }
+
+    public function initSellingPriceForGame()
+    {
+        $nbMaxTurn = $this->settings->getParameterNbTurn();
+        $previousPrice = intval($this->basePrice + ($this->basePrice * (rand(-20,20) / 100)));
+        for ($i=0;$i<$nbMaxTurn;$i++) {
+            $price = intval($previousPrice + ($this->basePrice * (rand(-10,10) / 100)));
+            $this->sellingPrice[$i] = $price;
+            $previousPrice = $price;
+        }
+
+    }
+
+    /*
+    * TODO launch new turn in the trader
+    */
+    public function newTurn($turn)
+    {
+        $this->currentTurn = $turn;
     }
 
     /*
@@ -117,7 +139,7 @@ class Trader extends LifeForm
 
     public function showActualPrice()
     {
-        return $this->sellingPrice;
+        return $this->sellingPrice[$this->currentTurn - 1];
     }
 
     public function showResourceAvailable()
@@ -130,7 +152,7 @@ class Trader extends LifeForm
     */
     public function changeActualPrice($newPrice)
     {
-        $this->sellingPrice = $newPrice;
+        $this->sellingPrice[$this->currentTurn] = $newPrice;
     }
 
     public function changeBasePrice($newPrice)
@@ -141,6 +163,6 @@ class Trader extends LifeForm
     {
         $this->resourceName = $resourceName;
         $this->changeBasePrice($price);
-        $this->changeActualPrice($price);
+        //$this->changeActualPrice($price);
     }
 }
