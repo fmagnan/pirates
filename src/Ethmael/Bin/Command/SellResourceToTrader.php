@@ -8,7 +8,7 @@ use Ethmael\Kernel\Response;
 use Ethmael\Domain\Game;
 
 
-class SellResourceToTrader extends Command
+class SellResourceToTrader extends TwoArgumentsCommand
 {
     protected $game;
 
