@@ -14,7 +14,7 @@ class BuyResourceToTrader extends TwoArgumentsCommand
     public function __construct(Game $game)
     {
         $this->game = $game;
-        parent::__construct('buy', 'buy <trader> <quantity>: buy resource to a Trader');
+        parent::__construct('buy', 'buy to a <trader> a resource <quantity>');
     }
 
     public function run(Request $request, Response $response)

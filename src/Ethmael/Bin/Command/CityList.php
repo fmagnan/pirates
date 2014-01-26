@@ -16,7 +16,7 @@ class CityList extends Command
     public function __construct(Game $game)
     {
         $this->game = $game;
-        parent::__construct('city', 'city: display list of cities');
+        parent::__construct('city', 'display list of cities');
     }
 
     public function run(Request $resquest, Response $response)

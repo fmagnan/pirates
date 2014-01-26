@@ -18,7 +18,7 @@ class StatusDebug extends Command
     {
         $this->player = $player;
         $this->game = $game;
-        parent::__construct('sd', 'sd: display current DEBUG game status');
+        parent::__construct('sd', 'display current DEBUG game status');
     }
 
     public function run(Request $request, Response $response)

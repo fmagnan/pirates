@@ -2,6 +2,7 @@
 
 namespace Ethmael\Bin\Command;
 
+use Ethmael\Bin\Colorizer;
 use Ethmael\Domain\Cst;
 use Ethmael\Kernel\Registry;
 use Ethmael\Kernel\Request;
@@ -16,43 +17,59 @@ class Status extends Command
     {
         $this->player = $player;
         $this->game = $game;
-        parent::__construct('s', 's: display current game status');
+        parent::__construct('s', 'display current game status');
     }
 
     public function run(Request $request, Response $response)
     {
         $pirate = $this->game->getPirate();
-        if (is_null($pirate)) {return;}
+        if (is_null($pirate)) {
+            return;
+        }
         $boat = $pirate->getBoat();
         $resourceList = $boat->getResources();
         $place = $pirate->isLocatedIn();
 
-        $response->addLine('--------------------------------');
-        $response->addLine('Tour de jeu -> ' . $this->game->showCurrentTurn());
-        $response->addLine($this->player->showName().', votre bourse contient ' . $pirate->showGold().' pièces d\'or !');
-        $response->addLine('Vous êtes à ' . $place->showCityName().'.');
-        $response->addLine('La capacité de votre bateau (' . $pirate->showBoatName().') est de '. $pirate->showBoatCapacity().' caisses.');
-        $response->addLine('Vous transportez actuellement '. $pirate->showStock().' caisse(s).');
+        $colorizer = new Colorizer();
+        $playerName = $colorizer->cyan($this->player->showName());
+        $cityName = $colorizer->cyan($place->showCityName());
+        $boatName = $colorizer->cyan($pirate->showBoatName());
+        $gold = $colorizer->yellow($pirate->showGold());
+        $capacity = $colorizer->lightRed($pirate->showBoatCapacity());
+        $stock = $colorizer->lightRed($pirate->showStock());
+
+        $lines = [
+            $colorizer->horizontalRule(),
+            'Tour de jeu n°' . $colorizer->yellow($this->game->showCurrentTurn()),
+            sprintf('%s, votre bourse contient %s pièces d\'or !', $playerName, $gold),
+            sprintf('Vous êtes à %s.', $cityName),
+            sprintf('La capacité de votre bateau %s est de %s caisses.', $boatName, $capacity),
+            sprintf('Vous transportez actuellement %s caisse(s).', $stock)
+        ];
 
         $keys = array_keys($resourceList);
-        foreach($keys as $key){
-            if ($resourceList[$key]>0) {
-                $response->addLine(' - '. $resourceList[$key].' caisse(s) de '.$key.'.');
+        foreach ($keys as $key) {
+            if ($resourceList[$key] > 0) {
+                $lines[] = ' - ' . $resourceList[$key] . ' caisse(s) de ' . $key . '.';
             }
         }
 
-        $response->addLine('');
-        $response->addLine('A '. $place->showCityName(). ' '.$place->countOpenShop().' marchands sont ouverts : ');
+        $lines[] = PHP_EOL . sprintf('A %s, %s marchands sont ouverts : ', $cityName, $place->countOpenShop());
 
         $traders = $place->getAvailableTraders();
-        foreach ($traders as $trader){
-            if ($trader->isOpen()){
-            $response->addLine('- Marchand <'. $trader->showName().'> : Ressource <'.$trader->showResource().'> : stock <'.$trader->showResourceAvailable().'> : Prix unitaire <'. $trader->showActualPrice().'> po.');
+        foreach ($traders as $trader) {
+            if ($trader->isOpen()) {
+                $mask = '%s vend %s unités de %s au prix de %s po l\'unité';
+                $traderName = $colorizer->green($trader->showName());
+                $stock = $colorizer->lightRed($trader->showResourceAvailable());
+                $resource = $colorizer->cyan($trader->showResource());
+                $unitPrice = $colorizer->yellow($trader->showActualPrice());
+                $lines[] = sprintf($mask, $traderName, $stock, $resource, $unitPrice);
             }
         }
-        $response->addLine('--------------------------------');
+        $lines[] = $colorizer->horizontalRule();
 
-
+        $response->addMultiLines($lines);
     }
 
 }

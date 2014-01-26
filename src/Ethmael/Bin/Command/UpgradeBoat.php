@@ -15,7 +15,7 @@ class UpgradeBoat extends Command
     public function __construct(Game $game)
     {
         $this->game = $game;
-        parent::__construct('upgradeboat', 'upgradeboat : upgrade your boat to increase capacity.');
+        parent::__construct('upgradeboat', 'upgrade your boat to increase its capacity.');
     }
 
     public function run(Request $request, Response $response)

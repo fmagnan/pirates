@@ -14,7 +14,7 @@ class RenamePlayer extends OneArgumentCommand
     public function __construct(Player $player)
     {
         $this->player = $player;
-        parent::__construct('rename', 'rename <new_name>: change player\'s name');
+        parent::__construct('rename', 'change player\'s name to <new_name>');
     }
 
     public function run(Request $request, Response $response)

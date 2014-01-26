@@ -7,6 +7,7 @@ use Ethmael\Kernel\Request;
 class Console
 {
     protected $inputStream;
+    protected $colorizer;
 
     const SIZE_OF_LINE = 1024;
     const PROMPT = '> ';
@@ -14,12 +15,13 @@ class Console
     public function __construct($inputStream)
     {
         $this->inputStream = $inputStream;
+        $this->colorizer = new Colorizer();
     }
 
     public function run($outputStream, $interpreter)
     {
         while (true) {
-            $this->out($outputStream, self::PROMPT, false);
+            $this->out($outputStream, $this->colorizer->yellow(self::PROMPT), false);
             $request = new Request($this->readLine());
             if ('quit' === $request) {
                 $this->quit();
@@ -29,7 +31,7 @@ class Console
                 $response = $interpreter->getResponse();
                 $this->out($outputStream, $response);
             } catch (\Exception $e) {
-                $this->out($outputStream, $e->getMessage());
+                $this->out($outputStream, $this->colorizer->red($e->getMessage()));
             }
         }
     }
