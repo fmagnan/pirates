@@ -15,7 +15,7 @@ class Travel extends OneArgumentCommand
     public function __construct(Game $game)
     {
         $this->game = $game;
-        parent::__construct('travel', 'travel <newCity> : travel to another city. New game turn.');
+        parent::__construct('travel', 'travel to another city, a new turn begins.');
     }
 
     public function run(Request $request, Response $response)

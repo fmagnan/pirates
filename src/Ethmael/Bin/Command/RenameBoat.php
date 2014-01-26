@@ -13,7 +13,7 @@ class RenameBoat extends OneArgumentCommand
     public function __construct($game)
     {
         $this->game=$game;
-        parent::__construct('boatname', 'boatname <new_name>: change pirate\'s boat\'s name');
+        parent::__construct('boatname', 'change pirate\'s boat\'s name to <new_name>');
     }
 
     public function run(Request $request, Response $response)

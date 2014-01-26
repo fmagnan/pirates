@@ -15,7 +15,7 @@ class SellResourceToTrader extends TwoArgumentsCommand
     public function __construct(Game $game)
     {
         $this->game = $game;
-        parent::__construct('sell', 'sell <trader> <quantity>: sell resource to a Trader');
+        parent::__construct('sell', 'sell to a <trader> a certain <quantity> of resource');
     }
 
     public function run(Request $request, Response $response)

@@ -14,7 +14,7 @@ class VisitBoat extends Command
     public function __construct(Game $game)
     {
         $this->game = $game;
-        parent::__construct('visitboat', 'visitboat: visit your own boat');
+        parent::__construct('visitboat', 'visit your own boat');
     }
 
     public function run(Request $request, Response $response)
